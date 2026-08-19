@@ -50,7 +50,11 @@ if ('IntersectionObserver' in window) document.documentElement.classList.add('js
     "addressRegion": "Western Cape",
     "addressCountry": "ZA"
   },
-  "telephone": "+27649916181",
+  "telephone": "+27227141716",
+  "sameAs": [
+    "https://www.facebook.com/captainssaldanhabay/",
+    "https://www.instagram.com/captainscabin_saldanha/"
+  ],
   "servesCuisine": ["Seafood", "Sushi", "Grill", "South African"],
   "priceRange": "R200–R300",
   "amenityFeature": [
@@ -457,6 +461,67 @@ footer .cc-logo{height:150px}
 @media(prefers-reduced-motion:reduce){
   .brand:hover .cc-logo{transform:none}
 }
+
+/* ==================================================================
+   MENU  — tabbed, one panel visible at a time
+   ================================================================== */
+.menu-wrap{margin-top:4px}
+.mtabs{
+  display:flex;flex-wrap:wrap;gap:8px;padding-bottom:14px;margin-bottom:30px;
+  border-bottom:1px solid var(--line);scrollbar-width:none;-ms-overflow-style:none;
+}
+.mtabs::-webkit-scrollbar{display:none}
+.mtab{
+  flex:0 0 auto;background:transparent;border:1px solid var(--line);color:var(--muted);
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;
+  font-size:.8rem;font-weight:600;padding:11px 18px;border-radius:2px;cursor:pointer;
+  white-space:nowrap;transition:color .2s,border-color .2s,background .2s;
+}
+.mtab:hover{color:var(--cream);border-color:rgba(245,241,234,.32)}
+.mtab[aria-selected="true"]{background:var(--orange);border-color:var(--orange);color:#fff}
+.menu-panel{columns:2;column-gap:58px}
+.menu-panel.single{columns:1;max-width:700px}
+.menu-group{break-inside:avoid;margin-bottom:34px}
+.menu-group h4{
+  font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:1.14rem;letter-spacing:.03em;color:var(--orange);
+  margin-bottom:15px;padding-bottom:9px;border-bottom:1px solid var(--line);
+}
+.dishes{list-style:none}
+.dishes li{padding:9px 0;break-inside:avoid}
+.d-top{display:flex;align-items:baseline;gap:9px}
+.d-name{font-weight:500;color:var(--cream);font-size:1rem;line-height:1.35}
+.d-lead{flex:1 1 auto;min-width:14px;border-bottom:1px dotted rgba(245,241,234,.26);transform:translateY(-4px)}
+.d-price{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;
+  color:var(--orange-soft);white-space:nowrap;font-size:.95rem;
+}
+.d-desc{color:var(--muted);font-size:.88rem;line-height:1.5;margin-top:3px;max-width:54ch}
+.menu-foot{
+  column-span:all;margin-top:4px;padding-top:15px;border-top:1px dashed var(--line);
+  color:var(--muted);font-size:.86rem;font-style:italic;
+}
+
+/* ==================================================================
+   EVENTS
+   ================================================================== */
+.events{border-top:1px solid var(--line)}
+.posters{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.posters figure{margin:0;overflow:hidden;border:1px solid var(--line);border-radius:2px;background:var(--ink-3)}
+.posters img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.posters figure:hover img{transform:scale(1.04)}
+.events-empty{
+  border:1px dashed rgba(242,106,33,.45);background:rgba(242,106,33,.06);
+  padding:26px 28px;border-radius:2px;max-width:72ch;
+}
+.events-empty p{color:#e3d7cc}
+.events-empty b{color:var(--orange-soft);font-weight:600}
+
+@media(max-width:900px){ .menu-panel{columns:1} }
+@media(max-width:760px){
+  .mtabs{flex-wrap:nowrap;overflow-x:auto;margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
+  .events-empty{padding:22px 20px}
+}
 </style>
 </head>
 <body>
@@ -475,8 +540,9 @@ footer .cc-logo{height:150px}
     <a href="#worlds">Day &amp; Night</a>
     <a href="#kitchen">Kitchen</a>
     <a href="#gallery">Gallery</a>
+    <a href="#events">Events</a>
     <a href="#visit">Find Us</a>
-    <a class="btn" href="tel:+27649916181">Call &amp; Book</a>
+    <a class="btn" href="tel:+27227141716">Call &amp; Book</a>
   </div>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -494,7 +560,7 @@ footer .cc-logo{height:150px}
       <h1>Captain's<em>Cabin</em></h1>
       <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
       <div class="cta">
-        <a class="btn" href="tel:+27649916181">Call 064 991 6181</a>
+        <a class="btn" href="tel:+27227141716">Call 022 714 1716</a>
         <a class="btn ghost" href="#visit">Find the Cabin</a>
       </div>
     </div>
@@ -594,66 +660,833 @@ footer .cc-logo{height:150px}
       <p>A mixed culinary experience by the West Coast — the sea is the headline, but the menu runs a lot wider than that.</p>
     </div>
 
-    <div class="menu-grid rv">
-      <div class="menu-cat">
-        <h4>Seafood</h4>
-        <ul>
-          <li>Catch of the day</li>
-          <li>Seafood platter</li>
-          <li>Calamari</li>
-          <li>Seafood pot</li>
-          <li>Battered hake &amp; chips</li>
-        </ul>
-      </div>
-      <div class="menu-cat">
-        <h4>Sushi</h4>
-        <ul>
-          <li>Salmon roses</li>
-          <li>California rolls</li>
-          <li>Maki &amp; nigiri</li>
-          <li>Sushi platters</li>
-        </ul>
-      </div>
-      <div class="menu-cat">
-        <h4>From the Grill</h4>
-        <ul>
-          <li>Pork ribs</li>
-          <li>Steaks</li>
-          <li>Eisbein</li>
-          <li>Brisket</li>
-          <li>Pulled pork</li>
-        </ul>
-      </div>
-      <div class="menu-cat">
-        <h4>Curries &amp; Pasta</h4>
-        <ul>
-          <li>Lamb curry</li>
-          <li>Seafood pasta</li>
-          <li>Spaghetti carbonara</li>
-        </ul>
-      </div>
-      <div class="menu-cat">
-        <h4>Burgers &amp; Chicken</h4>
-        <ul>
-          <li>Tornado steak burger</li>
-          <li>Chicken strips</li>
-          <li>Starters &amp; salads</li>
-          <li>Sides</li>
-        </ul>
-      </div>
-      <div class="menu-cat">
-        <h4>The Bar</h4>
-        <ul>
-          <li>Draught &amp; bottled beer</li>
-          <li>Cocktails</li>
-          <li>Wine &amp; spirits</li>
-          <li>Coffee &amp; hot drinks</li>
-        </ul>
-      </div>
+    <div class="menu-wrap rv">
+    <div class="mtabs" role="tablist" aria-label="Menu sections">
+        <button class="mtab" role="tab" id="tab-breakfast" aria-controls="panel-breakfast" aria-selected="true" data-panel="breakfast">Breakfast</button>
+        <button class="mtab" role="tab" id="tab-starters" aria-controls="panel-starters" aria-selected="false" data-panel="starters">Starters &amp; Tapas</button>
+        <button class="mtab" role="tab" id="tab-mains" aria-controls="panel-mains" aria-selected="false" data-panel="mains">Mains</button>
+        <button class="mtab" role="tab" id="tab-seafood" aria-controls="panel-seafood" aria-selected="false" data-panel="seafood">Seafood</button>
+        <button class="mtab" role="tab" id="tab-burgers" aria-controls="panel-burgers" aria-selected="false" data-panel="burgers">Burgers &amp; Pizza</button>
+        <button class="mtab" role="tab" id="tab-sushi" aria-controls="panel-sushi" aria-selected="false" data-panel="sushi">Sushi</button>
+        <button class="mtab" role="tab" id="tab-light" aria-controls="panel-light" aria-selected="false" data-panel="light">Light Meals</button>
+        <button class="mtab" role="tab" id="tab-platters" aria-controls="panel-platters" aria-selected="false" data-panel="platters">Sharing Platters</button>
+        <button class="mtab" role="tab" id="tab-kids" aria-controls="panel-kids" aria-selected="false" data-panel="kids">For the Kids</button>
+        <button class="mtab" role="tab" id="tab-dessert" aria-controls="panel-dessert" aria-selected="false" data-panel="dessert">Dessert</button>
+        <button class="mtab" role="tab" id="tab-specials" aria-controls="panel-specials" aria-selected="false" data-panel="specials">Specials</button>
     </div>
 
-    <!-- ⚠ OWNER: replace this note once the real menu PDF is loaded -->
-    <p class="note"><b>Owner to confirm:</b> these categories are drawn from the publicly listed menu and do not include prices or the full dish list. Send through the current menu PDF and this section can be replaced with the real thing — or linked straight to a downloadable menu.</p>
+    <div class="mpanels">
+      <div class="menu-panel single" id="panel-breakfast" role="tabpanel" aria-labelledby="tab-breakfast">
+        <div class="menu-group">
+          <h4>Breakfast</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Omelette</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            <p class="d-desc">Three eggs, cheese and tomato.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Egg on Toast</span><i class="d-lead"></i><span class="d-price">R40</span></div>
+            <p class="d-desc">Two eggs — scrambled, fried or poached.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">French Toast</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+            <p class="d-desc">Two cinnamon French toast topped with two bacon rashers and maple syrup.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Breakfast Bun</span><i class="d-lead"></i><span class="d-price">R60</span></div>
+            <p class="d-desc">One egg, two bacon rashers, cheese and chips.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Sailors Breakfast</span><i class="d-lead"></i><span class="d-price">R60</span></div>
+            <p class="d-desc">One pork or beef sausage, one egg, one bacon rasher, mushrooms and tomato.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Classic</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            <p class="d-desc">Two eggs, three bacon rashers, fried tomato, toast and jam.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Captains Breakfast</span><i class="d-lead"></i><span class="d-price">R100</span></div>
+            <p class="d-desc">Two pork or beef sausages, two eggs, two bacon rashers, mushrooms and baked beans.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Saldanha</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            <p class="d-desc">Two eggs, three bacon rashers, fried tomato, beef sausage, mushrooms, toast and jam.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Joe's Special</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            <p class="d-desc">Two eggs, three bacon rashers, beef sausage, beef pattie, tomato, chips and toast.</p>
+          </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-starters" role="tabpanel" aria-labelledby="tab-starters" hidden>
+        <div class="menu-group">
+          <h4>Starters</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Jalape&ntilde;o Popper</span><i class="d-lead"></i><span class="d-price">R30</span></div>
+            <p class="d-desc">Three-cheese stuffed jalape&ntilde;o chilli, crumbed and deep fried. Home-made red pepper sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Oyster</span><i class="d-lead"></i><span class="d-price">R29 each</span></div>
+            <p class="d-desc">Served with lemon wedges on a bed of crushed ice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Peri Peri Chicken Livers</span><i class="d-lead"></i><span class="d-price">R65</span></div>
+            <p class="d-desc">Paprika flour coated, pan fried and smothered in home-made peri peri sauce. White or brown bread.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Snails</span><i class="d-lead"></i><span class="d-price">from R70</span></div>
+            <p class="d-desc">Garlic butter R70 &middot; garlic and mozzarella R80 &middot; blue cheese R80. Brown or white bread.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Calamari Strips</span><i class="d-lead"></i><span class="d-price">R80</span></div>
+            <p class="d-desc">Deep fried or grilled to perfection. Served with tartar sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Mussel Pot</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            <p class="d-desc">Creamy garlic and white wine sauce. White or brown bread.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Nacho's Vegetarian</span><i class="d-lead"></i><span class="d-price">R95</span></div>
+            <p class="d-desc">Tortilla chips with salsa, cream cheese, lettuce, cheddar and mozzarella, heated in the pizza oven. Guacamole (hot or not).</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Nacho's Vegetarian (Up Size)</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Nacho's Meaty</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            <p class="d-desc">Tortilla chips with salsa, cream cheese and Mexican style beef mince, lettuce, cheddar and mozzarella. Guacamole (hot or not).</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Nacho's Meaty (Up Size)</span><i class="d-lead"></i><span class="d-price">R160</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Plain Oysters (6)</span><i class="d-lead"></i><span class="d-price">R150</span></div>
+            <p class="d-desc">Served with lemon wedges on a bed of crushed ice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Spicy Oysters (6)</span><i class="d-lead"></i><span class="d-price">R180</span></div>
+            <p class="d-desc">Chilli and mozzarella topped oysters, grilled for a minute.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Tapas</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Fried Onions</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            <p class="d-desc">Deep fried battered onions.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Cheesy Garlic Roll</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+            <p class="d-desc">Cheese garlic butter roll topped with herb-infused cheddar and mozzarella, baked to perfection.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Garlic and Herb Focaccia</span><i class="d-lead"></i><span class="d-price">R60</span></div>
+            <p class="d-desc">30&nbsp;cm, baked in the pizza oven.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Samoosas (5)</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+            <p class="d-desc">Served with sweet chilli sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Chicken Strips</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+            <p class="d-desc">150&nbsp;g Mediterranean marinated chicken fillet strips, crumbed and fried. Sweet chilli sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Pizza Bread and Dip</span><i class="d-lead"></i><span class="d-price">R80</span></div>
+            <p class="d-desc">30&nbsp;cm baked garlic pizza bread with hummus, tzatziki and fresh salsa.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Cocktail Wings</span><i class="d-lead"></i><span class="d-price">R80</span></div>
+            <p class="d-desc">Fried buffalo wings — plain, BBQ or peri peri.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Spring Rolls (5)</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            <p class="d-desc">Snoek and feta, deep fried. Sweet chilli sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Crumbed Mushrooms</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            <p class="d-desc">Fried until crispy outside and juicy inside. Tartar sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Crumbed Prawn Tails (5)</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+            <p class="d-desc">Served with sweet chilli sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Three Cheese Quesadillas</span><i class="d-lead"></i><span class="d-price">R100</span></div>
+            <p class="d-desc">Tortillas stuffed with three herb cheeses. Sour cream, salsa and guacamole.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Jalape&ntilde;o Cheese Balls</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+            <p class="d-desc">Three-cheese mixture, crumbed and deep fried. Home-made red pepper sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Plankie Steak</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+            <p class="d-desc">140&nbsp;g rump, basting or no basting, cooked to perfection and cut into bite-size pieces.</p>
+          </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-mains" role="tabpanel" aria-labelledby="tab-mains" hidden>
+        <div class="menu-group">
+          <h4>From the Grill</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">200&nbsp;g Rump / Sirloin</span><i class="d-lead"></i><span class="d-price">R165</span></div>
+            <p class="d-desc">Raw weight. Flame grilled, basting or no basting. Served with a side of your choice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">300&nbsp;g Rump / Sirloin</span><i class="d-lead"></i><span class="d-price">R198</span></div>
+            <p class="d-desc">Raw weight. Flame grilled, basting or no basting. Served with a side of your choice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">400&nbsp;g T-Bone</span><i class="d-lead"></i><span class="d-price">R198</span></div>
+            <p class="d-desc">Raw weight. Flame grilled, basting or no basting. Served with a side of your choice.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Pork</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Crumbed Pork Chops</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            <p class="d-desc">Two 200&nbsp;g deep fried pork chops. Served with mash and gravy.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">300&ndash;400&nbsp;g Pork Ribs</span><i class="d-lead"></i><span class="d-price">R180</span></div>
+            <p class="d-desc">Raw weight. Grilled and coated in monkey gland sauce. Side of your choice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Eisbein</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+            <p class="d-desc">Cooked until perfectly tender and fried to a crispy skin. Sauerkraut and a side of your choice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">600&ndash;800&nbsp;g Pork Ribs</span><i class="d-lead"></i><span class="d-price">R259</span></div>
+            <p class="d-desc">Raw weight. Grilled and coated in monkey gland sauce. Side of your choice.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Chicken &amp; Lamb</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Chicken Schnitzel</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            <p class="d-desc">300&nbsp;g deep fried crumbed chicken fillet. Cheddar or mushroom sauce, lemon wedge and a side of your choice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Cape Malay Lamb Curry</span><i class="d-lead"></i><span class="d-price">R195</span></div>
+            <p class="d-desc">A Cape Town original, made with a mixture of Indian curry spices and cooked until tender. Basmati rice, salsa and tzatziki.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Portuguese Piri Piri Chicken</span><i class="d-lead"></i><span class="d-price">R239</span></div>
+            <p class="d-desc">A true taste of Portugal, made with our blend of chillies, fresh garlic and aromatic herbs. Side of your choice.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Pasta</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Bolognaise</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            <p class="d-desc">Slow braised 100% pure beef in a rich, velvety tomato and herb reduction.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Carbonara</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            <p class="d-desc">Mushroom and bacon with cream and home-made chicken stock.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Alfredo</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            <p class="d-desc">A decadent, slow simmered garlic and parmesan cream sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Creamy Seafood Pasta</span><i class="d-lead"></i><span class="d-price">R159</span></div>
+            <p class="d-desc">Shrimp, calamari and mussels with cream and home-made fish stock.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Thai Chicken and Prawn Pasta</span><i class="d-lead"></i><span class="d-price">R160</span></div>
+            <p class="d-desc">Curry-infused creamy chicken and prawns.</p>
+          </li>
+          </ul>
+        </div>
+        <p class="menu-foot">Sides: chips, savoury rice, vegetable of the day, mash, baked potato or salad. (RW) is raw weight.</p>
+      </div>
+      <div class="menu-panel single" id="panel-seafood" role="tabpanel" aria-labelledby="tab-seafood" hidden>
+        <div class="menu-group">
+          <h4>Seafood Mains</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Calamari Strips</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            <p class="d-desc">Deep fried or pan fried. Side of your choice and tartar sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Seafood Potjie</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            <p class="d-desc">Calamari, hake, mussels and prawn meat in a lemon cream sauce. Served with white rice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Beer Battered Hake</span><i class="d-lead"></i><span class="d-price">R155</span></div>
+            <p class="d-desc">Deep fried. Side of your choice and tartar sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Hake and Calamari Combo</span><i class="d-lead"></i><span class="d-price">R180</span></div>
+            <p class="d-desc">Beer battered hake and calamari strips, deep fried or pan fried. Side of your choice and tartar sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Seafood Platter for One</span><i class="d-lead"></i><span class="d-price">R285</span></div>
+            <p class="d-desc">250&nbsp;g beer battered hake, 100&nbsp;g calamari strips, mussel pot (5) and peri peri or lemon garlic prawns (5). Half chips, half savoury rice, lemon and tartar sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Seafood Platter for Two</span><i class="d-lead"></i><span class="d-price">R535</span></div>
+            <p class="d-desc">500&nbsp;g beer battered hake, 200&nbsp;g calamari strips, mussel pot (10) and peri peri or lemon garlic prawns (10). Half chips, half savoury rice, lemon and tartar sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Catch of the Day</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+            <p class="d-desc">Deep fried or pan fried. Side of your choice and tartar sauce.</p>
+          </li>
+          </ul>
+        </div>
+        <p class="menu-foot">Sides: chips, savoury rice, vegetable of the day, mash, baked potato or salad.</p>
+      </div>
+      <div class="menu-panel" id="panel-burgers" role="tabpanel" aria-labelledby="tab-burgers" hidden>
+        <div class="menu-group">
+          <h4>Burgers</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Captains Burger</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+            <p class="d-desc">Basting or no basting. 200&nbsp;g raw weight beef or chicken patty, toasted bun and garnish. Chips or salad.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Captains Egg Burger</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            <p class="d-desc">A freshly cracked free-range egg cooked to your preference on a juicy beef or chicken patty, with crisp lettuce, ripe tomato and a toasted bun. Chips or salad.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Captains Cheese Burger</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            <p class="d-desc">Flame grilled beef or chicken patty crowned with melting cheddar, crunchy dill pickles, diced onions and a toasted bun. Chips or salad.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Captains Chilli Burger</span><i class="d-lead"></i><span class="d-price">R144</span></div>
+            <p class="d-desc">Juicy beef or chicken patty smothered in a fiery slow-cooked chilli sauce, topped with fresh jalape&ntilde;o and crunchy onions. Chips or salad.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Captains Dagwood</span><i class="d-lead"></i><span class="d-price">R145</span></div>
+            <p class="d-desc">Two beef or chicken patties, crispy bacon, fried egg, melted cheddar, lettuce, tomato and onion, with mayo between three slices of toasted bread. Chips or salad.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Captains Deluxe Burger</span><i class="d-lead"></i><span class="d-price">R175</span></div>
+            <p class="d-desc">Basting or no basting. 300&nbsp;g raw weight beef or chicken patty, toasted bun, garnish, rocket, cheese and bacon with cheese or mushroom sauce. Chips or salad.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Pizza</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Margherita</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+            <p class="d-desc">Tomato base, topped with cheese.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Regina</span><i class="d-lead"></i><span class="d-price">R125</span></div>
+            <p class="d-desc">Tomato base, ham and mushroom.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Hawaiian</span><i class="d-lead"></i><span class="d-price">R129</span></div>
+            <p class="d-desc">Tomato base, ham and pineapple.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Vegetarian</span><i class="d-lead"></i><span class="d-price">R129</span></div>
+            <p class="d-desc">Tomato base, peppers, onion, mushroom and feta.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Jalape&ntilde;o Popper</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            <p class="d-desc">Home-made red pepper sauce base, sliced jalape&ntilde;o and bacon.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Chicken Mayo</span><i class="d-lead"></i><span class="d-price">R145</span></div>
+            <p class="d-desc">Tomato base, shredded chicken, mushrooms, cheddar and a mayo swirl.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Carnivore</span><i class="d-lead"></i><span class="d-price">R159</span></div>
+            <p class="d-desc">Tomato base, rib, bacon, ham and salami.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Mexican</span><i class="d-lead"></i><span class="d-price">R159</span></div>
+            <p class="d-desc">Mexican sauce base, mince, jalape&ntilde;o, peppers, onion and cocktail tomato.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Pulled Pork</span><i class="d-lead"></i><span class="d-price">R160</span></div>
+            <p class="d-desc">A cold pizza — cream cheese base, pulled pork, rocket, onion, cocktail tomato and balsamic reduction.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Rustica</span><i class="d-lead"></i><span class="d-price">R165</span></div>
+            <p class="d-desc">Tomato base, chicken, bacon, sun-dried tomato, feta and avocado. Avocado seasonal.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Captains Cabin</span><i class="d-lead"></i><span class="d-price">R165</span></div>
+            <p class="d-desc">Tomato base, biltong, blue cheese and fig.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Seafood Supreme</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+            <p class="d-desc">Tomato base, seafood mix, garlic half-shell mussels and three tiger prawns.</p>
+          </li>
+          </ul>
+        </div>
+        <p class="menu-foot">Burger extras: egg R10, bacon R20, cheese R25, pineapple R10. All pizzas have a thin base and mozzarella &mdash; thick base R10 extra.</p>
+      </div>
+      <div class="menu-panel" id="panel-sushi" role="tabpanel" aria-labelledby="tab-sushi" hidden>
+        <div class="menu-group">
+          <h4>Sushi</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Sashimi (4) &mdash; Salmon</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Sashimi (4) &mdash; Seven Spice Salmon</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Maki Rolls (8) &mdash; Salmon or Prawn</span><i class="d-lead"></i><span class="d-price">R60</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Maki Rolls (8) &mdash; Avocado or Cucumber</span><i class="d-lead"></i><span class="d-price">R50</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Nigiri (2) &mdash; Salmon or Prawn</span><i class="d-lead"></i><span class="d-price">R50</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Nigiri (2) &mdash; Bean Curd</span><i class="d-lead"></i><span class="d-price">R50</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Nigiri (2) &mdash; Creamy Prawn Bean Curd</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Nigiri (2) &mdash; Salmon Bean Curd</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Fashion Sandwiches (4) &mdash; Salmon or Prawn</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Fashion Sandwiches (4) &mdash; Vegetable</span><i class="d-lead"></i><span class="d-price">R50</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Hand Roll (1) &mdash; Salmon or Prawn</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Hand Roll (1) &mdash; Tempura Prawn or Salmon</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Hand Roll (1) &mdash; Vegetable</span><i class="d-lead"></i><span class="d-price">R50</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">California Rolls (4) &mdash; Salmon or Prawn, spicy or plain</span><i class="d-lead"></i><span class="d-price">R50</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">California Rolls (4) &mdash; Tempura Prawn or Salmon</span><i class="d-lead"></i><span class="d-price">R50</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">California Rolls (4) &mdash; Prawn with Cream Cheese</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">California Rolls (4) &mdash; Vegetable</span><i class="d-lead"></i><span class="d-price">R40</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Salmon Roses</span><i class="d-lead"></i><span class="d-price">R65</span></div>
+            <p class="d-desc">Topped with spicy creamy prawn sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Creamy Prawn Roses</span><i class="d-lead"></i><span class="d-price">R70</span></div>
+            <p class="d-desc">Topped with spicy creamy prawn sauce.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Signature Rolls</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Bamboo Roll (4 / 8)</span><i class="d-lead"></i><span class="d-price">R55 / R100</span></div>
+            <p class="d-desc">Salmon, avocado, caviar and Japanese mayo.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Sunset Roll (4 / 8)</span><i class="d-lead"></i><span class="d-price">R50 / R95</span></div>
+            <p class="d-desc">Cream cheese and salmon, topped with caviar.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Salmon Crunch (5 / 10)</span><i class="d-lead"></i><span class="d-price">R55 / R100</span></div>
+            <p class="d-desc">Salmon tempura and cream cheese roll, deep fried, topped with mayo.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Tiger Roll (4 / 8)</span><i class="d-lead"></i><span class="d-price">R55 / R100</span></div>
+            <p class="d-desc">Prawn tempura and avocado, topped with creamy prawn and eel sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Wasabi Parcel (3 / 6)</span><i class="d-lead"></i><span class="d-price">R50 / R95</span></div>
+            <p class="d-desc">Salmon, wasabi, caviar and Japanese mayo.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Prawn Cucumber Roll (4 / 8)</span><i class="d-lead"></i><span class="d-price">R50 / R95</span></div>
+            <p class="d-desc">Prawn tempura, avocado and sweet chilli sauce, wrapped in cucumber.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Rainbow Roll (4 / 8)</span><i class="d-lead"></i><span class="d-price">R55 / R100</span></div>
+            <p class="d-desc">California roll topped with avocado and salmon.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Samurai Roll (4 / 8)</span><i class="d-lead"></i><span class="d-price">R55 / R100</span></div>
+            <p class="d-desc">Prawn tempura, spice-seared salmon, topped with avocado and eel sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Fire Cracker Roll (4 / 8)</span><i class="d-lead"></i><span class="d-price">R50 / R95</span></div>
+            <p class="d-desc">Tempura salmon and avocado roll, topped with Japanese mayo and seven spice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Philadelphia Roll (4 / 8)</span><i class="d-lead"></i><span class="d-price">R50 / R95</span></div>
+            <p class="d-desc">Smoked salmon, cream cheese and avocado.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Sushi Specials</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Rock 'n Roll (8)</span><i class="d-lead"></i><span class="d-price">R105</span></div>
+            <p class="d-desc">Salmon, spring onion, seven spice and mayo roll, topped with crispy salmon and sweet chilli mayo.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Rainbow Reloaded (8)</span><i class="d-lead"></i><span class="d-price">R105</span></div>
+            <p class="d-desc">California roll topped with salmon, sesame oil, mayo, eel sauce and seven spice.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">4 x 4 (8)</span><i class="d-lead"></i><span class="d-price">R105</span></div>
+            <p class="d-desc">Four pieces of Rock 'n Roll and four of Rainbow Reloaded.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Salmon Crunch Roll (5 / 10)</span><i class="d-lead"></i><span class="d-price">R55 / R100</span></div>
+            <p class="d-desc">Salmon tempura and cream cheese roll, deep fried, topped with mayo and sweet chilli sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Prawn Crunch Roll (5 / 10)</span><i class="d-lead"></i><span class="d-price">R55 / R100</span></div>
+            <p class="d-desc">Prawn tempura and cream cheese roll, deep fried, topped with mayo and sweet chilli sauce.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Sushi Platters</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Vegetarian Platter (18)</span><i class="d-lead"></i><span class="d-price">R170</span></div>
+            <p class="d-desc">Vegetable California roll (8), bean curd nigiri (2), vegetable maki (8).</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Spring Platter (16)</span><i class="d-lead"></i><span class="d-price">R225</span></div>
+            <p class="d-desc">Nigiri (3 salmon, 2 prawn), California roll (4 salmon), salmon roses (4), wasabi parcel (3).</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Samurai Platter (21)</span><i class="d-lead"></i><span class="d-price">R235</span></div>
+            <p class="d-desc">Samurai roll (4), salmon roses (4), California roll (4), firecracker roll (4), salmon crunch (5).</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Sakura Platter (28)</span><i class="d-lead"></i><span class="d-price">R280</span></div>
+            <p class="d-desc">Sashimi salmon (4), California roll (4), nigiri salmon (4), salmon roses (4), rainbow roll (4), salmon tempura (8).</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Lapa Combo (28)</span><i class="d-lead"></i><span class="d-price">R280</span></div>
+            <p class="d-desc">Salmon bean curd (2), California roll (4), fashion sandwiches (4), avocado maki (8), bamboo (4), salmon roses (4), nigiri (2 salmon).</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Lapa Platter (38)</span><i class="d-lead"></i><span class="d-price">R365</span></div>
+            <p class="d-desc">Salmon crunch (10), salmon roses (12), bean curd nigiri (4), sashimi (2 salmon), prawn tempura California roll (8).</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Family Platter (72)</span><i class="d-lead"></i><span class="d-price">R720</span></div>
+            <p class="d-desc">Sunset rolls (8), firecracker roll (8), salmon crunch (10), wasabi parcel (6), salmon fashion sandwiches (8), salmon sashimi (8), salmon roses (8), Rock 'n Roll (4), rainbow reloaded (4), tiger roll (8).</p>
+          </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-light" role="tabpanel" aria-labelledby="tab-light" hidden>
+        <div class="menu-group">
+          <h4>Toasted Sandwiches</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Cheese</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Cheese &amp; Tomato</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Cheese &amp; Ham</span><i class="d-lead"></i><span class="d-price">R60</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Chicken &amp; Mayo</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Bacon &amp; Egg</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Cheese &amp; Bacon</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Bacon, Egg &amp; Cheese</span><i class="d-lead"></i><span class="d-price">R95</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Chicken, Mayo &amp; Avo</span><i class="d-lead"></i><span class="d-price">R95</span></div>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Salads</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Greek Salad</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+            <p class="d-desc">Lettuce, tomato, cucumber, onion, feta and olives.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Greek Salad (Up Size)</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+            <p class="d-desc">Lettuce, tomato, cucumber, onion, feta and olives.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Mediterranean Chicken Salad</span><i class="d-lead"></i><span class="d-price">R89</span></div>
+            <p class="d-desc">Mediterranean marinated chicken strips grilled to perfection, on a bed of Greek style salad.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Mediterranean Chicken Salad (Up Size)</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+            <p class="d-desc">Mediterranean marinated chicken strips grilled to perfection, on a bed of Greek style salad.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Loaded Fries</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Medium</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Large</span><i class="d-lead"></i><span class="d-price">R70</span></div>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Spring Rolls</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Vegetable</span><i class="d-lead"></i><span class="d-price">R22</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Chicken</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Pork</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Beef</span><i class="d-lead"></i><span class="d-price">R30</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Prawn</span><i class="d-lead"></i><span class="d-price">R30</span></div>
+          </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel single" id="panel-platters" role="tabpanel" aria-labelledby="tab-platters" hidden>
+        <div class="menu-group">
+          <h4>Platters</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Captains Basket</span><i class="d-lead"></i><span class="d-price">R150</span></div>
+            <p class="d-desc">Four chicken strips, four calamari strips, four mussels, hake goujons and chips. Tartar sauce and lemon wedges.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Toasted Sandwich Platter</span><i class="d-lead"></i><span class="d-price">R375</span></div>
+            <p class="d-desc">A variety of sandwiches.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Pizza Platter</span><i class="d-lead"></i><span class="d-price">R495</span></div>
+            <p class="d-desc">Mexican, regina, chicken mayo, jalape&ntilde;o popper and rustica.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Snack Platter</span><i class="d-lead"></i><span class="d-price">R540</span></div>
+            <p class="d-desc">16-piece garlic and herb focaccia, 300&nbsp;g crumbed mushrooms, 10 samoosas, 10 spring rolls and 300&nbsp;g battered onions.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Meat Platter</span><i class="d-lead"></i><span class="d-price">R620</span></div>
+            <p class="d-desc">20 cocktail wings, 10 meatballs, 10 chicken strips, steak strips, 500&nbsp;g ribs and BBQ sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Cold Platter</span><i class="d-lead"></i><span class="d-price">R700</span></div>
+            <p class="d-desc">Assorted cheese, cold meat, fruit, olives and savoury biscuits.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Seafood Platter</span><i class="d-lead"></i><span class="d-price">R755</span></div>
+            <p class="d-desc">16-piece seafood pizza, 1&nbsp;kg creamy mussels, 10 hake goujons, 500&nbsp;g calamari strips, 10 prawns and tartar sauce.</p>
+          </li>
+          </ul>
+        </div>
+        <p class="menu-foot">Please place platter orders 24 hours before collection. You can also build your own platter &mdash; ask us.</p>
+      </div>
+      <div class="menu-panel" id="panel-kids" role="tabpanel" aria-labelledby="tab-kids" hidden>
+        <div class="menu-group">
+          <h4>Kiddies</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Loaded Fries</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Hot Dog &amp; Chips</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Russian &amp; Chips</span><i class="d-lead"></i><span class="d-price">R50</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Spaghetti &amp; Mince</span><i class="d-lead"></i><span class="d-price">R59</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Creamy Bacon Pasta</span><i class="d-lead"></i><span class="d-price">R65</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Mac &amp; Cheese</span><i class="d-lead"></i><span class="d-price">R65</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Chicken Strips &amp; Chips</span><i class="d-lead"></i><span class="d-price">R65</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Fried Vienna &amp; Smiley Chips</span><i class="d-lead"></i><span class="d-price">R65</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Two Beef Sliders</span><i class="d-lead"></i><span class="d-price">R65</span></div>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Build Your Own Pizza</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Margherita base</span><i class="d-lead"></i><span class="d-price">R59</span></div>
+            <p class="d-desc">Then add what you like.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Pineapple</span><i class="d-lead"></i><span class="d-price">R5</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Rib</span><i class="d-lead"></i><span class="d-price">R8</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Ham</span><i class="d-lead"></i><span class="d-price">R8</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Chicken</span><i class="d-lead"></i><span class="d-price">R8</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Bacon</span><i class="d-lead"></i><span class="d-price">R8</span></div>
+          </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel single" id="panel-dessert" role="tabpanel" aria-labelledby="tab-dessert" hidden>
+        <div class="menu-group">
+          <h4>Dessert</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Ice Cream</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            <p class="d-desc">Served with chocolate sauce.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Dom Pedro</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+            <p class="d-desc">Kahlua, Amarula, Bells or Olof Bergh. Ask your server for more options and prices.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Mississippi Mud Pie</span><i class="d-lead"></i><span class="d-price">R60</span></div>
+            <p class="d-desc">A chocolate-based dessert pie. Served with ice cream.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Decorate Your Waffle</span><i class="d-lead"></i><span class="d-price">R60</span></div>
+            <p class="d-desc">Served with ice cream, chocolate sauce, sprinkles and mini smarties.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Toffee Apple Pie</span><i class="d-lead"></i><span class="d-price">R60</span></div>
+            <p class="d-desc">Soft apples coated in toffee sauce and topped with a buttery oat crumble. Served with ice cream.</p>
+          </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-specials" role="tabpanel" aria-labelledby="tab-specials" hidden>
+        <div class="menu-group">
+          <h4>Every Week</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Monday &mdash; Steak, Egg and Chips</span><i class="d-lead"></i><span class="d-price">R155</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Tuesday &mdash; Pensioners Day</span><i class="d-lead"></i><span class="d-price">10% off</span></div>
+            <p class="d-desc">10% off your bill.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Wednesday &mdash; Sushi Day</span><i class="d-lead"></i><span class="d-price">10% off</span></div>
+            <p class="d-desc">10% off all sushi.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Thursday &mdash; Family Burger Day</span><i class="d-lead"></i><span class="d-price">6 for 4</span></div>
+            <p class="d-desc">Buy six, pay for four.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Friday &mdash; 400&nbsp;g Spare Ribs and Chips</span><i class="d-lead"></i><span class="d-price">R180</span></div>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Weekends</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">6 Prawns and 8 Mussels</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+            <p class="d-desc">Served with rice or salad.</p>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">300&nbsp;g Portuguese Espetada</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Portuguese Piri Piri Chicken and Chips</span><i class="d-lead"></i><span class="d-price">R239</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">1&nbsp;kg Queen Prawns</span><i class="d-lead"></i><span class="d-price">R290</span></div>
+            <p class="d-desc">Served with rice or salad.</p>
+          </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Off the Blackboard</h4>
+          <ul class="dishes">
+          <li>
+            <div class="d-top"><span class="d-name">Chicken Livers</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Prego Roll &amp; Fried Onions</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Tentacles &amp; Squid Heads</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Prawns &amp; Mussels</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">1&nbsp;kg L.M. Prawns</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Full Piri Piri Chicken</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">300&ndash;500&nbsp;g Espetada</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Oxtail</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          <li>
+            <div class="d-top"><span class="d-name">Afval</span><i class="d-lead"></i><span class="d-price">Ask your server</span></div>
+          </li>
+          </ul>
+        </div>
+        <p class="menu-foot">Blackboard specials change daily and are priced on the day.</p>
+      </div>
+    </div>
+    </div>
+
+    <p class="note"><b>Please note:</b> prices are in South African Rand and include VAT. Blackboard specials change daily &mdash; ask your server for today&rsquo;s price. Menu correct as at August 2026.</p>
   </div>
 </section>
 
@@ -677,6 +1510,33 @@ footer .cc-logo{height:150px}
       <figure><img loading="lazy" src="images/chef-sm.jpg" data-full="images/chef.jpg" alt="Thumbs up from the Captain's Cabin kitchen"></figure>
       <figure><img loading="lazy" src="images/biker-metallica-sm.jpg" data-full="images/biker-metallica.jpg" alt="A regular relaxing on the upstairs deck"></figure>
       <figure><img loading="lazy" src="images/celebration-party-sm.jpg" data-full="images/celebration-party.jpg" alt="A birthday party toasting at Captain's Cabin with the rugby on screen"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EVENTS ===== -->
+<section class="sec events" id="events">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">What&rsquo;s coming up</p>
+      <h2>On at<br>the Cabin</h2>
+      <div class="rule"></div>
+      <p>Live music, big games, club runs and the odd party that got out of hand. Here&rsquo;s what&rsquo;s on the calendar.</p>
+    </div>
+
+    <!-- POSTERS: add one <figure> per event. Drop the image in images/ first.
+         Copy this block, change the file name and the alt text:
+         <figure><img loading="lazy" src="images/event-YOURNAME.jpg" alt="Short description of the event"></figure>
+    -->
+    <div class="posters rv" id="posters">
+    </div>
+
+    <div class="events-empty rv" id="eventsEmpty">
+      <p><b>Nothing posted right now.</b> New posters go up here as they are confirmed &mdash; in the meantime, Facebook and Instagram are where things land first.</p>
+      <div class="cta" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
+        <a class="btn" href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener">Captain&rsquo;s Cabin on Facebook</a>
+        <a class="btn ghost" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener">@captainscabin_saldanha</a>
+      </div>
     </div>
   </div>
 </section>
@@ -732,11 +1592,15 @@ footer .cc-logo{height:150px}
           <h4>Get in touch</h4>
           <div class="contact-line">
             <svg viewBox="0 0 24 24"><path d="M21 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 4.2 2 2 0 0 1 3.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-            <span><a href="tel:+27649916181">064 991 6181</a> &nbsp;·&nbsp; orders &amp; bookings</span>
+            <span><a href="tel:+27227141716">022 714 1716</a> &nbsp;&middot;&nbsp; restaurant line</span>
           </div>
           <div class="contact-line">
             <svg viewBox="0 0 24 24"><path d="M21 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 4.2 2 2 0 0 1 3.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-            <span><a href="tel:+27227141716">022 714 1716</a> &nbsp;·&nbsp; restaurant line</span>
+            <span><a href="tel:+27600702368">060 070 2368</a> &nbsp;&middot;&nbsp; mobile</span>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1s-.7 1-.9 1.2c-.2.2-.3.2-.6.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6a2 2 0 0 0 .3-.5.5.5 0 0 0 0-.5c0-.2-.7-1.6-.9-2.2s-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.8 5.8 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6 17.1 17.1 0 0 0 1.7.6 4.1 4.1 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.6-.4zM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+            <span><a href="https://wa.me/27649916181" target="_blank" rel="noopener">064 991 6181</a> &nbsp;&middot;&nbsp; WhatsApp &mdash; orders &amp; bookings</span>
           </div>
           <div class="contact-line">
             <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -745,6 +1609,18 @@ footer .cc-logo{height:150px}
           <div class="cta" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
             <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener">Directions</a>
             <a class="btn ghost" href="https://wa.me/27649916181" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <h4>Follow the Cabin</h4>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
+            <span><a href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener">Captains Cabin Restaurant &amp; Pub Saldanha</a> &nbsp;&middot;&nbsp; Facebook</span>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"/></svg>
+            <span><a href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener">@captainscabin_saldanha</a> &nbsp;&middot;&nbsp; Instagram</span>
           </div>
         </div>
       </div>
@@ -796,11 +1672,13 @@ footer .cc-logo{height:150px}
         <a href="#worlds">Day &amp; Night</a>
         <a href="#kitchen">Kitchen</a>
         <a href="#gallery">Gallery</a>
+        <a href="#events">Events</a>
         <a href="#visit">Find Us</a>
       </div>
       <div class="foot-nav">
-        <a href="tel:+27649916181">064 991 6181</a>
-        <a href="tel:+27227141716">022 714 1716</a>
+        <a href="tel:+27227141716">022 714 1716 &middot; restaurant</a>
+        <a href="tel:+27600702368">060 070 2368 &middot; mobile</a>
+        <a href="https://wa.me/27649916181" target="_blank" rel="noopener">064 991 6181 &middot; WhatsApp</a>
         <a href="https://www.google.com/maps/search/?api=1&query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener">20 Main Rd, Saldanha</a>
       </div>
     </div>
@@ -846,6 +1724,21 @@ footer .cc-logo{height:150px}
   document.getElementById('lbx').addEventListener('click',close);
   lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+
+
+  var mtabs=[].slice.call(document.querySelectorAll('.mtab'));
+  mtabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      mtabs.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      t.setAttribute('aria-selected','true');
+      [].slice.call(document.querySelectorAll('.menu-panel')).forEach(function(p){ p.hidden=true; });
+      var p=document.getElementById('panel-'+t.getAttribute('data-panel'));
+      if(p){ p.hidden=false; }
+    });
+  });
+
+  var posters=document.getElementById('posters'), emptyMsg=document.getElementById('eventsEmpty');
+  if(posters && emptyMsg && posters.children.length>0){ emptyMsg.style.display='none'; }
 
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();
