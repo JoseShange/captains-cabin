@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Captain's Cabin | Restaurant &amp; Pub — Saldanha, West Coast</title>
+<meta name="description" content="Captain's Cabin Restaurant &amp; Pub, 20 Main Rd, Saldanha. A family restaurant by day, a cocktail and sports bar by night. Seafood, sushi, grills and the Tiki-Bar, 50 m from Saldanha Bay.">
+
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="Captain's Cabin — Restaurant &amp; Pub, Saldanha">
+<meta property="og:description" content="Family restaurant by day. Cocktail and sports bar by night. 20 Main Rd, Saldanha, West Coast.">
+<meta property="og:url" content="https://captainscabinwestcoast.netlify.app/">
+<meta property="og:image" content="https://captainscabinwestcoast.netlify.app/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Captain's Cabin — Restaurant &amp; Pub, Saldanha">
+<meta name="twitter:description" content="Family restaurant by day. Cocktail and sports bar by night. 20 Main Rd, Saldanha, West Coast.">
+<meta name="twitter:image" content="https://captainscabinwestcoast.netlify.app/og-image.jpg">
+
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0b0d10">
+
+<script>
+/* Only opt into reveal animations if the browser can actually run them.
+   Without this, a JS failure would leave the page blank below the hero. */
+if ('IntersectionObserver' in window) document.documentElement.classList.add('js');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Captain's Cabin Restaurant & Pub",
+  "image": "https://captainscabinwestcoast.netlify.app/og-image.jpg",
+  "logo": "https://captainscabinwestcoast.netlify.app/brand/logo-cream.svg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "20 Main Road",
+    "addressLocality": "Saldanha",
+    "postalCode": "7395",
+    "addressRegion": "Western Cape",
+    "addressCountry": "ZA"
+  },
+  "telephone": "+27649916181",
+  "servesCuisine": ["Seafood", "Sushi", "Grill", "South African"],
+  "priceRange": "R200–R300",
+  "amenityFeature": [
+    {"@type":"LocationFeatureSpecification","name":"Rooftop seating","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Outdoor seating","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Cocktail bar","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Live music","value":true}
+  ],
+  "openingHoursSpecification": [
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday"],"opens":"10:00","closes":"00:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"10:00","closes":"02:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"10:00","closes":"22:00"}
+  ]
+}
+</script>
+
+<style>
+:root{
+  --ink:#0b0d10;
+  --ink-2:#12161b;
+  --ink-3:#191f26;
+  --line:rgba(245,241,234,.12);
+  --cream:#f5f1ea;
+  --muted:#a5adb8;
+  --orange:#f26a21;
+  --orange-soft:#ffa561;
+  --sea:#5fb3cf;
+  --max:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-weight:300;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+h1,h2,h3,.display{
+  font-family:'Anton','Barlow Condensed',Impact,sans-serif;
+  font-weight:400;
+  text-transform:uppercase;
+  line-height:.95;
+  letter-spacing:.005em;
+}
+.eyebrow{
+  font-family:'Barlow Condensed',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.28em;
+  font-size:.72rem;
+  font-weight:600;
+  color:var(--orange);
+}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+section{position:relative}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:16px 24px;
+  transition:background .35s ease,backdrop-filter .35s ease,padding .35s ease,border-color .35s;
+  border-bottom:1px solid transparent;
+}
+.nav.solid{
+  background:rgba(11,13,16,.9);
+  backdrop-filter:blur(14px);
+  border-bottom-color:var(--line);
+  padding:11px 24px;
+}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+/* .brand .mark (CC monogram) replaced by the logo lockup — see LOGO block at the end of this stylesheet */
+.brand b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.02rem;letter-spacing:.04em;text-transform:uppercase}
+.brand span{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.62rem;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin-top:-2px}
+.navlinks{display:flex;gap:26px;align-items:center}
+.navlinks a{
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
+  letter-spacing:.15em;font-size:.82rem;font-weight:600;text-decoration:none;
+  color:var(--cream);opacity:.82;transition:opacity .2s,color .2s;
+}
+.navlinks a:hover{opacity:1;color:var(--orange-soft)}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
+  letter-spacing:.15em;font-size:.85rem;font-weight:700;text-decoration:none;
+  padding:12px 22px;border-radius:2px;
+  background:var(--orange);color:#fff;border:2px solid var(--orange);
+  transition:background .2s,color .2s,transform .2s;
+}
+.btn:hover{background:transparent;color:var(--orange-soft);transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--cream);border-color:rgba(245,241,234,.35)}
+.btn.ghost:hover{border-color:var(--orange);color:var(--orange-soft)}
+.burger{display:none;background:none;border:0;color:var(--cream);cursor:pointer;padding:8px}
+.burger svg{width:26px;height:26px}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100svh;display:grid;align-items:end;
+  position:relative;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(11,13,16,.82) 0%,rgba(11,13,16,.42) 26%,rgba(11,13,16,.80) 62%,rgba(11,13,16,.95) 86%,var(--ink) 100%),
+    linear-gradient(100deg,rgba(11,13,16,.80) 0%,rgba(11,13,16,.45) 42%,rgba(11,13,16,0) 78%),
+    radial-gradient(120% 80% at 50% 100%,rgba(242,106,33,.14),transparent 60%);
+}
+.hero h1,.hero .sub,.hero .eyebrow{text-shadow:0 2px 26px rgba(0,0,0,.55)}
+.hero-inner{position:relative;z-index:2;padding:140px 0 74px;width:100%}
+.hero h1{
+  font-size:clamp(3.3rem,12.5vw,9.5rem);
+  margin:14px 0 0;
+}
+.hero h1 em{display:block;font-style:normal;color:var(--orange)}
+.hero .sub{
+  font-family:'Barlow Condensed',sans-serif;
+  text-transform:uppercase;letter-spacing:.2em;font-weight:600;
+  font-size:clamp(.82rem,2.1vw,1.05rem);
+  color:var(--cream);opacity:.9;margin-top:20px;
+  border-left:3px solid var(--orange);padding-left:16px;
+}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.scrollcue{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;
+  font-family:'Barlow Condensed',sans-serif;font-size:.66rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;
+  align-items:center;gap:9px;
+}
+.scrollcue::after{content:"";width:1px;height:40px;background:linear-gradient(var(--orange),transparent);animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ---------- TICKER ---------- */
+.ticker{
+  background:var(--orange);color:#0b0d10;overflow:hidden;
+  border-top:1px solid rgba(0,0,0,.15);border-bottom:1px solid rgba(0,0,0,.15);
+}
+.ticker-track{display:flex;gap:0;width:max-content;animation:slide 34s linear infinite}
+.ticker span{
+  font-family:'Anton',sans-serif;text-transform:uppercase;
+  font-size:.98rem;letter-spacing:.1em;padding:13px 26px;white-space:nowrap;
+  display:flex;align-items:center;gap:26px;
+}
+.ticker span::after{content:"\2693";font-size:.85rem;opacity:.55}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- SECTION SHELL ---------- */
+.sec{padding:104px 0}
+.sec-head{max-width:760px;margin-bottom:52px}
+.sec-head h2{font-size:clamp(2.2rem,6vw,4.1rem);margin:14px 0 0}
+.sec-head p{color:var(--muted);font-size:1.06rem;margin-top:20px;max-width:62ch}
+.rule{width:60px;height:3px;background:var(--orange);margin-top:26px}
+
+/* ---------- ABOUT ---------- */
+.about{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.about-media{position:relative}
+.about-media img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px}
+.about-media .tag{
+  position:absolute;left:-16px;bottom:-16px;background:var(--ink-3);
+  border-left:3px solid var(--orange);padding:16px 22px;max-width:70%;
+}
+.about-media .tag b{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:1.5rem;display:block;line-height:1}
+.about-media .tag i{font-style:normal;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;color:var(--muted)}
+.about p + p{margin-top:18px}
+.about p{color:#cfd5dd}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:38px;border:1px solid var(--line)}
+.stats div{background:var(--ink);padding:22px 18px;text-align:center}
+.stats b{display:block;font-family:'Anton',sans-serif;font-weight:400;font-size:2rem;color:var(--orange);line-height:1}
+.stats i{font-style:normal;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:.68rem;color:var(--muted);display:block;margin-top:7px}
+
+/* ---------- THREE WORLDS ---------- */
+.worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.world{
+  position:relative;overflow:hidden;border-radius:2px;
+  min-height:460px;display:flex;align-items:flex-end;
+  border:1px solid var(--line);
+}
+.world img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1);filter:saturate(1.05)}
+.world::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,16,.1) 20%,rgba(11,13,16,.55) 55%,rgba(11,13,16,.94) 100%)}
+.world:hover img{transform:scale(1.06)}
+.world .body{position:relative;z-index:2;padding:30px 26px}
+.world h3{font-size:1.9rem;margin:10px 0 9px}
+.world p{color:#c6ccd5;font-size:.96rem}
+.world .num{
+  font-family:'Anton',sans-serif;font-size:.8rem;letter-spacing:.2em;
+  color:var(--orange);
+}
+
+/* ---------- KITCHEN / MENU ---------- */
+.kitchen{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.menu-cat{background:var(--ink-2);padding:26px 24px;transition:background .25s}
+.menu-cat:hover{background:var(--ink-3)}
+.menu-cat h4{
+  font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:1.22rem;letter-spacing:.02em;margin-bottom:10px;
+}
+.menu-cat ul{list-style:none;color:var(--muted);font-size:.93rem}
+.menu-cat li{padding:3px 0;border-bottom:1px dashed rgba(245,241,234,.07)}
+.menu-cat li:last-child{border:0}
+.note{
+  margin-top:30px;padding:18px 22px;border:1px dashed rgba(242,106,33,.45);
+  background:rgba(242,106,33,.06);font-size:.92rem;color:#e3d7cc;border-radius:2px;
+}
+.note b{color:var(--orange-soft);font-weight:600}
+
+/* ---------- GALLERY ---------- */
+.gal{columns:4;column-gap:14px}
+.gal figure{break-inside:avoid;margin:0 0 14px;position:relative;overflow:hidden;border-radius:2px;cursor:zoom-in;background:var(--ink-3)}
+.gal img{width:100%;height:auto;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .4s;filter:grayscale(.15)}
+.gal figure:hover img{transform:scale(1.05);filter:grayscale(0)}
+.gal figure::after{
+  content:"";position:absolute;inset:0;background:rgba(242,106,33,0);transition:background .35s;
+}
+.gal figure:hover::after{background:rgba(242,106,33,.12)}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(6,8,10,.96);display:none;place-items:center;padding:28px}
+.lb.open{display:grid}
+.lb img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:2px}
+.lb button{
+  position:absolute;top:20px;right:24px;background:none;border:0;color:var(--cream);
+  font-size:2.4rem;line-height:1;cursor:pointer;opacity:.75;
+}
+.lb button:hover{opacity:1;color:var(--orange)}
+
+/* ---------- RIDERS ---------- */
+.riders{position:relative;overflow:hidden}
+.riders-bg{position:absolute;inset:0}
+.riders-bg img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+.riders-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,13,16,.95) 0%,rgba(11,13,16,.8) 45%,rgba(11,13,16,.45) 100%)}
+.riders .wrap{position:relative;z-index:2}
+.riders .inner{max-width:600px;padding:112px 0}
+.riders h2{font-size:clamp(2.1rem,5.5vw,3.7rem)}
+.riders p{color:#d3d9e1;margin-top:20px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.chip{
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;
+  font-size:.74rem;font-weight:600;padding:8px 14px;border:1px solid rgba(245,241,234,.28);
+  border-radius:100px;color:#e7ebf0;
+}
+
+/* ---------- VISIT ---------- */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.info-block + .info-block{margin-top:34px;padding-top:34px;border-top:1px solid var(--line)}
+.info-block h4{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  letter-spacing:.22em;font-size:.76rem;color:var(--orange);margin-bottom:14px;
+}
+.hours{list-style:none}
+.hours li{
+  display:flex;justify-content:space-between;gap:20px;padding:11px 0;
+  border-bottom:1px solid var(--line);font-size:1rem;
+}
+.hours li:last-child{border:0}
+.hours span:first-child{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.hours span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+.contact-line{display:flex;align-items:flex-start;gap:14px;padding:9px 0;font-size:1.03rem}
+.contact-line svg{width:19px;height:19px;flex:0 0 19px;margin-top:5px;stroke:var(--orange);fill:none;stroke-width:1.7}
+.contact-line a{text-decoration:none;border-bottom:1px solid rgba(242,106,33,.4);transition:color .2s}
+.contact-line a:hover{color:var(--orange-soft)}
+.map{position:relative;border:1px solid var(--line);border-radius:2px;overflow:hidden;min-height:420px;height:100%;background:var(--ink-3)}
+.map iframe{position:relative;z-index:2;width:100%;height:100%;min-height:420px;border:0;filter:grayscale(.4) invert(.92) contrast(.88) hue-rotate(180deg)}
+.map-fallback{
+  position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px;text-align:center;padding:28px;
+  background:
+    repeating-linear-gradient(45deg,rgba(245,241,234,.02) 0 12px,transparent 12px 24px),
+    var(--ink-3);
+}
+.map-fallback p{line-height:1.5}
+.map-fallback strong{font-family:'Anton',sans-serif;font-weight:400;font-size:1.4rem;text-transform:uppercase}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--ink-2);border-top:1px solid var(--line);padding:56px 0 30px;margin-top:0}
+.foot{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;align-items:flex-start}
+.foot p{color:var(--muted);font-size:.92rem;max-width:40ch;margin-top:14px}
+.socials{display:flex;gap:12px;margin-top:20px}
+.socials a{
+  width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);
+  border-radius:50%;transition:border-color .25s,background .25s,transform .25s;
+}
+.socials a:hover{border-color:var(--orange);background:rgba(242,106,33,.12);transform:translateY(-3px)}
+.socials svg{width:19px;height:19px;fill:var(--cream)}
+.foot-nav{display:flex;flex-direction:column;gap:9px}
+.foot-nav a{
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.15em;
+  font-size:.8rem;text-decoration:none;color:var(--muted);transition:color .2s;
+}
+.foot-nav a:hover{color:var(--orange-soft)}
+.legal{
+  margin-top:44px;padding-top:22px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-size:.78rem;color:#6f7883;
+}
+
+/* reveal — content is visible by default; only hidden once JS confirms it can reveal it */
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1000px){
+  .gal{columns:3}
+  .menu-grid{grid-template-columns:repeat(2,1fr)}
+  .worlds{grid-template-columns:1fr}
+  .world{min-height:340px}
+  .about{grid-template-columns:1fr;gap:44px}
+  .visit{grid-template-columns:1fr;gap:40px}
+}
+@media(max-width:760px){
+  .navlinks{
+    position:fixed;inset:0 0 auto 0;top:0;padding:96px 28px 34px;
+    background:rgba(11,13,16,.985);backdrop-filter:blur(16px);
+    flex-direction:column;align-items:flex-start;gap:22px;
+    transform:translateY(-102%);transition:transform .4s cubic-bezier(.2,.8,.2,1);
+    border-bottom:1px solid var(--line);
+  }
+  .navlinks.open{transform:none}
+  .navlinks a{font-size:1.5rem;font-family:'Anton',sans-serif;letter-spacing:.05em}
+  .navlinks .btn{font-size:.85rem;font-family:'Barlow Condensed',sans-serif}
+  .burger{display:block;z-index:70}
+  .sec{padding:74px 0}
+  .menu-grid{grid-template-columns:1fr}
+  .gal{columns:2;column-gap:10px}
+  .gal figure{margin-bottom:10px}
+  .stats{grid-template-columns:1fr;gap:1px}
+  .about-media .tag{left:0;bottom:0;max-width:88%}
+  .riders .inner{padding:82px 0}
+  .riders-bg::after{background:linear-gradient(180deg,rgba(11,13,16,.72),rgba(11,13,16,.94))}
+  .hero-inner{padding:120px 0 96px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+
+/* ==================================================================
+   CAPTAIN'S CABIN LOGO
+   Transparent vector lockup. Every white area of the original artwork
+   (paper, the script letters inside the banner, the sunburst gaps,
+   the rope holes) is real alpha — the page background reads through it.
+     brand/logo-cream.svg   full lockup, cream ink   <- used on this dark site
+     brand/logo-ink.svg     full lockup, near-black  <- for light backgrounds/print
+     brand/mark-cream.svg   ship's wheel only        <- swap in where the
+                                                        script would be too small
+   ================================================================== */
+.cc-logo{display:block;width:auto;background:transparent}
+
+/* --- nav lockup --- */
+.brand{gap:13px}
+.nav .cc-logo{height:58px;transition:height .35s ease,transform .25s ease,filter .25s ease}
+.nav.solid .cc-logo{height:46px}
+.brand:hover .cc-logo{transform:translateY(-2px);filter:drop-shadow(0 6px 15px rgba(242,106,33,.4))}
+
+/* --- hero emblem --- */
+.hero-emblem{
+  position:absolute;z-index:2;pointer-events:none;
+  right:max(24px,calc((100vw - var(--max)) / 2));
+  top:50%;transform:translateY(-46%);
+  width:min(30vw,360px);
+  filter:drop-shadow(0 22px 48px rgba(0,0,0,.8));
+}
+.hero-emblem img{width:100%;height:auto}
+.hero .sub{max-width:min(62%,660px)}
+
+/* --- section watermark --- */
+.wm{overflow:hidden}
+.wm > .wm-logo{
+  position:absolute;z-index:0;pointer-events:none;
+  right:-6%;top:50%;transform:translateY(-50%);
+  width:min(56vw,600px);opacity:.05;
+}
+.wm > .wm-logo img{width:100%;height:auto}
+.wm > .wrap{position:relative;z-index:1}
+
+/* --- footer lockup --- */
+footer .brand{flex-direction:column;align-items:flex-start;gap:15px}
+footer .cc-logo{height:150px}
+
+@media(max-width:1000px){
+  .hero-emblem{width:min(34vw,290px)}
+  .hero .sub{max-width:min(58%,520px)}
+}
+@media(max-width:760px){
+  .nav .cc-logo,.nav.solid .cc-logo{height:44px}
+  .hero-emblem{
+    position:static;order:-1;transform:none;
+    width:66%;justify-self:center;align-self:end;
+    margin:104px auto 0;
+    filter:drop-shadow(0 14px 32px rgba(0,0,0,.72));
+  }
+  .hero-inner{padding:24px 0 112px}
+  .hero .sub{max-width:100%}
+  .wm > .wm-logo{width:130%;right:-34%;opacity:.04}
+  footer .cc-logo{height:112px}
+}
+@media(prefers-reduced-motion:reduce){
+  .brand:hover .cc-logo{transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <a class="brand" href="#top">
+    <img class="cc-logo" src="brand/logo-cream.svg" width="58" height="58" alt="Captain's Cabin">
+    <span>
+      <b>Captain's Cabin</b>
+      <span>Saldanha &middot; West Coast</span>
+    </span>
+  </a>
+  <div class="navlinks" id="navlinks">
+    <a href="#story">The Cabin</a>
+    <a href="#worlds">Day &amp; Night</a>
+    <a href="#kitchen">Kitchen</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#visit">Find Us</a>
+    <a class="btn" href="tel:+27649916181">Call &amp; Book</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="hero-bg">
+    <img src="images/hero-bar-beers.jpg" alt="Cold draught beers lined up on the bar at Captain's Cabin, Saldanha">
+  </div>
+  <div class="hero-inner">
+    <div class="wrap">
+      <p class="eyebrow">20 Main Road &middot; Saldanha Bay &middot; South Africa</p>
+      <h1>Captain's<em>Cabin</em></h1>
+      <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
+      <div class="cta">
+        <a class="btn" href="tel:+27649916181">Call 064 991 6181</a>
+        <a class="btn ghost" href="#visit">Find the Cabin</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-emblem">
+    <img src="brand/logo-cream.svg" width="360" height="360" alt="" aria-hidden="true">
+  </div>
+  <div class="scrollcue">Scroll</div>
+</header>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Fresh West Coast Seafood</span><span>Sushi</span><span>Flame Grills</span>
+    <span>The Tiki-Bar</span><span>Live Music</span><span>Sports on the Big Screen</span>
+    <span>Rooftop Seating</span><span>Bikers Welcome</span>
+    <span>Fresh West Coast Seafood</span><span>Sushi</span><span>Flame Grills</span>
+    <span>The Tiki-Bar</span><span>Live Music</span><span>Sports on the Big Screen</span>
+    <span>Rooftop Seating</span><span>Bikers Welcome</span>
+  </div>
+</div>
+
+<!-- ===== STORY ===== -->
+<section class="sec" id="story">
+  <div class="wrap">
+    <div class="about">
+      <div class="rv">
+        <p class="eyebrow">The Cabin</p>
+        <h2 style="font-size:clamp(2.1rem,5.5vw,3.8rem);margin-top:14px">Fifty metres<br>from the bay</h2>
+        <div class="rule"></div>
+        <p style="margin-top:26px">Captain's Cabin sits on Main Road in Saldanha, a short walk from the water — close enough that the harbour is part of the view and the seafood does not travel far to reach the plate.</p>
+        <p>It works two shifts. Through the day it is a family restaurant: seafood, sushi, grills and curries, coffee on the deck, kids at the long wooden tables. After dark it turns into a cocktail and sports bar, with the Tiki-Bar open, the big screens on and live music on the calendar.</p>
+        <p>There is rooftop seating upstairs, tables out on the deck and the bay across the road — which is why so many people end up staying a lot longer than they planned.</p>
+        <p>It has become one of the West Coast's natural gathering points — bike clubs on a Sunday run, birthday tables that spill across the room, locals who have been coming for years and holidaymakers who find it once and come back.</p>
+        <div class="stats">
+          <div><b>4.3</b><i>Average Google rating</i></div>
+          <div><b>1,645</b><i>Google reviews</i></div>
+          <div><b>8.5k+</b><i>Followers on Facebook</i></div>
+        </div>
+      </div>
+      <div class="about-media rv">
+        <img src="images/owners-oceanview.jpg" alt="The Captain's Cabin team on the balcony overlooking Saldanha Bay">
+        <div class="tag">
+          <b>Saldanha Bay</b>
+          <i>Right across the road</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THREE WORLDS ===== -->
+<section class="sec" id="worlds" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">One address, three moods</p>
+      <h2>Day, night<br>&amp; everything after</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="worlds">
+      <article class="world rv">
+        <img src="images/sushi-server-card.jpg" alt="Server carrying a platter of fresh sushi at Captain's Cabin">
+        <div class="body">
+          <p class="num">01</p>
+          <h3>The Restaurant</h3>
+          <p>Seafood off the West Coast, sushi rolled fresh, ribs and steaks off the grill, curries, pasta and burgers. Long tables, deck seating, coffee all day.</p>
+        </div>
+      </article>
+      <article class="world rv">
+        <img src="images/tiki-bar-card.jpg" alt="The Tiki-Bar at Captain's Cabin — timber bar, orange stools and painted tiki mural">
+        <div class="body">
+          <p class="num">02</p>
+          <h3>The Tiki-Bar</h3>
+          <p>Driftwood, carved masks and a painted beach that never clouds over. Cocktails, draught and a corner of the Cabin that does not take itself too seriously.</p>
+        </div>
+      </article>
+      <article class="world rv">
+        <img src="images/celebration-party.jpg" alt="A group celebrating around a table at Captain's Cabin with the rugby on screen">
+        <div class="body">
+          <p class="num">03</p>
+          <h3>Nights &amp; Big Games</h3>
+          <p>Screens on for the rugby, live music on the calendar, and a room built for birthdays, club runs and tables that were only ever meant to be a quick one.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KITCHEN ===== -->
+<section class="sec kitchen wm" id="kitchen">
+  <span class="wm-logo"><img src="brand/logo-cream.svg" width="600" height="600" alt="" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">From the kitchen</p>
+      <h2>What comes<br>out of the pass</h2>
+      <div class="rule"></div>
+      <p>A mixed culinary experience by the West Coast — the sea is the headline, but the menu runs a lot wider than that.</p>
+    </div>
+
+    <div class="menu-grid rv">
+      <div class="menu-cat">
+        <h4>Seafood</h4>
+        <ul>
+          <li>Catch of the day</li>
+          <li>Seafood platter</li>
+          <li>Calamari</li>
+          <li>Seafood pot</li>
+          <li>Battered hake &amp; chips</li>
+        </ul>
+      </div>
+      <div class="menu-cat">
+        <h4>Sushi</h4>
+        <ul>
+          <li>Salmon roses</li>
+          <li>California rolls</li>
+          <li>Maki &amp; nigiri</li>
+          <li>Sushi platters</li>
+        </ul>
+      </div>
+      <div class="menu-cat">
+        <h4>From the Grill</h4>
+        <ul>
+          <li>Pork ribs</li>
+          <li>Steaks</li>
+          <li>Eisbein</li>
+          <li>Brisket</li>
+          <li>Pulled pork</li>
+        </ul>
+      </div>
+      <div class="menu-cat">
+        <h4>Curries &amp; Pasta</h4>
+        <ul>
+          <li>Lamb curry</li>
+          <li>Seafood pasta</li>
+          <li>Spaghetti carbonara</li>
+        </ul>
+      </div>
+      <div class="menu-cat">
+        <h4>Burgers &amp; Chicken</h4>
+        <ul>
+          <li>Tornado steak burger</li>
+          <li>Chicken strips</li>
+          <li>Starters &amp; salads</li>
+          <li>Sides</li>
+        </ul>
+      </div>
+      <div class="menu-cat">
+        <h4>The Bar</h4>
+        <ul>
+          <li>Draught &amp; bottled beer</li>
+          <li>Cocktails</li>
+          <li>Wine &amp; spirits</li>
+          <li>Coffee &amp; hot drinks</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ⚠ OWNER: replace this note once the real menu PDF is loaded -->
+    <p class="note"><b>Owner to confirm:</b> these categories are drawn from the publicly listed menu and do not include prices or the full dish list. Send through the current menu PDF and this section can be replaced with the real thing — or linked straight to a downloadable menu.</p>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="sec" id="gallery">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">The Cabin, lately</p>
+      <h2>Faces of<br>the place</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="gal" id="gal">
+      <figure><img loading="lazy" src="images/cheers-outdoor-sm.jpg" data-full="images/cheers-outdoor.jpg" alt="Three guests raising beers on the sunny deck at Captain's Cabin"></figure>
+      <figure><img loading="lazy" src="images/tap-pour-sm.jpg" data-full="images/tap-pour.jpg" alt="A beer being poured from the tap behind the bar"></figure>
+      <figure><img loading="lazy" src="images/bikers-table-sm.jpg" data-full="images/bikers-table.jpg" alt="A motorcycle club at a table with beers and thumbs up"></figure>
+      <figure><img loading="lazy" src="images/coffee-guest-sm.jpg" data-full="images/coffee-guest.jpg" alt="Guest with a cappuccino on the deck at Captain's Cabin"></figure>
+      <figure><img loading="lazy" src="images/waitresses-sm.jpg" data-full="images/waitresses.jpg" alt="Two Captain's Cabin servers bringing bottles to a celebration"></figure>
+      <figure><img loading="lazy" src="images/owners-propeller-sm.jpg" data-full="images/owners-propeller.jpg" alt="Two of the Captain's Cabin team beside the brass ship's propeller"></figure>
+      <figure><img loading="lazy" src="images/biker-portrait-sm.jpg" data-full="images/biker-portrait.jpg" alt="A rider in a badge-covered vest in front of the Captain's Cabin ship's wheel mural"></figure>
+      <figure><img loading="lazy" src="images/guest-beer-sm.jpg" data-full="images/guest-beer.jpg" alt="Guest raising a cold beer with the bay behind her"></figure>
+      <figure><img loading="lazy" src="images/chef-sm.jpg" data-full="images/chef.jpg" alt="Thumbs up from the Captain's Cabin kitchen"></figure>
+      <figure><img loading="lazy" src="images/biker-metallica-sm.jpg" data-full="images/biker-metallica.jpg" alt="A regular relaxing on the upstairs deck"></figure>
+      <figure><img loading="lazy" src="images/celebration-party-sm.jpg" data-full="images/celebration-party.jpg" alt="A birthday party toasting at Captain's Cabin with the rugby on screen"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RIDERS ===== -->
+<section class="riders">
+  <div class="riders-bg">
+    <img src="images/bikers-vests.jpg" alt="">
+  </div>
+  <div class="wrap">
+    <div class="inner rv">
+      <p class="eyebrow">Groups, clubs &amp; celebrations</p>
+      <h2>Park up,<br>pull up a bench</h2>
+      <p>Sunday run, club rally, birthday, farewell, or twelve people who said they were only stopping for one — the Cabin is used to it. Long tables, room to spread out and a kitchen that can handle the whole party at once.</p>
+      <p>Bringing a group? Call ahead so we can hold the space.</p>
+      <div class="chips">
+        <span class="chip">Bike clubs</span>
+        <span class="chip">Birthdays</span>
+        <span class="chip">Functions</span>
+        <span class="chip">Big screens</span>
+        <span class="chip">Live music</span>
+      </div>
+      <div class="cta" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:30px">
+        <a class="btn" href="tel:+27227141716">Book a table</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISIT ===== -->
+<section class="sec" id="visit">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Find us</p>
+      <h2>20 Main Road,<br>Saldanha</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="visit">
+      <div class="rv">
+        <div class="info-block">
+          <h4>Opening hours</h4>
+          <!-- Hours taken from the Google Business Profile, where they were
+               confirmed by the business itself. Keep these and the GBP in sync. -->
+          <ul class="hours">
+            <li><span>Monday – Thursday</span><span>10:00 – 00:00</span></li>
+            <li><span>Friday – Saturday</span><span>10:00 – 02:00</span></li>
+            <li><span>Sunday</span><span>10:00 – 22:00</span></li>
+          </ul>
+          <p style="margin-top:16px;font-size:.9rem;color:var(--muted)">Kitchen closes earlier than the bar — give us a call if you're arriving late.</p>
+        </div>
+
+        <div class="info-block">
+          <h4>Get in touch</h4>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24"><path d="M21 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 4.2 2 2 0 0 1 3.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            <span><a href="tel:+27649916181">064 991 6181</a> &nbsp;·&nbsp; orders &amp; bookings</span>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24"><path d="M21 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 4.2 2 2 0 0 1 3.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            <span><a href="tel:+27227141716">022 714 1716</a> &nbsp;·&nbsp; restaurant line</span>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>20 Main Road, Saldanha, 7395<br>Western Cape, South Africa</span>
+          </div>
+          <div class="cta" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener">Directions</a>
+            <a class="btn ghost" href="https://wa.me/27649916181" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map rv">
+        <!-- fallback shown if the embedded map cannot load -->
+        <div class="map-fallback">
+          <p class="eyebrow">Captain's Cabin</p>
+          <p><strong>20 Main Road</strong><br>Saldanha, 7395<br>Western Cape</p>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener">Open in Maps</a>
+        </div>
+        <iframe
+          title="Map showing Captain's Cabin, 20 Main Road, Saldanha"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=17.9350%2C-33.0180%2C17.9530%2C-33.0080&layer=mapnik&marker=-33.0130%2C17.9440"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" style="text-decoration:none">
+          <img class="cc-logo" src="brand/logo-cream.svg" width="150" height="150" alt="Captain's Cabin">
+          <span>
+            <b>Captain's Cabin</b>
+            <span>Restaurant &amp; Pub</span>
+          </span>
+        </a>
+        <p>Family restaurant by day, cocktail and sports bar by night. On Main Road, Saldanha, fifty metres from the bay.</p>
+        <div class="socials">
+          <a href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"/></svg>
+          </a>
+          <a href="https://wa.me/27649916181" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1s-.7 1-.9 1.2c-.2.2-.3.2-.6.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6a2 2 0 0 0 .3-.5.5.5 0 0 0 0-.5c0-.2-.7-1.6-.9-2.2s-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.8 5.8 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6 17.1 17.1 0 0 0 1.7.6 4.1 4.1 0 0 0 1.9.1 3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.6-.4zM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="foot-nav">
+        <a href="#story">The Cabin</a>
+        <a href="#worlds">Day &amp; Night</a>
+        <a href="#kitchen">Kitchen</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#visit">Find Us</a>
+      </div>
+      <div class="foot-nav">
+        <a href="tel:+27649916181">064 991 6181</a>
+        <a href="tel:+27227141716">022 714 1716</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener">20 Main Rd, Saldanha</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; <span id="yr">2026</span> Captain's Cabin Restaurant &amp; Pub, Saldanha.</span>
+      <span>Please drink responsibly. Alcohol not for sale to persons under 18.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- lightbox -->
+<div class="lb" id="lb"><button id="lbx" aria-label="Close">&times;</button><img id="lbimg" src="" alt=""></div>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  var onScroll=function(){ nav.classList.toggle('solid', window.scrollY>60); };
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  var burger=document.getElementById('burger'), links=document.getElementById('navlinks');
+  burger.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open);
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){ links.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+  });
+
+  var rv=document.querySelectorAll('.rv');
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0,rootMargin:'0px 0px -8% 0px'});
+  rv.forEach(function(el){ io.observe(el); });
+  // safety net: nothing stays hidden, whatever happens
+  setTimeout(function(){ rv.forEach(function(el){ el.classList.add('in'); }); }, 4000);
+
+  var lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
+  document.getElementById('gal').addEventListener('click',function(e){
+    var img=e.target.closest('img'); if(!img) return;
+    lbimg.src=img.dataset.full||img.src; lbimg.alt=img.alt; lb.classList.add('open');
+  });
+  function close(){ lb.classList.remove('open'); lbimg.src=''; }
+  document.getElementById('lbx').addEventListener('click',close);
+  lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
