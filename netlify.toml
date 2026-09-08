@@ -12,3 +12,11 @@
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Send the old Netlify subdomain to the real domain so search engines
+# only ever index one copy of the site.
+[[redirects]]
+  from = "https://captainscabinwestcoast.netlify.app/*"
+  to = "https://captainscabinwestcoast.com/:splat"
+  status = 301
+  force = true
