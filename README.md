@@ -1,4 +1,4 @@
-# Captain's Cabin — captainscabinwestcoast.netlify.app
+# Captain's Cabin — captainscabinwestcoast.com
 
 Static one-page site for Captain's Cabin Restaurant & Pub, 20 Main Road, Saldanha.
 No build step: `index.html` contains all the CSS and JS inline. What's in the repo is
@@ -12,29 +12,23 @@ favicon.*  icon-*.png  apple-touch-icon.png  site.webmanifest  og-image.jpg
 netlify.toml        tells Netlify to publish the repo root as-is
 ```
 
-## Before the first deploy
+## Deploying
 
-`images/` is empty except for a note. Copy the 35 image files you downloaded from the
-Aug 14 Netlify deploy into it and delete `images/README.txt`. The filenames must match
-exactly — `index.html` references them by name.
+The repo is linked to the `captainscabinwestcoast` project on Netlify. Every push to
+`main` redeploys, and any commit can be rolled back from the Deploys page. Publish
+directory is `.` and there is no build command — `netlify.toml` already says so.
 
-## Deploying from GitHub
+## Domain
 
-1. Create a repo (e.g. `captains-cabin`) on github.com.
-2. Upload this folder's contents to it — GitHub's "uploading an existing file" page
-   accepts a whole folder dragged in, or use git:
-   ```
-   git init && git add . && git commit -m "Site with logo integration"
-   git branch -M main
-   git remote add origin https://github.com/<you>/captains-cabin.git
-   git push -u origin main
-   ```
-3. In Netlify, open the `captainscabinwestcoast` project → Project configuration →
-   Build & deploy → link the repository. The site keeps its current URL; from then on
-   every push to `main` redeploys, and you can roll back to any commit from the
-   Deploys page.
+Live at **https://captainscabinwestcoast.com** — registered at Namecheap, Sep 2026.
+DNS stays at Namecheap rather than moving to Netlify:
 
-Publish directory is `.` and there is no build command — `netlify.toml` already says so.
+* `ALIAS` on `@` → `apex-loadbalancer.netlify.com`
+* `CNAME` on `www` → `captainscabinwestcoast.netlify.app`
+
+Netlify holds the Let's Encrypt certificate for both names. `www` redirects to the
+bare domain, and `netlify.toml` 301s the old `captainscabinwestcoast.netlify.app`
+address to the real one so search engines only ever index one copy.
 
 ## The logo
 
