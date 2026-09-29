@@ -81,8 +81,8 @@ if ('IntersectionObserver' in window) document.documentElement.classList.add('js
   --line:rgba(245,241,234,.12);
   --cream:#f5f1ea;
   --muted:#a5adb8;
-  --orange:#f26a21;
-  --orange-soft:#ffa561;
+  --orange:#e3121b;
+  --orange-soft:#ff5c5c;
   --sea:#5fb3cf;
   --max:1200px;
 }
@@ -169,7 +169,7 @@ section{position:relative}
   background:
     linear-gradient(180deg,rgba(11,13,16,.82) 0%,rgba(11,13,16,.42) 26%,rgba(11,13,16,.80) 62%,rgba(11,13,16,.95) 86%,var(--ink) 100%),
     linear-gradient(100deg,rgba(11,13,16,.80) 0%,rgba(11,13,16,.45) 42%,rgba(11,13,16,0) 78%),
-    radial-gradient(120% 80% at 50% 100%,rgba(242,106,33,.14),transparent 60%);
+    radial-gradient(120% 80% at 50% 100%,rgba(227,18,27,.14),transparent 60%);
 }
 .hero h1,.hero .sub,.hero .eyebrow{text-shadow:0 2px 26px rgba(0,0,0,.55)}
 .hero-inner{position:relative;z-index:2;padding:140px 0 74px;width:100%}
@@ -265,8 +265,8 @@ section{position:relative}
 .menu-cat li{padding:3px 0;border-bottom:1px dashed rgba(245,241,234,.07)}
 .menu-cat li:last-child{border:0}
 .note{
-  margin-top:30px;padding:18px 22px;border:1px dashed rgba(242,106,33,.45);
-  background:rgba(242,106,33,.06);font-size:.92rem;color:#e3d7cc;border-radius:2px;
+  margin-top:30px;padding:18px 22px;border:1px dashed rgba(227,18,27,.45);
+  background:rgba(227,18,27,.06);font-size:.92rem;color:#e3d7cc;border-radius:2px;
 }
 .note b{color:var(--orange-soft);font-weight:600}
 
@@ -276,9 +276,9 @@ section{position:relative}
 .gal img{width:100%;height:auto;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .4s;filter:grayscale(.15)}
 .gal figure:hover img{transform:scale(1.05);filter:grayscale(0)}
 .gal figure::after{
-  content:"";position:absolute;inset:0;background:rgba(242,106,33,0);transition:background .35s;
+  content:"";position:absolute;inset:0;background:rgba(227,18,27,0);transition:background .35s;
 }
-.gal figure:hover::after{background:rgba(242,106,33,.12)}
+.gal figure:hover::after{background:rgba(227,18,27,.12)}
 
 /* lightbox */
 .lb{position:fixed;inset:0;z-index:200;background:rgba(6,8,10,.96);display:none;place-items:center;padding:28px}
@@ -323,7 +323,7 @@ section{position:relative}
 .hours span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
 .contact-line{display:flex;align-items:flex-start;gap:14px;padding:9px 0;font-size:1.03rem}
 .contact-line svg{width:19px;height:19px;flex:0 0 19px;margin-top:5px;stroke:var(--orange);fill:none;stroke-width:1.7}
-.contact-line a{text-decoration:none;border-bottom:1px solid rgba(242,106,33,.4);transition:color .2s}
+.contact-line a{text-decoration:none;border-bottom:1px solid rgba(227,18,27,.4);transition:color .2s}
 .contact-line a:hover{color:var(--orange-soft)}
 .map{position:relative;border:1px solid var(--line);border-radius:2px;overflow:hidden;min-height:420px;height:100%;background:var(--ink-3)}
 .map iframe{position:relative;z-index:2;width:100%;height:100%;min-height:420px;border:0;filter:grayscale(.4) invert(.92) contrast(.88) hue-rotate(180deg)}
@@ -346,7 +346,7 @@ footer{background:var(--ink-2);border-top:1px solid var(--line);padding:56px 0 3
   width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);
   border-radius:50%;transition:border-color .25s,background .25s,transform .25s;
 }
-.socials a:hover{border-color:var(--orange);background:rgba(242,106,33,.12);transform:translateY(-3px)}
+.socials a:hover{border-color:var(--orange);background:rgba(227,18,27,.12);transform:translateY(-3px)}
 .socials svg{width:19px;height:19px;fill:var(--cream)}
 .foot-nav{display:flex;flex-direction:column;gap:9px}
 .foot-nav a{
@@ -416,7 +416,7 @@ footer{background:var(--ink-2);border-top:1px solid var(--line);padding:56px 0 3
 .brand{gap:13px}
 .nav .cc-logo{height:58px;transition:height .35s ease,transform .25s ease,filter .25s ease}
 .nav.solid .cc-logo{height:46px}
-.brand:hover .cc-logo{transform:translateY(-2px);filter:drop-shadow(0 6px 15px rgba(242,106,33,.4))}
+.brand:hover .cc-logo{transform:translateY(-2px);filter:drop-shadow(0 6px 15px rgba(227,18,27,.4))}
 
 /* --- hero emblem --- */
 .hero-emblem{
@@ -513,7 +513,7 @@ footer .cc-logo{height:150px}
 .posters img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .posters figure:hover img{transform:scale(1.04)}
 .events-empty{
-  border:1px dashed rgba(242,106,33,.45);background:rgba(242,106,33,.06);
+  border:1px dashed rgba(227,18,27,.45);background:rgba(227,18,27,.06);
   padding:26px 28px;border-radius:2px;max-width:72ch;
 }
 .events-empty p{color:#e3d7cc}
