@@ -22,7 +22,7 @@
 :root{
 --ink:#0b0d10;--ink-2:#12161b;--ink-3:#191f26;
 --line:rgba(245,241,234,.12);--cream:#f5f1ea;--muted:#a5adb8;
---orange:#f26a21;--orange-soft:#ffa561;
+--orange:#e3121b;--orange-soft:#ff5c5c;
 --bar:58px;--chips:52px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -43,7 +43,7 @@ padding:0 18px;background:var(--ink);backdrop-filter:blur(12px);-webkit-backdrop
 .bar-soc svg{width:17px;height:17px;fill:currentColor}
 /* hero */
 .hero{position:relative;padding:34px 0 26px;overflow:hidden;border-bottom:1px solid var(--line);
-background:radial-gradient(120% 90% at 100% 0%,rgba(242,106,33,.16),transparent 60%),var(--ink)}
+background:radial-gradient(120% 90% at 100% 0%,rgba(227,18,27,.16),transparent 60%),var(--ink)}
 .hero .wm{position:absolute;right:-70px;top:-30px;width:300px;opacity:.06;pointer-events:none}
 .eyebrow{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.28em;font-size:.72rem;font-weight:600;color:var(--orange)}
 h1,h2,h4{font-family:'Anton','Barlow Condensed',Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.005em}
@@ -61,6 +61,7 @@ border:2px solid var(--orange);background:var(--orange);color:#fff}
 .revline{margin-top:16px;font-size:.92rem;color:var(--muted)}
 .revline a{color:var(--orange-soft);font-weight:500;text-underline-offset:3px}
 .revhead{margin-top:30px!important;color:var(--cream)!important}
+.webbtn{grid-column:1/-1}
 /* category chips */
 .chips{position:sticky;top:var(--bar);z-index:25;height:var(--chips);background:var(--ink-2);border-bottom:1px solid var(--line);
 display:flex;align-items:center;gap:8px;overflow-x:auto;padding:0 18px;scrollbar-width:none}
@@ -84,7 +85,7 @@ main{background:var(--ink-2)}
 .d-price{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;color:var(--orange-soft);white-space:nowrap;font-size:1rem}
 .d-desc{color:var(--muted);font-size:.9rem;line-height:1.5;margin-top:2px;max-width:54ch}
 .menu-foot{margin:0 0 26px;padding-top:12px;border-top:1px dashed var(--line);color:var(--muted);font-size:.88rem;font-style:italic}
-.note{margin:30px auto 0;max-width:724px;padding:16px 18px;border:1px dashed rgba(242,106,33,.45);background:rgba(242,106,33,.06);font-size:.9rem;color:#e3d7cc;border-radius:2px}
+.note{margin:30px auto 0;max-width:724px;padding:16px 18px;border:1px dashed rgba(227,18,27,.45);background:rgba(227,18,27,.06);font-size:.9rem;color:#e3d7cc;border-radius:2px}
 .note b{color:var(--orange-soft);font-weight:600}
 .notewrap{padding:0 18px 34px}
 /* footer */
@@ -125,6 +126,7 @@ background:var(--orange);color:#fff;display:grid;place-items:center;opacity:0;po
 <div class="social">
 <a class="sbtn" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"></path></svg>Instagram</a>
 <a class="sbtn ghost" href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"></path></svg>Facebook</a>
+<a class="sbtn ghost webbtn" href="/"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Visit our website</a>
 </div>
 <p class="revline">Enjoyed your visit? Review us on <a href="https://www.google.com/maps/search/?api=1&amp;query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener">Google</a> or <a href="https://www.tripadvisor.co.za/Restaurant_Review-g312671-d11693363-Reviews-Captains-Saldanha_Saldanha_Bay_Municipality_Western_Cape.html" target="_blank" rel="noopener">Tripadvisor</a>.</p>
 </div>
