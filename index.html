@@ -583,32 +583,41 @@ footer .cc-logo{height:150px}
   .slots-inner{grid-template-columns:1fr;gap:30px}
 }
 /* ==================================================================
-   SPECIALS (drinks left, food right)
+   SPECIALS (drinks button left, food button right)
    ================================================================== */
 .specials{border-top:1px solid var(--line)}
-.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.sp-col{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:2px;background:var(--ink-3);overflow:hidden;border-top:4px solid var(--orange)}
-.sp-col.sea{border-top-color:var(--sea)}
-.sp-photo{position:relative;aspect-ratio:2/3;max-height:640px;overflow:hidden;background:var(--ink-2)}
-.sp-photo img{width:100%;height:100%;object-fit:cover}
-.sp-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,16,.94) 0%,rgba(11,13,16,.55) 24%,rgba(11,13,16,0) 50%)}
-.sp-label{position:absolute;z-index:2;top:0;left:0;right:0;padding:28px 28px 0}
-.sp-label h3{font-size:clamp(2rem,4.4vw,3rem);margin-top:10px;text-shadow:0 2px 22px rgba(0,0,0,.6)}
-.sp-col.sea .eyebrow{color:var(--sea)}
-.sp-list{list-style:none;padding:24px 28px 28px}
+.sp-tabs{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:640px}
+.sp-tab{
+  background:transparent;border:1px solid var(--orange);color:var(--muted);
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.16em;
+  font-size:.9rem;font-weight:600;padding:14px 18px;border-radius:2px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:color .2s,border-color .2s,background .2s;
+}
+.sp-tab::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s}
+.sp-tab:hover{color:var(--cream);border-color:var(--orange-soft)}
+.sp-tab[aria-expanded="true"]{background:var(--orange);border-color:var(--orange);color:#fff}
+.sp-tab[aria-expanded="true"]::after{transform:rotate(-135deg) translateY(-2px)}
+.sp-panel{margin-top:26px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px;align-items:start;
+  border:1px solid var(--line);border-top:3px solid var(--orange);background:var(--ink-3);border-radius:2px;padding:24px}
+.sp-panel[hidden]{display:none}
+.sp-panel.sea{border-top-color:var(--sea)}
+.sp-photo{margin:0;border:1px solid var(--line);border-radius:2px;overflow:hidden;background:var(--ink-2)}
+.sp-photo img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover}
+.sp-body h3{font-size:clamp(1.7rem,3.6vw,2.4rem);margin-top:8px}
+.sp-panel.sea .eyebrow{color:var(--sea)}
+.sp-list{list-style:none;margin-top:14px}
 .sp-list li{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 10px;padding:12px 0;border-bottom:1px solid var(--line)}
 .sp-list li:last-child{border-bottom:0}
 .sp-name{font-weight:500;color:var(--cream)}
 .sp-lead{flex:1;border-bottom:1px dotted rgba(245,241,234,.25);transform:translateY(-4px);min-width:20px}
 .sp-price{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--orange-soft);letter-spacing:.04em}
-.sp-col.sea .sp-price{color:var(--sea)}
+.sp-panel.sea .sp-price{color:var(--sea)}
 .sp-desc{flex-basis:100%;color:var(--muted);font-size:.9rem;margin-top:2px}
 .sp-empty{color:var(--muted);font-style:italic}
 @media(max-width:760px){
-  .sp-grid{grid-template-columns:1fr;gap:22px}
-  .sp-photo{max-height:520px}
-  .sp-label{padding:22px 20px 0}
-  .sp-list{padding:18px 20px 22px}
+  .sp-tab{font-size:.8rem;letter-spacing:.12em;padding:13px 10px}
+  .sp-panel{grid-template-columns:110px minmax(0,1fr);gap:18px;padding:16px}
 }
 </style>
 </head>
@@ -1593,37 +1602,40 @@ footer .cc-logo{height:150px}
       <p class="eyebrow">At the bar &amp; from the kitchen</p>
       <h2>Specials</h2>
       <div class="rule"></div>
-      <p>Two ways in: pick your side of the Cabin.</p>
+      <p>Pick a side to see what&rsquo;s on.</p>
     </div>
 
-    <div class="sp-grid">
-      <!-- DRINK SPECIALS (left) -->
-      <article class="sp-col rv">
-        <div class="sp-photo">
-          <img loading="lazy" src="images/specials-drinks.webp" width="540" height="810" alt="Bartender reaching for a bottle behind the Captain's Cabin bar, two cold beers in front">
-          <div class="sp-label"><p class="eyebrow">At the bar</p><h3>Drink specials</h3></div>
-        </div>
-        <!-- To add a drink special, copy this line into the list below:
-             <li><span class="sp-name">Name of special</span><i class="sp-lead"></i><span class="sp-price">R00</span><span class="sp-desc">Short description</span></li>
-             Then delete the "sp-empty" line. -->
+    <div class="sp-tabs rv">
+      <button class="sp-tab" type="button" aria-expanded="false" aria-controls="sp-drinks">Drink specials</button>
+      <button class="sp-tab" type="button" aria-expanded="false" aria-controls="sp-food">Food specials</button>
+    </div>
+
+    <!-- DRINK SPECIALS -->
+    <div class="sp-panel" id="sp-drinks" hidden>
+      <figure class="sp-photo"><img loading="lazy" src="images/specials-drinks.webp" width="540" height="810" alt="Bartender reaching for a bottle behind the Captain's Cabin bar, two cold beers in front"></figure>
+      <div class="sp-body">
+        <p class="eyebrow">At the bar</p>
+        <h3>Drink specials</h3>
+        <!-- To add a special, copy this line into the list below, then delete the "sp-empty" line:
+               <li><span class="sp-name">Name of special</span><i class="sp-lead"></i><span class="sp-price">R00</span><span class="sp-desc">Short description</span></li> -->
         <ul class="sp-list">
           <li class="sp-empty">Drink specials coming soon &mdash; ask at the bar for today&rsquo;s deals.</li>
         </ul>
-      </article>
+      </div>
+    </div>
 
-      <!-- FOOD SPECIALS (right) -->
-      <article class="sp-col sea rv">
-        <div class="sp-photo">
-          <img loading="lazy" src="images/specials-food.webp" width="540" height="810" alt="Cappuccino next to a breakfast plate of eggs, steak and chips at Captain's Cabin">
-          <div class="sp-label"><p class="eyebrow">From the kitchen</p><h3>Food specials</h3></div>
-        </div>
-        <!-- To add a food special, copy this line into the list below:
-             <li><span class="sp-name">Name of special</span><i class="sp-lead"></i><span class="sp-price">R00</span><span class="sp-desc">Short description</span></li>
-             Then delete the "sp-empty" line. -->
+    <!-- FOOD SPECIALS -->
+    <div class="sp-panel sea" id="sp-food" hidden>
+      <figure class="sp-photo"><img loading="lazy" src="images/specials-food.webp" width="540" height="810" alt="Cappuccino next to a breakfast plate of eggs, steak and chips at Captain's Cabin"></figure>
+      <div class="sp-body">
+        <p class="eyebrow">From the kitchen</p>
+        <h3>Food specials</h3>
+        <!-- To add a special, copy this line into the list below, then delete the "sp-empty" line:
+               <li><span class="sp-name">Name of special</span><i class="sp-lead"></i><span class="sp-price">R00</span><span class="sp-desc">Short description</span></li> -->
         <ul class="sp-list">
           <li class="sp-empty">Food specials coming soon &mdash; ask your server what&rsquo;s on today.</li>
         </ul>
-      </article>
+      </div>
     </div>
   </div>
 </section>
@@ -1942,6 +1954,18 @@ footer .cc-logo{height:150px}
   if(posters && emptyMsg && posters.children.length>0){ emptyMsg.style.display='none'; }
 
   document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.sp-tab'));
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      var open=t.getAttribute('aria-expanded')==='true';
+      tabs.forEach(function(x){ x.setAttribute('aria-expanded','false'); document.getElementById(x.getAttribute('aria-controls')).hidden=true; });
+      if(!open){ t.setAttribute('aria-expanded','true'); document.getElementById(t.getAttribute('aria-controls')).hidden=false; }
+    });
+  });
 })();
 </script>
 </body>
