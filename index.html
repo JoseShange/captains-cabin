@@ -254,6 +254,11 @@ section{position:relative}
 
 /* ---------- KITCHEN / MENU ---------- */
 .kitchen{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.kitchen-head{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:center;margin-bottom:52px}
+.kitchen-head .sec-head{margin-bottom:0}
+.kitchen-photo{margin:0;border:1px solid var(--line);border-radius:2px;overflow:hidden;background:var(--ink-3);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.kitchen-photo img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover}
+@media(max-width:900px){ .kitchen-head{grid-template-columns:1fr;gap:34px;margin-bottom:44px} .kitchen-photo{max-width:260px} }
 .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .menu-cat{background:var(--ink-2);padding:26px 24px;transition:background .25s}
 .menu-cat:hover{background:var(--ink-3)}
@@ -697,11 +702,16 @@ footer .cc-logo{height:150px}
 <section class="sec kitchen wm" id="kitchen">
   <span class="wm-logo"><img src="brand/logo-cream.svg" width="600" height="600" alt="" aria-hidden="true"></span>
   <div class="wrap">
+    <div class="kitchen-head">
     <div class="sec-head rv">
       <p class="eyebrow">From the kitchen</p>
       <h2>What comes<br>out of the pass</h2>
       <div class="rule"></div>
       <p>A mixed culinary experience by the West Coast — the sea is the headline, but the menu runs a lot wider than that.</p>
+    </div>
+    <figure class="kitchen-photo rv">
+      <img loading="lazy" src="images/chef-sm.jpg" srcset="images/chef-sm.jpg 601w, images/chef.jpg 1069w" sizes="(max-width:900px) 260px, 300px" width="601" height="900" alt="Thumbs up from the Captain's Cabin kitchen">
+    </figure>
     </div>
 
     <div class="menu-wrap rv">
