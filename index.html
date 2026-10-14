@@ -561,13 +561,54 @@ footer .cc-logo{height:150px}
 .slots p.rg{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem;line-height:1.55}
 .rg strong{color:var(--cream);font-weight:600}
 .navlinks a{white-space:nowrap}
-@media(max-width:1180px) and (min-width:761px){ .navlinks{gap:16px} .navlinks a{letter-spacing:.1em} }
+@media(max-width:1180px) and (min-width:1081px){ .navlinks{gap:16px} .navlinks a{letter-spacing:.1em} }
+@media(max-width:1080px){
+  .navlinks{
+    position:fixed;inset:0 0 auto 0;top:0;padding:96px 28px 34px;
+    background:rgba(11,13,16,.985);backdrop-filter:blur(16px);
+    flex-direction:column;align-items:flex-start;gap:22px;
+    transform:translateY(-102%);transition:transform .4s cubic-bezier(.2,.8,.2,1);
+    border-bottom:1px solid var(--line);
+  }
+  .navlinks.open{transform:none}
+  .navlinks a{font-size:1.5rem;font-family:'Anton',sans-serif;letter-spacing:.05em}
+  .navlinks .btn{font-size:.85rem;font-family:'Barlow Condensed',sans-serif}
+  .burger{display:block;z-index:70}
+}
 @media(max-width:1000px){ .club-grid{grid-template-columns:1fr 1fr} .club:last-child{grid-column:1 / -1} }
 @media(max-width:760px){
   .club-grid{grid-template-columns:1fr} .club:last-child{grid-column:auto}
   .club{padding:26px 20px 22px}
   .slots{padding:68px 0}
   .slots-inner{grid-template-columns:1fr;gap:30px}
+}
+/* ==================================================================
+   SPECIALS (drinks left, food right)
+   ================================================================== */
+.specials{border-top:1px solid var(--line)}
+.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.sp-col{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:2px;background:var(--ink-3);overflow:hidden;border-top:4px solid var(--orange)}
+.sp-col.sea{border-top-color:var(--sea)}
+.sp-photo{position:relative;aspect-ratio:2/3;max-height:640px;overflow:hidden;background:var(--ink-2)}
+.sp-photo img{width:100%;height:100%;object-fit:cover}
+.sp-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,16,.94) 0%,rgba(11,13,16,.55) 24%,rgba(11,13,16,0) 50%)}
+.sp-label{position:absolute;z-index:2;top:0;left:0;right:0;padding:28px 28px 0}
+.sp-label h3{font-size:clamp(2rem,4.4vw,3rem);margin-top:10px;text-shadow:0 2px 22px rgba(0,0,0,.6)}
+.sp-col.sea .eyebrow{color:var(--sea)}
+.sp-list{list-style:none;padding:24px 28px 28px}
+.sp-list li{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.sp-list li:last-child{border-bottom:0}
+.sp-name{font-weight:500;color:var(--cream)}
+.sp-lead{flex:1;border-bottom:1px dotted rgba(245,241,234,.25);transform:translateY(-4px);min-width:20px}
+.sp-price{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--orange-soft);letter-spacing:.04em}
+.sp-col.sea .sp-price{color:var(--sea)}
+.sp-desc{flex-basis:100%;color:var(--muted);font-size:.9rem;margin-top:2px}
+.sp-empty{color:var(--muted);font-style:italic}
+@media(max-width:760px){
+  .sp-grid{grid-template-columns:1fr;gap:22px}
+  .sp-photo{max-height:520px}
+  .sp-label{padding:22px 20px 0}
+  .sp-list{padding:18px 20px 22px}
 }
 </style>
 </head>
@@ -586,6 +627,7 @@ footer .cc-logo{height:150px}
     <a href="#story">The Cabin</a>
     <a href="#worlds">Day &amp; Night</a>
     <a href="#kitchen">Kitchen</a>
+    <a href="#specials">Specials</a>
     <a href="#gallery">Gallery</a>
     <a href="#events">Events</a>
     <a href="#clubs">Run Club</a>
@@ -1544,6 +1586,48 @@ footer .cc-logo{height:150px}
   </div>
 </section>
 
+<!-- ===== SPECIALS ===== -->
+<section class="sec specials" id="specials">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">At the bar &amp; from the kitchen</p>
+      <h2>Specials</h2>
+      <div class="rule"></div>
+      <p>Two ways in: pick your side of the Cabin.</p>
+    </div>
+
+    <div class="sp-grid">
+      <!-- DRINK SPECIALS (left) -->
+      <article class="sp-col rv">
+        <div class="sp-photo">
+          <img loading="lazy" src="images/specials-drinks.webp" width="540" height="810" alt="Bartender reaching for a bottle behind the Captain's Cabin bar, two cold beers in front">
+          <div class="sp-label"><p class="eyebrow">At the bar</p><h3>Drink specials</h3></div>
+        </div>
+        <!-- To add a drink special, copy this line into the list below:
+             <li><span class="sp-name">Name of special</span><i class="sp-lead"></i><span class="sp-price">R00</span><span class="sp-desc">Short description</span></li>
+             Then delete the "sp-empty" line. -->
+        <ul class="sp-list">
+          <li class="sp-empty">Drink specials coming soon &mdash; ask at the bar for today&rsquo;s deals.</li>
+        </ul>
+      </article>
+
+      <!-- FOOD SPECIALS (right) -->
+      <article class="sp-col sea rv">
+        <div class="sp-photo">
+          <img loading="lazy" src="images/specials-food.webp" width="540" height="810" alt="Cappuccino next to a breakfast plate of eggs, steak and chips at Captain's Cabin">
+          <div class="sp-label"><p class="eyebrow">From the kitchen</p><h3>Food specials</h3></div>
+        </div>
+        <!-- To add a food special, copy this line into the list below:
+             <li><span class="sp-name">Name of special</span><i class="sp-lead"></i><span class="sp-price">R00</span><span class="sp-desc">Short description</span></li>
+             Then delete the "sp-empty" line. -->
+        <ul class="sp-list">
+          <li class="sp-empty">Food specials coming soon &mdash; ask your server what&rsquo;s on today.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ===== GALLERY ===== -->
 <section class="sec" id="gallery">
   <div class="wrap">
@@ -1785,6 +1869,7 @@ footer .cc-logo{height:150px}
         <a href="#story">The Cabin</a>
         <a href="#worlds">Day &amp; Night</a>
         <a href="#kitchen">Kitchen</a>
+        <a href="#specials">Specials</a>
         <a href="#gallery">Gallery</a>
         <a href="#events">Events</a>
         <a href="#clubs">Run Club</a>
