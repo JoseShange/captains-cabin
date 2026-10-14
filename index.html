@@ -435,7 +435,7 @@ footer{background:var(--ink-2);border-top:1px solid var(--line);padding:56px 0 3
 .hero .sub{max-width:min(62%,660px)}
 
 /* --- section watermark --- */
-.wm{overflow:hidden}
+.wm{overflow:hidden;overflow:clip}
 .wm > .wm-logo{
   position:absolute;z-index:0;pointer-events:none;
   right:-6%;top:50%;transform:translateY(-50%);
@@ -478,6 +478,8 @@ footer .cc-logo{height:150px}
   border-bottom:1px solid var(--line);scrollbar-width:none;-ms-overflow-style:none;
 }
 .mtabs::-webkit-scrollbar{display:none}
+.mtabs{position:sticky;top:var(--navh,64px);z-index:20;background:var(--ink-2);padding-top:12px}
+html,body{overflow-anchor:none}
 .mtab{
   flex:0 0 auto;background:transparent;border:1px solid var(--orange);color:var(--muted);
   font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;
@@ -1950,8 +1952,17 @@ footer .cc-logo{height:150px}
       [].slice.call(document.querySelectorAll('.menu-panel')).forEach(function(p){ p.hidden=true; });
       var p=document.getElementById('panel-'+t.getAttribute('data-panel'));
       if(p){ p.hidden=false; }
+      var nav=document.getElementById('nav'), wrap=document.querySelector('.menu-wrap');
+      var navh=nav?nav.offsetHeight:0, top=wrap.getBoundingClientRect().top;
+      if(top<navh){ window.scrollTo({top:top+window.scrollY-navh,behavior:'instant'}); }
+      var bar=t.parentNode; if(bar.scrollWidth>bar.clientWidth){ bar.scrollTo({left:bar.scrollLeft+t.getBoundingClientRect().left-bar.getBoundingClientRect().left-(bar.clientWidth-t.offsetWidth)/2,behavior:'smooth'}); }
     });
   });
+  (function(){
+    var nav=document.getElementById('nav');
+    function setNavH(){ if(nav){ document.documentElement.style.setProperty('--navh',nav.offsetHeight+'px'); } }
+    setNavH(); window.addEventListener('resize',setNavH); window.addEventListener('scroll',setNavH,{passive:true});
+  })();
 
   var posters=document.getElementById('posters'), emptyMsg=document.getElementById('eventsEmpty');
   if(posters && emptyMsg && posters.children.length>0){ emptyMsg.style.display='none'; }
