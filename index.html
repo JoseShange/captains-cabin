@@ -598,6 +598,9 @@ footer .cc-logo{height:150px}
 .sp-tab:hover{color:var(--cream);border-color:var(--orange-soft)}
 .sp-tab[aria-expanded="true"]{background:var(--orange);border-color:var(--orange);color:#fff}
 .sp-tab[aria-expanded="true"]::after{transform:rotate(-135deg) translateY(-2px)}
+.sp-tab.sea{border-color:var(--sea)}
+.sp-tab.sea:hover{border-color:#8fd0e6}
+.sp-tab.sea[aria-expanded="true"]{background:var(--sea);border-color:var(--sea);color:var(--ink)}
 .sp-panel{margin-top:26px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px;align-items:start;
   border:1px solid var(--line);border-top:3px solid var(--orange);background:var(--ink-3);border-radius:2px;padding:24px}
 .sp-panel[hidden]{display:none}
@@ -1607,7 +1610,7 @@ footer .cc-logo{height:150px}
 
     <div class="sp-tabs rv">
       <button class="sp-tab" type="button" aria-expanded="false" aria-controls="sp-drinks">Drink specials</button>
-      <button class="sp-tab" type="button" aria-expanded="false" aria-controls="sp-food">Food specials</button>
+      <button class="sp-tab sea" type="button" aria-expanded="false" aria-controls="sp-food">Food specials</button>
     </div>
 
     <!-- DRINK SPECIALS -->
