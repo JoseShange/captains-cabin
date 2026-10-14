@@ -524,6 +524,46 @@ footer .cc-logo{height:150px}
   .mtabs{flex-wrap:nowrap;overflow-x:auto;margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
   .events-empty{padding:22px 20px}
 }
+/* ==================================================================
+   CLUBS (run, ride & coffee rave) + SLOTS
+   ================================================================== */
+.clubs{border-top:1px solid var(--line);background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
+.club-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.club{position:relative;display:flex;flex-direction:column;background:var(--ink-3);border:1px solid var(--line);border-radius:2px;padding:30px 28px 28px;overflow:hidden}
+.club::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--orange)}
+.club.sea::before{background:var(--sea)}
+.club .when{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.22em;font-size:.74rem;font-weight:700;color:var(--orange-soft)}
+.club.sea .when{color:var(--sea)}
+.club .time{font-family:'Anton',sans-serif;font-size:clamp(2.6rem,6vw,3.6rem);line-height:1;margin:14px 0 4px;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.club .time small{font-size:.42em;color:var(--muted);letter-spacing:.06em;margin-left:6px}
+.club h3{font-size:1.55rem;margin-top:14px}
+.club p{color:#cfd6de;margin-top:12px;font-size:.98rem}
+.perk{margin-top:auto;padding-top:22px}
+.perk div{border:1px dashed rgba(227,18,27,.5);background:rgba(227,18,27,.07);padding:14px 16px;border-radius:2px;font-size:.95rem;color:#efe6dd}
+.club.sea .perk div{border-color:rgba(95,179,207,.55);background:rgba(95,179,207,.08)}
+.perk b{display:block;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-size:.7rem;font-weight:700;color:var(--orange-soft);margin-bottom:4px}
+.club.sea .perk b{color:var(--sea)}
+.clubs-foot{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:34px}
+.clubs-foot p{color:var(--muted);font-size:.92rem;flex:1 1 320px}
+.slots{border-top:1px solid var(--line);padding:84px 0;background:var(--ink)}
+.slots-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
+.slots h2{font-size:clamp(2.2rem,6vw,4rem);margin-top:14px}
+.slots p{color:#cfd6de;margin-top:18px;max-width:56ch}
+.slots-hours{border:1px solid var(--line);background:var(--ink-3);border-radius:2px;padding:30px 28px;text-align:center}
+.slots-hours i{font-style:normal;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;font-weight:700;color:var(--orange)}
+.slots-hours b{display:block;font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(2.4rem,7vw,3.4rem);line-height:1;margin:12px 0 6px;font-variant-numeric:tabular-nums}
+.slots-hours span{color:var(--muted);font-size:.9rem}
+.slots p.rg{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem;line-height:1.55}
+.rg strong{color:var(--cream);font-weight:600}
+.navlinks a{white-space:nowrap}
+@media(max-width:1180px) and (min-width:761px){ .navlinks{gap:16px} .navlinks a{letter-spacing:.1em} }
+@media(max-width:1000px){ .club-grid{grid-template-columns:1fr 1fr} .club:last-child{grid-column:1 / -1} }
+@media(max-width:760px){
+  .club-grid{grid-template-columns:1fr} .club:last-child{grid-column:auto}
+  .club{padding:26px 20px 22px}
+  .slots{padding:68px 0}
+  .slots-inner{grid-template-columns:1fr;gap:30px}
+}
 </style>
 </head>
 <body>
@@ -543,6 +583,8 @@ footer .cc-logo{height:150px}
     <a href="#kitchen">Kitchen</a>
     <a href="#gallery">Gallery</a>
     <a href="#events">Events</a>
+    <a href="#clubs">Run Club</a>
+    <a href="#slots">Slots</a>
     <a href="#visit">Find Us</a>
     <a class="btn" href="tel:+27600201219">Call &amp; Book</a>
   </div>
@@ -1543,6 +1585,69 @@ footer .cc-logo{height:150px}
   </div>
 </section>
 
+<!-- ===== CLUBS: run, ride & coffee rave ===== -->
+<section class="sec clubs" id="clubs">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Run club &middot; Cycle club &middot; Coffee rave</p>
+      <h2>Run it, ride it,<br>then refuel</h2>
+      <div class="rule"></div>
+      <p>Everyone&rsquo;s welcome, every pace. Meet at the Cabin, head out along the bay, and come back to coffee, music and a proper breakfast.</p>
+    </div>
+
+    <div class="club-grid rv">
+      <article class="club">
+        <p class="when">Every Saturday</p>
+        <div class="time">08:00</div>
+        <h3>Run &amp; Cycle Club</h3>
+        <p>The Saturday morning run and ride, starting and finishing at the Cabin on Main Road. Runners and riders, all levels welcome.</p>
+        <div class="perk"><div><b>Club perk &middot; 08:00 &ndash; 11:00</b>Free coffee, water and juice with every meal you order.</div></div>
+      </article>
+
+      <article class="club">
+        <p class="when">Every Saturday</p>
+        <div class="time">08:00<small>&ndash; 11:00</small></div>
+        <h3>Coffee Rave</h3>
+        <p>Morning music, good coffee and good people. Come straight off the run, or just come for the vibe &mdash; no sweat required.</p>
+        <div class="perk"><div><b>Rave perk &middot; 08:00 &ndash; 11:00</b>Free coffee, water and juice with every meal you order.</div></div>
+      </article>
+
+      <article class="club sea">
+        <p class="when">Tuesday &amp; Thursday</p>
+        <div class="time">18:00</div>
+        <h3>Sunset Run</h3>
+        <p>A midweek run timed for the light going down over Saldanha Bay. Finish back at the Cabin and stay for dinner.</p>
+        <div class="perk"><div><b>Runner perk</b>A free beer, cider or cold drink of your choice after the run &mdash; plus 30% off your meal that day.</div></div>
+      </article>
+    </div>
+
+    <div class="clubs-foot rv">
+      <p>Perks are for that day&rsquo;s participants. Beer and cider for over-18s only. Bringing a group or have a question? Give us a call.</p>
+      <a class="btn" href="tel:+27600201219">060 020 1219</a>
+      <a class="btn ghost" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener">Follow the club</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLOTS ===== -->
+<section class="slots" id="slots">
+  <div class="wrap">
+    <div class="slots-inner rv">
+      <div>
+        <p class="eyebrow">Grand Slots at the Cabin</p>
+        <h2>Feeling<br>lucky?</h2>
+        <p>Our Grand Slots gambling area is open every day. Grab a drink from the bar and try your luck.</p>
+        <p class="rg"><strong>No persons under the age of 18 years are permitted to gamble.</strong> Winners know when to stop. National Responsible Gambling Programme toll-free counselling line: <a href="tel:0800006008">0800 006 008</a>.</p>
+      </div>
+      <div class="slots-hours">
+        <i>Slots open daily</i>
+        <b>10:00 &ndash; 00:00</b>
+        <span>10 in the morning till midnight</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== RIDERS ===== -->
 <section class="riders">
   <div class="riders-bg">
@@ -1675,6 +1780,8 @@ footer .cc-logo{height:150px}
         <a href="#kitchen">Kitchen</a>
         <a href="#gallery">Gallery</a>
         <a href="#events">Events</a>
+        <a href="#clubs">Run Club</a>
+        <a href="#slots">Slots</a>
         <a href="#visit">Find Us</a>
       </div>
       <div class="foot-nav">
