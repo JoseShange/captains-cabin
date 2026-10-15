@@ -517,8 +517,9 @@ html,body{overflow-anchor:none}
 .events{border-top:1px solid var(--line);position:relative;overflow:hidden}
 .events-bg{position:absolute;inset:0;z-index:0}
 .events-bg img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
-.events-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,13,16,.95) 0%,rgba(11,13,16,.8) 45%,rgba(11,13,16,.45) 100%)}
+.events-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,rgba(11,13,16,.9) 0%,rgba(11,13,16,.6) 25%,rgba(11,13,16,0) 50%),linear-gradient(90deg,rgba(11,13,16,.95) 0%,rgba(11,13,16,.8) 45%,rgba(11,13,16,.45) 100%)}
 .events .wrap{position:relative;z-index:2}
+.events .sec-head p.events-lede{color:#fff;font-weight:700}
 .posters{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
 .posters figure{margin:0;overflow:hidden;border:1px solid var(--line);border-radius:2px;background:var(--ink-3)}
 .posters img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
@@ -534,7 +535,7 @@ html,body{overflow-anchor:none}
 @media(max-width:760px){
   .mtabs{flex-wrap:nowrap;overflow-x:auto;margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
   .events-empty{padding:22px 20px}
-  .events-bg::after{background:linear-gradient(180deg,rgba(11,13,16,.72),rgba(11,13,16,.94))}
+  .events-bg::after{background:linear-gradient(to top right,rgba(11,13,16,.9) 0%,rgba(11,13,16,.6) 25%,rgba(11,13,16,0) 50%),linear-gradient(180deg,rgba(11,13,16,.72),rgba(11,13,16,.94))}
 }
 /* ==================================================================
    CLUBS (run, ride & coffee rave) + SLOTS
@@ -1681,7 +1682,7 @@ html,body{overflow-anchor:none}
       <p class="eyebrow">What&rsquo;s coming up</p>
       <h2>On at<br>the Cabin</h2>
       <div class="rule"></div>
-      <p>Live music, big games, club runs and the odd party that got out of hand. Here&rsquo;s what&rsquo;s on the calendar.</p>
+      <p class="events-lede">Our socials and upcoming events</p>
     </div>
 
     <!-- POSTERS: add one <figure> per event. Drop the image in images/ first.
