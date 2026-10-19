@@ -3,6 +3,10 @@
   publish = "."
   command = ""
 
+# /brand and /images are cached for a year as "immutable": browsers never re-check them.
+# RULE: never edit a file in /brand or /images in place. Save the change under a NEW
+# file name (e.g. mark-cream-v2.svg -> mark-cream-v3.svg) and update the references.
+# Keep the old file so old links don't break.
 [[headers]]
   for = "/brand/*"
   [headers.values]

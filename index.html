@@ -23,7 +23,7 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon-v2.png">
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#0b0d10">
 
@@ -153,6 +153,12 @@ section{position:relative}
 }
 .btn:hover{background:transparent;color:var(--orange-soft);transform:translateY(-2px)}
 .btn.ghost{background:transparent;color:var(--cream);border-color:rgba(245,241,234,.35)}
+.card-cta{margin-top:34px;display:flex;justify-content:center}
+.cardbtn{display:flex;flex-direction:column;align-items:center;gap:5px;width:100%;max-width:560px;padding:16px 22px;border-radius:2px;text-decoration:none;text-align:center;background:var(--orange);border:2px solid var(--orange);color:#fff;box-shadow:0 12px 32px rgba(227,18,27,.3);transition:background .2s,color .2s,transform .2s}
+.cardbtn .cb-title{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.15em;font-size:1.05rem;font-weight:700}
+.cardbtn .cb-sub{font-size:.88rem;color:rgba(255,255,255,.88)}
+.cardbtn:hover{background:transparent;color:var(--orange-soft);transform:translateY(-2px)}
+.cardbtn:hover .cb-sub{color:var(--cream)}
 .btn.ghost:hover{border-color:var(--orange);color:var(--orange-soft)}
 .burger{display:none;background:none;border:0;color:var(--cream);cursor:pointer;padding:8px}
 .burger svg{width:26px;height:26px}
@@ -412,7 +418,7 @@ footer{background:var(--ink-2);border-top:1px solid var(--line);padding:56px 0 3
    the rope holes) is real alpha — the page background reads through it.
      brand/logo-cream.svg   full lockup, cream ink   <- used on this dark site
      brand/logo-ink.svg     full lockup, near-black  <- for light backgrounds/print
-     brand/mark-cream.svg   ship's wheel only        <- swap in where the
+     brand/mark-cream-v2.svg ship's wheel only        <- swap in where the
                                                         script would be too small
    ================================================================== */
 .cc-logo{display:block;width:auto;background:transparent}
@@ -1608,6 +1614,7 @@ html,body{overflow-anchor:none}
     </div>
 
     <p class="note"><b>Please note:</b> prices are in South African Rand and include VAT. Blackboard specials change daily &mdash; ask your server for today&rsquo;s price. Menu correct as at August 2026.</p>
+    <div class="card-cta rv"><a class="cardbtn" href="https://stock.captainscabinwestcoast.com/card.html"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a></div>
   </div>
 </section>
 
