@@ -160,6 +160,8 @@ section{position:relative}
 .cardbtn:hover{background:transparent;color:var(--orange-soft);transform:translateY(-2px)}
 .cardbtn:hover .cb-sub{color:var(--cream)}
 .btn.ghost:hover{border-color:var(--orange);color:var(--orange-soft)}
+.btn.sea{background:var(--sea);border-color:var(--sea);color:var(--ink)}
+.btn.sea:hover{background:transparent;color:var(--sea)}
 .burger{display:none;background:none;border:0;color:var(--cream);cursor:pointer;padding:8px}
 .burger svg{width:26px;height:26px}
 
@@ -578,6 +580,10 @@ html,body{overflow-anchor:none}
 .carwash p.cw-tag{color:#fff;font-weight:700;font-size:clamp(1.3rem,7.2vw,2rem);line-height:1.2;white-space:nowrap}
 .cw-cta{display:flex;flex-direction:column;gap:12px;margin-top:24px}
 .cw-cta .btn{justify-content:center;text-align:center}
+.carwash p.cw-deal{color:#fff;font-weight:600}
+.carwash p.cw-deal b{color:var(--orange-soft)}
+.posters figure{cursor:zoom-in}
+.poster-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
 .navlinks a{white-space:nowrap}
 @media(max-width:1260px) and (min-width:1081px){ .navlinks{gap:16px} .navlinks a{letter-spacing:.1em} }
 @media(max-width:1080px){
@@ -659,7 +665,7 @@ html,body{overflow-anchor:none}
     <a href="#kitchen">Kitchen</a>
     <a href="#specials">Specials</a>
     <a href="#gallery">Gallery</a>
-    <a href="#events">Events</a>
+    <a href="#events">What&rsquo;s On</a>
     <a href="#clubs">Run Club</a>
     <a href="#slots">Slots</a>
     <a href="#carwash">Car Wash</a>
@@ -683,6 +689,7 @@ html,body{overflow-anchor:none}
       <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
       <div class="cta">
         <a class="btn" href="tel:+27227141716">Call 022 714 1716</a>
+        <a class="btn sea" href="#events">What&rsquo;s on at the Cabin</a>
         <a class="btn ghost" href="#visit">Find the Cabin</a>
       </div>
     </div>
@@ -1614,7 +1621,7 @@ html,body{overflow-anchor:none}
     </div>
 
     <p class="note"><b>Please note:</b> prices are in South African Rand and include VAT. Blackboard specials change daily &mdash; ask your server for today&rsquo;s price. Menu correct as at August 2026.</p>
-    <div class="card-cta rv"><a class="cardbtn" href="https://stock.captainscabinwestcoast.com/card.html"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a></div>
+    <div class="card-cta rv"><a class="cardbtn" href="/loyalty"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a></div>
   </div>
 </section>
 
@@ -1702,6 +1709,12 @@ html,body{overflow-anchor:none}
          <figure><img loading="lazy" src="images/event-YOURNAME.jpg" alt="Short description of the event"></figure>
     -->
     <div class="posters rv" id="posters">
+      <figure data-until="2026-10-31"><img loading="lazy" src="images/event-sunset-run-2026-10-30-sm.jpg" data-full="images/event-sunset-run-2026-10-30.jpg" width="600" height="794" alt="Captain's Cabin Sunset Run, Friday 30 October 2026, start 18:30 at the Cabin, 20 Main Rd, Saldanha. 5 km, all paces welcome, free entry. 30% off meals and drinks after the run for registered runners."></figure>
+      <figure><img loading="lazy" src="images/event-car-wash-v1-sm.jpg" data-full="images/event-car-wash-v1.jpg" width="600" height="794" alt="We wash your car while you eat. Car wash open 10:00 to 19:00. 10% off your meal when we wash your car."></figure>
+    </div>
+    <div class="poster-cta rv">
+      <a class="btn" data-until="2026-10-31" href="/loyalty">Register for the Sunset Run</a>
+      <a class="btn sea" href="#carwash">Car wash &middot; 10% off your meal</a>
     </div>
 
     <div class="events-empty rv" id="eventsEmpty">
@@ -1810,13 +1823,14 @@ html,body{overflow-anchor:none}
         <p class="eyebrow">Car wash on site</p>
         <h2>The Captain&rsquo;s<br><span class="cw-red">Car Wash</span></h2>
         <p>We run a car wash right here at the Cabin. Park up, leave the car with us and sit down for a meal, a coffee or the game &mdash; it&rsquo;ll be washed while you&rsquo;re inside.</p>
+        <p class="cw-deal"><b>10% off your meal</b> when we wash your car while you eat.</p>
         <p>Call or WhatsApp us for prices or to check if there&rsquo;s a gap before you come in.</p>
         <p class="cw-tag">Eat, drink, drive off clean.</p>
       </div>
       <div class="slots-hours">
-        <i>Car wash</i>
-        <b>Ask us</b>
-        <span>for prices &amp; availability</span>
+        <i>Car wash open</i>
+        <b>10:00 &ndash; 19:00</b>
+        <span>Ask us for prices &amp; availability</span>
         <div class="cw-cta">
           <a class="btn" href="https://wa.me/27649916181" target="_blank" rel="noopener">WhatsApp 064 991 6181</a>
           <a class="btn ghost" href="tel:+27227141716">Call 022 714 1716</a>
@@ -1933,7 +1947,7 @@ html,body{overflow-anchor:none}
         <a href="#kitchen">Kitchen</a>
         <a href="#specials">Specials</a>
         <a href="#gallery">Gallery</a>
-        <a href="#events">Events</a>
+        <a href="#events">What&rsquo;s On</a>
         <a href="#clubs">Run Club</a>
         <a href="#slots">Slots</a>
         <a href="#carwash">Car Wash</a>
@@ -1980,10 +1994,12 @@ html,body{overflow-anchor:none}
   setTimeout(function(){ rv.forEach(function(el){ el.classList.add('in'); }); }, 4000);
 
   var lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
-  document.getElementById('gal').addEventListener('click',function(e){
+  function openLb(e){
     var img=e.target.closest('img'); if(!img) return;
     lbimg.src=img.dataset.full||img.src; lbimg.alt=img.alt; lb.classList.add('open');
-  });
+  }
+  document.getElementById('gal').addEventListener('click',openLb);
+  document.getElementById('posters').addEventListener('click',openLb);
   function close(){ lb.classList.remove('open'); lbimg.src=''; }
   document.getElementById('lbx').addEventListener('click',close);
   lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
@@ -2010,6 +2026,9 @@ html,body{overflow-anchor:none}
     setNavH(); window.addEventListener('resize',setNavH); window.addEventListener('scroll',setNavH,{passive:true});
   })();
 
+  // Posters and buttons with data-until="YYYY-MM-DD" disappear from that date on.
+  var today=new Date().toISOString().slice(0,10);
+  document.querySelectorAll('[data-until]').forEach(function(el){ if(today>=el.getAttribute('data-until')) el.remove(); });
   var posters=document.getElementById('posters'), emptyMsg=document.getElementById('eventsEmpty');
   if(posters && emptyMsg && posters.children.length>0){ emptyMsg.style.display='none'; }
 

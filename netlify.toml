@@ -24,3 +24,13 @@
   to = "https://captainscabinwestcoast.com/:splat"
   status = 301
   force = true
+
+# Customer-friendly loyalty card address. Netlify fetches the card page from the
+# stock app behind the scenes (status 200 = proxy), so customers stay on
+# captainscabinwestcoast.com/loyalty and never see the stock app address.
+# Used by the poster QR codes and every "Join the Captain's Cabin Card" button.
+[[redirects]]
+  from = "/loyalty"
+  to = "https://stock.captainscabinwestcoast.com/card.html"
+  status = 200
+  force = true

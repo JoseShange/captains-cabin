@@ -67,6 +67,19 @@ border:2px solid var(--orange);background:var(--orange);color:#fff}
 .revline a{color:var(--orange-soft);font-weight:500;text-underline-offset:3px}
 .revhead{margin-top:30px!important;color:var(--cream)!important}
 .webbtn{grid-column:1/-1}
+/* car wash ad + what's on */
+.washbar{display:flex;align-items:center;gap:14px;margin-top:26px;padding:16px 18px;border-radius:2px;text-decoration:none;background:#5fb3cf;color:var(--ink)}
+.washbar svg{width:34px;height:34px;flex:none;fill:none;stroke:var(--ink);stroke-width:2}
+.washbar b{display:block;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:1.3rem;line-height:1.1;letter-spacing:.01em}
+.washbar span{display:block;font-weight:600;font-size:.88rem;line-height:1.35;margin-top:3px}
+.whatson{margin-top:14px;padding:16px;border:1px solid var(--line);border-radius:2px;background:var(--ink-3)}
+.whatson .eyebrow{margin-bottom:12px}
+.wo-posters{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wo-posters a{display:block;border-radius:2px;overflow:hidden;border:1px solid var(--line)}
+.wo-posters img{width:100%;height:auto}
+.wo-posters a:only-child{grid-column:1/-1;max-width:320px}
+.wo-btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;margin-top:12px;border-radius:2px;text-decoration:none;
+font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.13em;font-size:.88rem;font-weight:700;background:var(--orange);color:#fff}
 /* category chips */
 .chips{position:sticky;top:var(--bar);z-index:25;height:var(--chips);background:var(--ink-2);border-bottom:1px solid var(--line);
 display:flex;align-items:center;gap:8px;overflow-x:auto;padding:0 18px;scrollbar-width:none}
@@ -128,13 +141,23 @@ background:var(--orange);color:#fff;display:grid;place-items:center;opacity:0;po
 <p class="eyebrow">Welcome aboard</p>
 <h1>The <em>Menu</em></h1>
 <p class="lede">Order at your table with your server. Tap a section below to jump straight to it.</p>
-<a class="cardbtn" href="https://stock.captainscabinwestcoast.com/card.html"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
+<a class="cardbtn" href="/loyalty"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
 <div class="social">
 <a class="sbtn ghost" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"></path></svg>Instagram</a>
 <a class="sbtn ghost" href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"></path></svg>Facebook</a>
 <a class="sbtn ghost webbtn" href="/"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Visit our website</a>
 </div>
 <p class="revline">Enjoyed your visit? Review us on <a href="https://www.google.com/maps/search/?api=1&amp;query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener">Google</a> or <a href="https://www.tripadvisor.co.za/Restaurant_Review-g312671-d11693363-Reviews-Captains-Saldanha_Saldanha_Bay_Municipality_Western_Cape.html" target="_blank" rel="noopener">Tripadvisor</a>.</p>
+<a class="washbar" href="/#carwash"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16l1.5-5A2 2 0 0 1 7.4 9.5h9.2a2 2 0 0 1 1.9 1.5L20 16"/><rect x="3" y="16" width="18" height="4" rx="1"/><path d="M8 5c0 1-1 1.5-1 2.5a1 1 0 0 0 2 0C9 6.5 8 6 8 5zM16 5c0 1-1 1.5-1 2.5a1 1 0 0 0 2 0c0-1-1-1.5-1-2.5z"/></svg><span><b>We wash your car while you eat</b><span>10% off your meal when we wash your car &middot; Car wash 10:00&ndash;19:00</span></span></a>
+<div class="whatson">
+<p class="eyebrow">What&rsquo;s on at the Cabin</p>
+<div class="wo-posters" id="woPosters">
+<a data-until="2026-10-31" href="/images/event-sunset-run-2026-10-30.jpg"><img loading="lazy" src="/images/event-sunset-run-2026-10-30-sm.jpg" width="600" height="794" alt="Sunset Run, Friday 30 October, start 18:30 at the Cabin. 5 km, free entry, 30% off meals and drinks after the run for registered runners."></a>
+<a href="/images/event-car-wash-v1.jpg"><img loading="lazy" src="/images/event-car-wash-v1-sm.jpg" width="600" height="794" alt="We wash your car while you eat. Car wash open 10:00 to 19:00, 10% off your meal."></a>
+</div>
+<a class="wo-btn" href="/#events">See what&rsquo;s on at the Cabin</a>
+</div>
+<script>(function(){var t=new Date().toISOString().slice(0,10);document.querySelectorAll('[data-until]').forEach(function(el){if(t>=el.getAttribute('data-until'))el.remove();});})();</script>
 </div>
 </section>
 <nav class="chips" id="chips" aria-label="Menu sections">
@@ -998,7 +1021,7 @@ background:var(--orange);color:#fff;display:grid;place-items:center;opacity:0;po
 <img src="/brand/logo-cream.svg" width="130" height="130" alt="Captain's Cabin">
 <h3>Enjoyed your meal?</h3>
 <p>Follow us for specials, live music and what&rsquo;s on this week.</p>
-<a class="cardbtn" href="https://stock.captainscabinwestcoast.com/card.html"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
+<a class="cardbtn" href="/loyalty"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
 <div class="social">
 <a class="sbtn ghost" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"></path></svg>Instagram</a>
 <a class="sbtn ghost" href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"></path></svg>Facebook</a>
