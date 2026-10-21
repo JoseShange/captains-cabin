@@ -70,6 +70,17 @@ border:2px solid var(--orange);background:var(--orange);color:#fff}
 .petbadge{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:8px 14px 8px 10px;border-radius:999px;background:#5fb3cf;color:var(--ink);
 font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:.86rem;font-weight:700}
 .petbadge svg{width:20px;height:20px;fill:currentColor;flex:none}
+/* rate our service */
+.ratebtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:56px;margin-top:16px;border-radius:2px;border:2px solid var(--cream);background:transparent;color:var(--cream);cursor:pointer;
+font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:1rem;font-weight:700}
+.ratebtn svg{width:20px;height:20px;fill:var(--orange);flex:none}
+.rate-opts{display:grid;gap:10px;margin-top:10px}
+.rate-opts[hidden]{display:none}
+.rate-opts a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:60px;padding:12px 14px;border-radius:2px;text-decoration:none;text-align:center;
+font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.11em;font-size:.95rem;font-weight:700}
+.rate-opts a small{font-family:'Barlow',sans-serif;text-transform:none;letter-spacing:0;font-weight:400;font-size:.8rem;opacity:.9}
+.rate-opts .ro-join{background:var(--orange);color:#fff}
+.rate-opts .ro-anon{background:var(--ink-3);color:var(--cream);border:1px solid var(--line)}
 /* car wash ad + what's on */
 .washbar{display:flex;align-items:center;gap:14px;margin-top:26px;padding:16px 18px;border-radius:2px;text-decoration:none;background:#5fb3cf;color:var(--ink)}
 .washbar svg{width:34px;height:34px;flex:none;fill:none;stroke:var(--ink);stroke-width:2}
@@ -144,6 +155,12 @@ background:var(--orange);color:#fff;display:grid;place-items:center;opacity:0;po
 <p class="eyebrow">Welcome aboard</p>
 <h1>The <em>Menu</em></h1>
 <p class="petbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"/><ellipse cx="10" cy="5.6" rx="2" ry="2.6"/><ellipse cx="14.4" cy="5.6" rx="2" ry="2.6"/><ellipse cx="18.4" cy="10" rx="2" ry="2.6"/><path d="M12.2 11.2c-3 0-6.2 3.9-6.2 6.4 0 1.7 1.4 2.4 3 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.6 0 3-.7 3-2.4 0-2.5-3.2-6.4-6.2-6.4z"/></svg>Dog &amp; pet friendly</p>
+<button class="ratebtn" id="ratebtn" type="button" aria-expanded="false" aria-controls="rateopts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>Rate our service</button>
+<div class="rate-opts" id="rateopts" hidden>
+<a class="ro-join" href="/loyalty">Join our loyalty program<small>Then tap "Rate our service" on your card and earn 2 points</small></a>
+<a class="ro-anon" href="/loyalty?anon=1">Rate service without loyalty<small>Quick rating and comment, no sign-up</small></a>
+</div>
+<script>(function(){var b=document.getElementById('ratebtn'),o=document.getElementById('rateopts');b.addEventListener('click',function(){var open=o.hidden;o.hidden=!open;b.setAttribute('aria-expanded',open);});})();</script>
 <p class="lede">Order at your table with your server. Tap a section below to jump straight to it.</p>
 <a class="cardbtn" href="/loyalty"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
 <div class="social">
