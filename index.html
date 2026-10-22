@@ -160,6 +160,12 @@ section{position:relative}
 .cardbtn:hover{background:transparent;color:var(--orange-soft);transform:translateY(-2px)}
 .cardbtn:hover .cb-sub{color:var(--cream)}
 .btn.ghost:hover{border-color:var(--orange);color:var(--orange-soft)}
+.toppills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.toppills .petbadge{margin-top:0}
+.loybadge{display:inline-flex;align-items:center;gap:10px;padding:9px 18px 9px 14px;border-radius:999px;background:var(--orange);color:#fff;text-decoration:none;
+font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.9rem;font-weight:700;transition:background .2s,transform .2s}
+.loybadge svg{width:20px;height:20px;fill:currentColor;flex:none}
+.loybadge:hover{background:#c20f17;transform:translateY(-2px)}
 .petbadge{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:9px 16px 9px 12px;border-radius:999px;background:var(--sea);color:var(--ink);
 font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.9rem;font-weight:700}
 .petbadge svg{width:22px;height:22px;fill:currentColor;flex:none}
@@ -690,7 +696,10 @@ html,body{overflow-anchor:none}
       <p class="eyebrow">20 Main Road &middot; Saldanha Bay &middot; South Africa</p>
       <h1>Captain's<em>Cabin</em></h1>
       <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
-      <p class="petbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"/><ellipse cx="10" cy="5.6" rx="2" ry="2.6"/><ellipse cx="14.4" cy="5.6" rx="2" ry="2.6"/><ellipse cx="18.4" cy="10" rx="2" ry="2.6"/><path d="M12.2 11.2c-3 0-6.2 3.9-6.2 6.4 0 1.7 1.4 2.4 3 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.6 0 3-.7 3-2.4 0-2.5-3.2-6.4-6.2-6.4z"/></svg>Dog &amp; pet friendly</p>
+      <div class="toppills">
+        <p class="petbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"/><ellipse cx="10" cy="5.6" rx="2" ry="2.6"/><ellipse cx="14.4" cy="5.6" rx="2" ry="2.6"/><ellipse cx="18.4" cy="10" rx="2" ry="2.6"/><path d="M12.2 11.2c-3 0-6.2 3.9-6.2 6.4 0 1.7 1.4 2.4 3 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.6 0 3-.7 3-2.4 0-2.5-3.2-6.4-6.2-6.4z"/></svg>Dog &amp; pet friendly</p>
+        <a class="loybadge" href="/loyalty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>Loyalty Program</a>
+      </div>
       <div class="cta">
         <a class="btn" href="tel:+27227141716">Call 022 714 1716</a>
         <a class="btn sea" href="#events">What&rsquo;s on at the Cabin</a>
