@@ -34,3 +34,9 @@
   to = "https://stock.captainscabinwestcoast.com/card.html"
   status = 200
   force = true
+
+# Short address for the Sunset Run poster QR / links: lands on the poster on the home page.
+[[redirects]]
+  from = "/sunset-run"
+  to = "/#sunset-run"
+  status = 302

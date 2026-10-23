@@ -119,6 +119,7 @@ h1,h2,h3,.display{
 section{position:relative}
 
 /* ---------- NAV ---------- */
+#sunset-run,#posters{scroll-margin-top:calc(var(--navh,70px) + 12px)}
 .nav{
   position:fixed;inset:0 0 auto 0;z-index:60;
   display:flex;align-items:center;justify-content:space-between;gap:20px;
@@ -1705,14 +1706,14 @@ html,body{overflow-anchor:none}
       <div class="rule"></div>
     </div>
     <div class="gal" id="gal">
-      <figure><img loading="lazy" src="images/cheers-outdoor-sm.jpg" data-full="images/cheers-outdoor.jpg" alt="Three guests raising beers on the sunny deck at Captain's Cabin"></figure>
+      <figure><img loading="lazy" src="images/cheers-outdoor-sm.jpg" width="601" height="900" data-full="images/cheers-outdoor.jpg" alt="Three guests raising beers on the sunny deck at Captain's Cabin"></figure>
       <figure><img loading="lazy" src="images/gal-entrance-crowd.webp" data-full="images/gal-entrance-crowd.webp" width="600" height="898" alt="A full house inside Captain's Cabin on match day"></figure>
-      <figure><img loading="lazy" src="images/coffee-guest-sm.jpg" data-full="images/coffee-guest.jpg" alt="Guest with a cappuccino on the deck at Captain's Cabin"></figure>
+      <figure><img loading="lazy" src="images/coffee-guest-sm.jpg" width="601" height="900" data-full="images/coffee-guest.jpg" alt="Guest with a cappuccino on the deck at Captain's Cabin"></figure>
       <figure><img loading="lazy" src="images/gal-coffee-guest.webp" data-full="images/gal-coffee-guest.webp" width="600" height="898" alt="Guest with a hot coffee on the Captain's Cabin deck"></figure>
       <figure><img loading="lazy" src="images/gal-bikers-ladies.webp" data-full="images/gal-bikers-ladies.webp" width="600" height="898" alt="Two riders in patch-covered jackets on the bench at Captain's Cabin"></figure>
-      <figure><img loading="lazy" src="images/biker-portrait-sm.jpg" data-full="images/biker-portrait.jpg" alt="A rider in a badge-covered vest in front of the Captain's Cabin ship's wheel mural"></figure>
+      <figure><img loading="lazy" src="images/biker-portrait-sm.jpg" width="601" height="900" data-full="images/biker-portrait.jpg" alt="A rider in a badge-covered vest in front of the Captain's Cabin ship's wheel mural"></figure>
       <figure><img loading="lazy" src="images/gal-rugby-bar.webp" data-full="images/gal-rugby-bar.webp" width="600" height="898" alt="Regulars watching the rugby at the Captain's Cabin bar"></figure>
-      <figure><img loading="lazy" src="images/biker-metallica-sm.jpg" data-full="images/biker-metallica.jpg" alt="A regular relaxing on the upstairs deck"></figure>
+      <figure><img loading="lazy" src="images/biker-metallica-sm.jpg" width="601" height="900" data-full="images/biker-metallica.jpg" alt="A regular relaxing on the upstairs deck"></figure>
     </div>
   </div>
 </section>
@@ -1735,7 +1736,7 @@ html,body{overflow-anchor:none}
          <figure><img loading="lazy" src="images/event-YOURNAME.jpg" alt="Short description of the event"></figure>
     -->
     <div class="posters rv" id="posters">
-      <figure data-until="2026-10-31"><img loading="lazy" src="images/event-sunset-run-2026-10-30-v3-sm.jpg" data-full="images/event-sunset-run-2026-10-30-v3.jpg" width="600" height="794" alt="Captain's Cabin Sunset Run, Friday 30 October 2026, start 18:30 at the Cabin, 20 Main Rd, Saldanha. 5 km, all paces welcome, free entry. 30% off meals and drinks after the run for registered runners."></figure>
+      <figure id="sunset-run" data-until="2026-10-31"><img src="images/event-sunset-run-2026-10-30-v3-sm.jpg" data-full="images/event-sunset-run-2026-10-30-v3.jpg" width="600" height="794" alt="Captain's Cabin Sunset Run, Friday 30 October 2026, start 18:30 at the Cabin, 20 Main Rd, Saldanha. 5 km, all paces welcome, free entry. 30% off meals and drinks after the run for registered runners."></figure>
       <figure><img loading="lazy" src="images/event-car-wash-v1-sm.jpg" data-full="images/event-car-wash-v1.jpg" width="600" height="794" alt="We wash your car while you eat. Car wash open 10:00 to 19:00. 10% off your meal when we wash your car."></figure>
     </div>
     <div class="poster-cta rv">
@@ -2057,6 +2058,22 @@ html,body{overflow-anchor:none}
   document.querySelectorAll('[data-until]').forEach(function(el){ if(today>=el.getAttribute('data-until')) el.remove(); });
   var posters=document.getElementById('posters'), emptyMsg=document.getElementById('eventsEmpty');
   if(posters && emptyMsg && posters.children.length>0){ emptyMsg.style.display='none'; }
+
+  // QR / shared links (#events, #sunset-run, #posters) land on the poster itself,
+  // below the fixed top bar. Re-aligns while late images load, until the visitor scrolls.
+  (function(){
+    var h=location.hash;
+    if(['#events','#sunset-run','#posters'].indexOf(h)<0) return;
+    var t=(document.getElementById('sunset-run')||posters);
+    if(!t) return;
+    if('scrollRestoration' in history) history.scrollRestoration='manual';
+    var stop=false, n=document.getElementById('nav');
+    function go(){ if(stop) return; var off=(n?n.offsetHeight:70)+12;
+      window.scrollTo(0, t.getBoundingClientRect().top+window.pageYOffset-off); }
+    ['wheel','touchstart','keydown'].forEach(function(e){ window.addEventListener(e,function(){stop=true;},{passive:true,once:true}); });
+    go(); requestAnimationFrame(go); window.addEventListener('load',go);
+    [300,800,1500,2500].forEach(function(ms){ setTimeout(go,ms); });
+  })();
 
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();
