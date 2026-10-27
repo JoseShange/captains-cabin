@@ -176,6 +176,14 @@ transition:background .2s,transform .2s;animation:loyglow 2s ease-in-out infinit
 .loybadge:hover{background:#c20f17;transform:translateY(-2px)}
 .loybadge:hover .lb-arrow{transform:translateX(4px)}
 .loybadge:focus-visible{outline:3px solid #fff;outline-offset:3px}
+/* bigger, can't-miss version */
+.loybadge{padding:18px 26px 18px 20px;min-width:min(100%,380px)}
+.loybadge > svg{width:30px;height:30px}
+.loybadge .lb-text b{font-size:1.35rem;letter-spacing:.1em}
+.loybadge .lb-text small{font-size:.92rem}
+.loybadge .lb-arrow{font-size:2rem;margin-left:auto}
+.loybadge .lb-free{position:absolute;top:-12px;right:-10px;background:#ffd23f;color:#0b0d10;font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.08em;padding:4px 10px;border-radius:4px;transform:rotate(6deg);box-shadow:0 4px 12px rgba(0,0,0,.35)}
+@media(max-width:600px){.loybadge{width:100%}}
 @keyframes loyglow{
   0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.55),0 0 16px 3px rgba(227,18,27,.55)}
   50%{box-shadow:0 0 0 8px rgba(255,255,255,0),0 0 34px 10px rgba(255,60,60,.75)}
@@ -719,7 +727,7 @@ html,body{overflow-anchor:none}
       <p class="sr-only">Dog &amp; pet friendly</p>
       <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
       <div class="toppills">
-        <a class="loybadge" href="/loyalty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg><span class="lb-text"><b>Loyalty Program</b><small>Tap to start your loyalty card</small></span><span class="lb-arrow" aria-hidden="true">›</span></a>
+        <a class="loybadge" href="/loyalty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg><span class="lb-text"><b>Loyalty Program</b><small>Tap to start your loyalty card</small></span><span class="lb-arrow" aria-hidden="true">›</span><span class="lb-free">FREE</span></a>
       </div>
       <div class="cta">
         <a class="btn" href="tel:+27227141716">Call 022 714 1716</a>
