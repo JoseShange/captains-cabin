@@ -163,17 +163,24 @@ section{position:relative}
 .btn.ghost:hover{border-color:var(--orange);color:var(--orange-soft)}
 .toppills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .toppills .petbadge{margin-top:0}
-.loybadge{display:inline-flex;align-items:center;gap:10px;padding:9px 18px 9px 14px;border-radius:999px;background:var(--orange);color:#fff;text-decoration:none;
-font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.9rem;font-weight:700;transition:background .2s,transform .2s}
-.loybadge svg{width:20px;height:20px;fill:currentColor;flex:none}
+/* Loyalty Program: a real rectangular button with a glowing white border, so it reads as "tap here to start" */
+.loybadge{position:relative;display:inline-flex;align-items:center;gap:14px;padding:14px 20px 14px 16px;border-radius:6px;
+background:var(--orange);color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.95);
+font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.12em;font-weight:700;
+transition:background .2s,transform .2s;animation:loyglow 2s ease-in-out infinite}
+.loybadge > svg{width:26px;height:26px;fill:currentColor;flex:none}
+.loybadge .lb-text{display:flex;flex-direction:column;line-height:1.1;text-align:left}
+.loybadge .lb-text b{font-size:1.05rem;font-weight:700}
+.loybadge .lb-text small{font-family:'Barlow',sans-serif;text-transform:none;letter-spacing:.01em;font-weight:500;font-size:.82rem;opacity:.92;margin-top:3px}
+.loybadge .lb-arrow{font-size:1.6rem;line-height:1;margin-left:6px;transition:transform .2s}
 .loybadge:hover{background:#c20f17;transform:translateY(-2px)}
-/* Loyalty Program pulses with a red glow so it reads as the thing to tap */
-.loybadge{position:relative;animation:loyglow 2s ease-in-out infinite}
+.loybadge:hover .lb-arrow{transform:translateX(4px)}
+.loybadge:focus-visible{outline:3px solid #fff;outline-offset:3px}
 @keyframes loyglow{
-  0%,100%{box-shadow:0 0 0 0 rgba(227,18,27,.75),0 0 14px 2px rgba(227,18,27,.45)}
-  50%{box-shadow:0 0 0 12px rgba(227,18,27,0),0 0 30px 8px rgba(255,60,60,.7)}
+  0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.55),0 0 16px 3px rgba(227,18,27,.55)}
+  50%{box-shadow:0 0 0 8px rgba(255,255,255,0),0 0 34px 10px rgba(255,60,60,.75)}
 }
-@media(prefers-reduced-motion:reduce){.loybadge{animation:none;box-shadow:0 0 22px 4px rgba(227,18,27,.6)}}
+@media(prefers-reduced-motion:reduce){.loybadge{animation:none;box-shadow:0 0 24px 6px rgba(227,18,27,.6)}}
 .petbadge{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:9px 16px 9px 12px;border-radius:999px;background:var(--sea);color:var(--ink);
 font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.9rem;font-weight:700}
 .petbadge svg{width:22px;height:22px;fill:currentColor;flex:none}
@@ -708,11 +715,11 @@ html,body{overflow-anchor:none}
   <div class="hero-inner">
     <div class="wrap">
       <p class="eyebrow">20 Main Road &middot; Saldanha Bay &middot; South Africa</p>
-      <h1><span class="h1row">Captain's<span class="petsticker" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="pt-top" d="M25 60a35 35 0 0 1 70 0"/><path id="pt-bot" d="M12 60a48 48 0 0 0 96 0"/></defs><circle cx="60" cy="60" r="58" fill="#5fb3cf"/><circle cx="60" cy="60" r="57.2" fill="none" stroke="#0b0d10" stroke-width="1.4" stroke-dasharray="3 3"/><text class="pt"><textPath href="#pt-top" startOffset="50%" text-anchor="middle">DOG &amp; PET</textPath></text><text class="pt"><textPath href="#pt-bot" startOffset="50%" text-anchor="middle">FRIENDLY</textPath></text><g transform="translate(47.4 45.5) scale(1.05)" fill="#0b0d10"><ellipse cx="6" cy="10" rx="2" ry="2.6"/><ellipse cx="10" cy="5.6" rx="2" ry="2.6"/><ellipse cx="14.4" cy="5.6" rx="2" ry="2.6"/><ellipse cx="18.4" cy="10" rx="2" ry="2.6"/><path d="M12.2 11.2c-3 0-6.2 3.9-6.2 6.4 0 1.7 1.4 2.4 3 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.6 0 3-.7 3-2.4 0-2.5-3.2-6.4-6.2-6.4z"/></g></svg></span></span><em>Cabin</em></h1>
+      <h1><span class="h1row">Captain's<span class="petsticker" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="pt-top" d="M25 60a35 35 0 0 1 70 0"/><path id="pt-bot" d="M12 60a48 48 0 0 0 96 0"/></defs><circle cx="60" cy="60" r="58" fill="#5fb3cf"/><circle cx="60" cy="60" r="57.2" fill="none" stroke="#0b0d10" stroke-width="1.4" stroke-dasharray="3 3"/><text class="pt"><textPath href="#pt-top" startOffset="50%" text-anchor="middle" textLength="98" lengthAdjust="spacingAndGlyphs">DOG &amp; PET</textPath></text><text class="pt"><textPath href="#pt-bot" startOffset="50%" text-anchor="middle" textLength="96" lengthAdjust="spacingAndGlyphs">FRIENDLY</textPath></text><g transform="translate(47.4 45.5) scale(1.05)" fill="#0b0d10"><ellipse cx="6" cy="10" rx="2" ry="2.6"/><ellipse cx="10" cy="5.6" rx="2" ry="2.6"/><ellipse cx="14.4" cy="5.6" rx="2" ry="2.6"/><ellipse cx="18.4" cy="10" rx="2" ry="2.6"/><path d="M12.2 11.2c-3 0-6.2 3.9-6.2 6.4 0 1.7 1.4 2.4 3 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.6 0 3-.7 3-2.4 0-2.5-3.2-6.4-6.2-6.4z"/></g></svg></span></span><em>Cabin</em></h1>
       <p class="sr-only">Dog &amp; pet friendly</p>
       <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
       <div class="toppills">
-        <a class="loybadge" href="/loyalty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>Loyalty Program</a>
+        <a class="loybadge" href="/loyalty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg><span class="lb-text"><b>Loyalty Program</b><small>Tap to start your loyalty card</small></span><span class="lb-arrow" aria-hidden="true">›</span></a>
       </div>
       <div class="cta">
         <a class="btn" href="tel:+27227141716">Call 022 714 1716</a>
