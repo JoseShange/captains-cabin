@@ -161,7 +161,8 @@ section{position:relative}
 .cardbtn:hover{background:transparent;color:var(--orange-soft);transform:translateY(-2px)}
 .cardbtn:hover .cb-sub{color:var(--cream)}
 .btn.ghost:hover{border-color:var(--orange);color:var(--orange-soft)}
-.toppills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.toppills{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.loybtn{border-color:#fff}
 .toppills .petbadge{margin-top:0}
 /* Loyalty Program: a real rectangular button with a glowing white border, so it reads as "tap here to start" */
 .loybadge{position:relative;display:inline-flex;align-items:center;gap:14px;padding:14px 20px 14px 16px;border-radius:6px;
@@ -727,7 +728,7 @@ html,body{overflow-anchor:none}
       <p class="sr-only">Dog &amp; pet friendly</p>
       <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
       <div class="toppills">
-        <a class="loybadge" href="/loyalty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg><span class="lb-text"><b>Loyalty Program</b><small>Tap to start your loyalty card</small></span><span class="lb-arrow" aria-hidden="true">›</span><span class="lb-free">FREE</span></a>
+        <a class="btn loybtn" href="/loyalty">Click here to set up your Loyalty Card</a>
       </div>
       <div class="cta">
         <a class="btn" href="tel:+27227141716">Call 022 714 1716</a>
