@@ -2,6 +2,9 @@
 [build]
   publish = "."
   command = ""
+  # Publish only on purpose (saves Netlify credits): a push goes live only when its commit
+  # message contains [publish]. Exit 1 = build and publish, exit 0 = skip.
+  ignore = "git log -1 --pretty=%B | grep -qF '[publish]' && exit 1 || exit 0"
 
 # /brand and /images are cached for a year as "immutable": browsers never re-check them.
 # RULE: never edit a file in /brand or /images in place. Save the change under a NEW
