@@ -530,6 +530,13 @@ footer .cc-logo{height:150px}
 /* ==================================================================
    MENU  — tabbed, one panel visible at a time
    ================================================================== */
+/* Food | Drinks switch above the menu tabs; sticks under the nav with the tabs below it */
+.mswitch{position:sticky;top:var(--navh,64px);z-index:21;display:grid;grid-template-columns:1fr 1fr;max-width:460px;margin:8px 0 0;background:var(--ink-2);border:1.5px solid var(--cream);border-radius:2px;overflow:hidden}
+.mswitch .seg-b{background:var(--ink-2);border:0;color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.14em;text-transform:uppercase;min-height:46px;cursor:pointer}
+.mswitch .seg-b.on{background:var(--cream);color:var(--ink)}
+.mswitch~.menu-wrap .mtabs{top:calc(var(--navh,64px) + 48px)}
+.menu-wrap[hidden]{display:none}
+.mg-note{color:var(--muted);font-size:.9rem;line-height:1.5;margin:-4px 0 10px}
 .menu-wrap{margin-top:4px}
 .mtabs{
   display:flex;flex-wrap:wrap;gap:8px;padding-bottom:14px;margin-bottom:30px;
@@ -717,6 +724,7 @@ html,body{overflow-anchor:none}
     <a href="#story">The Cabin</a>
     <a href="#worlds">Day &amp; Night</a>
     <a href="#kitchen">Kitchen</a>
+    <a href="#drinks">Drinks</a>
     <a href="#specials">Specials</a>
     <a href="#gallery">Gallery</a>
     <a href="#events">What&rsquo;s On</a>
@@ -854,7 +862,11 @@ html,body{overflow-anchor:none}
     </figure>
     </div>
 
-    <div class="menu-wrap rv">
+    <div class="mswitch" id="mswitch" role="group" aria-label="Show the food or drinks menu">
+      <button type="button" class="seg-b on" data-mode="food" aria-pressed="true">Food menu</button>
+      <button type="button" class="seg-b" data-mode="drinks" aria-pressed="false">Drinks menu</button>
+    </div>
+    <div class="menu-wrap rv" id="menu-food">
     <div class="mtabs" role="tablist" aria-label="Menu sections">
         <button class="mtab" role="tab" id="tab-breakfast" aria-controls="panel-breakfast" aria-selected="true" data-panel="breakfast">Breakfast</button>
         <button class="mtab" role="tab" id="tab-starters" aria-controls="panel-starters" aria-selected="false" data-panel="starters">Starters &amp; Tapas</button>
@@ -1679,6 +1691,1245 @@ html,body{overflow-anchor:none}
       </div>
     </div>
     </div>
+    <div class="menu-wrap" id="menu-drinks" hidden>
+    <div class="mtabs" role="tablist" aria-label="Drinks sections">
+<!-- DRINKS-TABS-START -->
+        <button class="mtab" role="tab" id="tab-d-beer" aria-controls="panel-d-beer" aria-selected="true" data-panel="d-beer">Beers &amp; Ciders</button>
+        <button class="mtab" role="tab" id="tab-d-tap" aria-controls="panel-d-tap" aria-selected="false" data-panel="d-tap">On Tap &amp; Towers</button>
+        <button class="mtab" role="tab" id="tab-d-wine" aria-controls="panel-d-wine" aria-selected="false" data-panel="d-wine">Wine</button>
+        <button class="mtab" role="tab" id="tab-d-spirits" aria-controls="panel-d-spirits" aria-selected="false" data-panel="d-spirits">Spirits &amp; Whisky</button>
+        <button class="mtab" role="tab" id="tab-d-cocktails" aria-controls="panel-d-cocktails" aria-selected="false" data-panel="d-cocktails">Cocktails</button>
+        <button class="mtab" role="tab" id="tab-d-shooters" aria-controls="panel-d-shooters" aria-selected="false" data-panel="d-shooters">Shooters</button>
+        <button class="mtab" role="tab" id="tab-d-coolers" aria-controls="panel-d-coolers" aria-selected="false" data-panel="d-coolers">Coolers</button>
+        <button class="mtab" role="tab" id="tab-d-specials" aria-controls="panel-d-specials" aria-selected="false" data-panel="d-specials">Drinks Specials</button>
+        <!-- DRINKS-TABS-END --></div>
+    <div class="mpanels">
+<!-- DRINKS-PANELS-START -->
+      <div class="menu-panel" id="panel-d-beer" role="tabpanel" aria-labelledby="tab-d-beer">
+        <div class="menu-group">
+          <h4>Beers</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Amstel</span><i class="d-lead"></i><span class="d-price">R34</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Black Label</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Budweiser</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Castle</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Castle Double Malt</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Castle Lite</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Corona</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Devil&rsquo;s Peak Lager</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Flying Fish</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+              <p class="d-desc">Lemon or apple</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Guinness</span><i class="d-lead"></i><span class="d-price">R52</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Hansa Pilsner</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Heineken</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Miller</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Stella Artois</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tafel Lager</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Windhoek Lager</span><i class="d-lead"></i><span class="d-price">R42</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Windhoek Draught</span><i class="d-lead"></i><span class="d-price">R44</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Ciders</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Hunters Dry / Hunters Gold</span><i class="d-lead"></i><span class="d-price">R42</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Hunters Extreme</span><i class="d-lead"></i><span class="d-price">R42</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Square Energy</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Rekordelig</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Strawberry &amp; lime or wildberries</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Savanna</span><i class="d-lead"></i><span class="d-price">R41</span></div>
+              <p class="d-desc">Dry, Light or Chilled Chilli</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Strongbow</span><i class="d-lead"></i><span class="d-price">R41</span></div>
+              <p class="d-desc">Berries or apple</p>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Non-alcoholic</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Castle Free</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Heineken 0.0</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Savanna</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Hunters Chilled</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-d-tap" role="tabpanel" aria-labelledby="tab-d-tap" hidden>
+        <div class="menu-group">
+          <h4>On tap</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Black Label</span><i class="d-lead"></i><span class="d-price">R39 / R49</span></div>
+              <p class="d-desc">300 ml / 500 ml</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Castle Lager</span><i class="d-lead"></i><span class="d-price">R38 / R48</span></div>
+              <p class="d-desc">300 ml / 500 ml</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Castle Lite</span><i class="d-lead"></i><span class="d-price">R39 / R49</span></div>
+              <p class="d-desc">300 ml / 500 ml</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Bone Crusher</span><i class="d-lead"></i><span class="d-price">R37 / R49</span></div>
+              <p class="d-desc">300 ml / 500 ml</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Slow Beer</span><i class="d-lead"></i><span class="d-price">R37 / R49</span></div>
+              <p class="d-desc">300 ml / 500 ml</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Drunken Monkey</span><i class="d-lead"></i><span class="d-price">R37 / R79 / R380</span></div>
+              <p class="d-desc">300 ml / 750 ml / 3 litre</p>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Towers &middot; 3 litre beer</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Black Label</span><i class="d-lead"></i><span class="d-price">R270</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Castle Lite</span><i class="d-lead"></i><span class="d-price">R270</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Castle</span><i class="d-lead"></i><span class="d-price">R260</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Slow Beer</span><i class="d-lead"></i><span class="d-price">R270</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Bone Crusher</span><i class="d-lead"></i><span class="d-price">R270</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Towers &middot; brandy</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Buffelsfontein</span><i class="d-lead"></i><span class="d-price">R490</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">KWV 3 Year</span><i class="d-lead"></i><span class="d-price">R490</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">KWV 5 Year</span><i class="d-lead"></i><span class="d-price">R650</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Olof Bergh</span><i class="d-lead"></i><span class="d-price">R490</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Richelieu</span><i class="d-lead"></i><span class="d-price">R490</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Wellington</span><i class="d-lead"></i><span class="d-price">R490</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Towers &middot; other</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Red Square</span><i class="d-lead"></i><span class="d-price">R490</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Smirnoff 1818</span><i class="d-lead"></i><span class="d-price">R490</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Spiced Gold</span><i class="d-lead"></i><span class="d-price">R490</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-d-wine" role="tabpanel" aria-labelledby="tab-d-wine" hidden>
+        <div class="menu-group">
+          <h4>Wine selection</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Darling Sauvignon Blanc 500 ml</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Van Loveren Blanc de Blanc 750 ml</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Casal Garcia 750 ml</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+              <p class="d-desc">Imported Portuguese wine</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Van Loveren Pinotage 750 ml</span><i class="d-lead"></i><span class="d-price">R180</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Nederburg Ros&eacute; (Classic) 750 ml</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Van Loveren Merlot 750 ml</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Diemersdal Pinotage 750 ml</span><i class="d-lead"></i><span class="d-price">R280</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Nederburg Ros&eacute; (Grenache) 750 ml</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Van Loveren River Red 500 ml</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Cabernet Sauvignon Reserve 750 ml</span><i class="d-lead"></i><span class="d-price">R210</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>By the glass</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Sauvignon Blanc</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Chenin Blanc</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Chardonnay</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Semi-sweet white</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sweet white</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Merlot</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Cabernet Sauvignon</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Shiraz</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Pinotage</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Semi-sweet red</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sweet ros&eacute;</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Sauvignon Blanc</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Diemersdal</span><i class="d-lead"></i><span class="d-price">R170</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Leopard&rsquo;s Leap</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Riebeek Cellars</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">The Beach House</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Two Oceans</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Van Loveren</span><i class="d-lead"></i><span class="d-price">R145</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Chenin Blanc</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Leopard&rsquo;s Leap</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Riebeek Cellars</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Chardonnay</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Darling Cellars</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Four Cousins</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Riebeek Cellars</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>White blends</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Darling Cellars Chenin / Sauvignon 500 ml</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Cellars Chenin / Sauvignon 750 ml</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Drostdy-Hof Extra Light</span><i class="d-lead"></i><span class="d-price">R145</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Semi-sweet</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Leopard&rsquo;s Leap</span><i class="d-lead"></i><span class="d-price">R125</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Montuno White Light</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Portuguese inspired</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Simonsvlei Pinto Tinto Cinsault</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Simonay Natural Sweet White Daisy</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Simonay Natural Sweet Pink Rose</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Simonay Natural Sweet Red Lily</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Ros&eacute;</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Montino</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">The Beach House</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Van Loveren Chardonnay / Pinot Noir</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Merlot</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Four Cousins</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Riebeek Cellars</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Shiraz</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Darling Premium</span><i class="d-lead"></i><span class="d-price">R175</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Leopard&rsquo;s Leap</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Riebeek Cellars</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Pinotage</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Beyerskloof</span><i class="d-lead"></i><span class="d-price">R175</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Four Cousins</span><i class="d-lead"></i><span class="d-price">R135</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Riebeek Cellars</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Chocoholic</span><i class="d-lead"></i><span class="d-price">R145</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Red blends</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Alto Rouge</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Cellars Cab / Merlot 500 ml</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Darling Cellars Cab / Merlot 750 ml</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Leopard&rsquo;s Leap Cabernet Sauvignon</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Fat Bastard Gold Reserve</span><i class="d-lead"></i><span class="d-price">R240</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Riebeek Cabernet Sauvignon</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Two Oceans Cabernet Sauvignon</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Van Loveren Cabernet Sauvignon</span><i class="d-lead"></i><span class="d-price">R140</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Sparkling wine</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Four Cousins Sparkling Red</span><i class="d-lead"></i><span class="d-price">R150</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">JC Le Roux</span><i class="d-lead"></i><span class="d-price">R145</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Van Loveren Papillon Demi Sec</span><i class="d-lead"></i><span class="d-price">R150</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-d-spirits" role="tabpanel" aria-labelledby="tab-d-spirits" hidden>
+        <div class="menu-group">
+          <h4>Whisky</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Bain&rsquo;s</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Ballantine&rsquo;s</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Bell&rsquo;s</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Black &amp; White</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Chivas</span><i class="d-lead"></i><span class="d-price">R48</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Grant&rsquo;s</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">J&amp;B</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jack Daniel&rsquo;s</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jameson</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jameson IPA</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jameson Select Reserve</span><i class="d-lead"></i><span class="d-price">R48</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jameson Stout</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Johnnie Walker Black</span><i class="d-lead"></i><span class="d-price">R45</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Johnnie Walker Red</span><i class="d-lead"></i><span class="d-price">R29</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Pogues</span><i class="d-lead"></i><span class="d-price">R29</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Southern Comfort</span><i class="d-lead"></i><span class="d-price">R29</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Scottish Leader</span><i class="d-lead"></i><span class="d-price">R29</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">VAT 69</span><i class="d-lead"></i><span class="d-price">R29</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Brandy</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Buffelsfontein</span><i class="d-lead"></i><span class="d-price">R23</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Ginger</span><i class="d-lead"></i><span class="d-price">R23</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Klipdrift</span><i class="d-lead"></i><span class="d-price">R23</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Klipdrift Premium</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">KWV 10 Year</span><i class="d-lead"></i><span class="d-price">R42</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">KWV 5 Year</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">KWV 3 Year</span><i class="d-lead"></i><span class="d-price">R23</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Olof Bergh</span><i class="d-lead"></i><span class="d-price">R23</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Richelieu</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Vuilhond</span><i class="d-lead"></i><span class="d-price">R23</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Wellington</span><i class="d-lead"></i><span class="d-price">R23</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Wildebeest</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Gin</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Beefeater</span><i class="d-lead"></i><span class="d-price">R29</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Blackberry</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Blood Orange</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Pink</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Gordon&rsquo;s</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tanqueray</span><i class="d-lead"></i><span class="d-price">R29</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tanqueray Sevilla</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Malfy Limone</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Malfy Arancia</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Malfy Rosa</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Inverroche Classic</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Inverroche Amber</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Rum</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Bacardi</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Bacardi Oakheart</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Caribbean Twist White</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Caribbean Twist Spiced</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Captain Morgan Dark</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Captain Morgan Spiced Gold</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Coco-Mo</span><i class="d-lead"></i><span class="d-price">R19</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Dead Man&rsquo;s Dark</span><i class="d-lead"></i><span class="d-price">R24</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Dead Man&rsquo;s Pineapple</span><i class="d-lead"></i><span class="d-price">R24</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Dead Man&rsquo;s Spiced</span><i class="d-lead"></i><span class="d-price">R24</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Malibu</span><i class="d-lead"></i><span class="d-price">R24</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Montego</span><i class="d-lead"></i><span class="d-price">R24</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Heart</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tipo Tinto</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tipo Tinto Coco Rhumba</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Vodka</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Absolut Blue</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Square</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Smirnoff</span><i class="d-lead"></i><span class="d-price">R28</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Cape to Rio</span><i class="d-lead"></i><span class="d-price">R27</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Skyy</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Top shelf</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Johnnie Walker Blue</span><i class="d-lead"></i><span class="d-price">R240</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Antonella Grappa</span><i class="d-lead"></i><span class="d-price">R70</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Bisquit Cognac</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Don Julio Tequila Reposado</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Hennessy VS Cognac</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Hennessy VSOP Cognac</span><i class="d-lead"></i><span class="d-price">R120</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-d-cocktails" role="tabpanel" aria-labelledby="tab-d-cocktails" hidden>
+        <div class="menu-group">
+          <h4>Cocktails</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Mojito</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Bacardi, Finest Call mojito mix, mint &amp; soda</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Strawberry Mojito</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Bacardi, strawberry liqueur, strawberry juice, mojito mix &amp; mint</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Long Island Iced Tea</span><i class="d-lead"></i><span class="d-price">R115</span></div>
+              <p class="d-desc">Gin, vodka, Bacardi, cane, silver tequila, triple sec, lemon juice &amp; Coke or cranberry juice</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Pina Colada</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Bacardi, Cocomo liqueur, ice cream &amp; pina colada</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Strawberry Pina Colada</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Bacardi, Cocomo liqueur, strawberry juice, ice cream, Finest Call pina colada</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Bloody Mary</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Vodka, tomato cocktail</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Margarita</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Silver tequila, triple sec &amp; margarita mix</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">West Coast Sunset</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+              <p class="d-desc">Vodka, peach liqueur, triple sec, blue liqueur, grenadine &amp; orange juice</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Blue Bay</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Apple sours, banana liqueur, triple sec, blue liqueur &amp; lemonade</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sex on the Beach</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Vodka, peach liqueur, grenadine &amp; orange juice</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Captain&rsquo;s Punch</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+              <p class="d-desc">Bacardi, Cocomo liqueur, Spiced Gold, blue liqueur &amp; pineapple juice</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Cosmopolitan</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Vodka, triple sec &amp; cranberry juice</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tequila Sunrise</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+              <p class="d-desc">Silver tequila, grenadine &amp; orange juice</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Tide</span><i class="d-lead"></i><span class="d-price">R95</span></div>
+              <p class="d-desc">Vodka, Cocomo, peach liqueur, pineapple juice &amp; strawberry juice</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Fish Bowl (small)</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+              <p class="d-desc">Gin, vodka, Cocomo, cane, Bacardi, tequila, blue liqueur &amp; lemonade</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Mango Daiquiri</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+              <p class="d-desc">Caribbean Twist white rum, triple sec, mango mix &amp; orange juice</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Strawberry Daiquiri</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+              <p class="d-desc">Caribbean Twist white rum, strawberry liqueur, lime cordial, grenadine &amp; strawberry juice</p>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Jars</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Soco Jar</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+              <p class="d-desc">Vodka, Southern Comfort &amp; grenadine</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Libido Jar</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+              <p class="d-desc">Vodka, Libido &amp; lemonade</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Mojo Jar</span><i class="d-lead"></i><span class="d-price">R130</span></div>
+              <p class="d-desc">Mojo, vodka &amp; lemonade</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-d-shooters" role="tabpanel" aria-labelledby="tab-d-shooters" hidden>
+        <div class="menu-group">
+          <h4>Mixed shooters &middot; R35 each</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Smurfette</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Strawberry Lips &amp; bubblegum tequila</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Driver on Acid</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Tequila, gin &amp; Stroh rum</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sowetan Toilet</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Amarula, banana liqueur &amp; Nachtmusik</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sledgehammer</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Amarula, Kahlua &amp; Stroh rum</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sizzling Banana</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Banana liqueur &amp; J&auml;germeister</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Rascals</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Libido, apple sours &amp; bubblegum tequila</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Chinese F@ck Bubble</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Aftershock, Amarula &amp; Stroh rum</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jelly Baby</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Po10C, Libido &amp; apple sours</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Pancake</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Aftershock, Amarula &amp; cream</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Motor Oil</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Malibu, J&auml;germeister &amp; peppermint liqueur</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Kamikaze</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Vodka, triple sec &amp; a dash of lime</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Bazooka Joe</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Amarula, blue cura&ccedil;ao &amp; banana liqueur</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Licorice Ball Shot</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Lupini Gold &amp; Amarula with a dash of grenadine</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Springbokkie</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Amarula &amp; peppermint liqueur</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Shock Zone</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Aftershock &amp; Stroh rum</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tropical Blowjob</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Amarula, Kahlua, Malibu &amp; cream</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Lollipop</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Apple sours, banana liqueur &amp; cherry</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Horney Monkey</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Amarula, Frangelico &amp; cream</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Blow Job</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Amarula, Kahlua &amp; cream</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Rolo</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Black Widow &amp; caramel vodka</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Pirate&rsquo;s Treasure</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Lupini Gold &amp; Captain Morgan</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Turkish Delight</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Monin Rose &amp; Nachtmusik</p>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Single shooters</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Aftershock</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Amarula</span><i class="d-lead"></i><span class="d-price">R27</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Apple Sours</span><i class="d-lead"></i><span class="d-price">R18</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Black Widow</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Butlers Banana</span><i class="d-lead"></i><span class="d-price">R22</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Butlers Blue</span><i class="d-lead"></i><span class="d-price">R22</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Butlers Cherry</span><i class="d-lead"></i><span class="d-price">R22</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Butlers Strawberry</span><i class="d-lead"></i><span class="d-price">R22</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Butlers Triple Sec</span><i class="d-lead"></i><span class="d-price">R22</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Cactus Jack</span><i class="d-lead"></i><span class="d-price">R27</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Cape Velvet</span><i class="d-lead"></i><span class="d-price">R27</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Cherry Sours</span><i class="d-lead"></i><span class="d-price">R18</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Elderflower</span><i class="d-lead"></i><span class="d-price">R18</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Spiced Gold No 6</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Frangelico</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jack Daniel&rsquo;s Honey</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">J&auml;germeister</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jose Cuervo Gold</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Jose Cuervo Silver</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sombrero Tequila Gold</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Libido</span><i class="d-lead"></i><span class="d-price">R18</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Vuilhond Caramel Shot</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Lovodka</span><i class="d-lead"></i><span class="d-price">R29</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Lupini Black</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Lupini Gold</span><i class="d-lead"></i><span class="d-price">R32</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Mojo</span><i class="d-lead"></i><span class="d-price">R24</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Monin Rose</span><i class="d-lead"></i><span class="d-price">R18</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Nachtmusik</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Olmeca Black</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Olmeca Gold</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Olmeca Silver</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Peach Schnapps</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Peppermint Liqueur</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Po10C</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Ponchos</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Ponchos Caramel</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Relic Bubblegum</span><i class="d-lead"></i><span class="d-price">R24</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sambuca Red</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Sambuca Green</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Kahlua</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Strawberry Lips</span><i class="d-lead"></i><span class="d-price">R25</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Stroh Rum</span><i class="d-lead"></i><span class="d-price">R48</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Underberg</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-d-coolers" role="tabpanel" aria-labelledby="tab-d-coolers" hidden>
+        <div class="menu-group">
+          <h4>Coolers</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+              <p class="d-desc">Tonic, dry lemon, pink tonic or dark cherry</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Breezer</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+              <p class="d-desc">Tonic, dry lemon, pink tonic or dark cherry</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Brutal Fruit</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+              <p class="d-desc">Ruby, apple or strawberry rouge</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Caribbean Twist</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+              <p class="d-desc">Peach, pina colada or strawberry &amp; watermelon</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Bernini</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+              <p class="d-desc">Blush, amber or classic</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Klipdrift &amp; Cola</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Buffelsfontein &amp; Cola</span><i class="d-lead"></i><span class="d-price">R37</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Hooch</span><i class="d-lead"></i><span class="d-price">R35</span></div>
+              <p class="d-desc">Passion fruit or strawberry</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Smirnoff Double Black</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Smirnoff</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+              <p class="d-desc">Spin, Storm or Pine Twist</p>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tipo Tinto Coca Loco</span><i class="d-lead"></i><span class="d-price">R39</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tipo Tinto R&amp;R</span><i class="d-lead"></i><span class="d-price">R38</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Non-alcoholic coolers</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Gin &amp; Dry Lemon</span><i class="d-lead"></i><span class="d-price">R37</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Gin &amp; Tonic</span><i class="d-lead"></i><span class="d-price">R37</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="menu-panel" id="panel-d-specials" role="tabpanel" aria-labelledby="tab-d-specials" hidden>
+        <div class="menu-group">
+          <h4>2 &times; doubles &amp; mixer &middot; brandy</h4>
+          <p class="mg-note">Fountain mix, or R5 extra for a bottle or can.</p>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Buffelsfontein</span><i class="d-lead"></i><span class="d-price">R69</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">KWV 5 Year</span><i class="d-lead"></i><span class="d-price">R110</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">KWV 3 Year</span><i class="d-lead"></i><span class="d-price">R69</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Olof Bergh</span><i class="d-lead"></i><span class="d-price">R69</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>2 &times; doubles &amp; mixer &middot; gin</h4>
+          <p class="mg-note">With your choice of mixer: Indian, pink or blue tonic, cranberry, grapefruit, dry lemon, lemonade or ginger ale.</p>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Dry</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Blackberry</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Blood Orange</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Belgravia Pink</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Single Tanqueray &amp; mixer</span><i class="d-lead"></i><span class="d-price">R55</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>2 &times; doubles &amp; mixer &middot; rum</h4>
+          <p class="mg-note">Fountain mix, or R5 extra for a bottle or can.</p>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Captain Morgan Jamaica</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Captain Morgan Spiced Gold</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Dead Man&rsquo;s Fingers</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Montego</span><i class="d-lead"></i><span class="d-price">R80</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Heart</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Tipo Tinto &amp; Sparberry</span><i class="d-lead"></i><span class="d-price">R80</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>2 &times; doubles &amp; mixer &middot; vodka</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Red Square &amp; K-Way</span><i class="d-lead"></i><span class="d-price">R79</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Square &amp; OJ</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Square &amp; Breakfast Blend</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Square &amp; 7 Stars</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Red Square &amp; Play</span><i class="d-lead"></i><span class="d-price">R95</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Smirnoff &amp; OJ</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>2 &times; doubles &amp; mixer &middot; whisky</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Bell&rsquo;s &amp; K-Way</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Bell&rsquo;s &amp; soda</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">J&amp;B &amp; K-Way</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">J&amp;B &amp; soda</span><i class="d-lead"></i><span class="d-price">R90</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Pogues &amp; K-Way</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Pogues &amp; soda</span><i class="d-lead"></i><span class="d-price">R95</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">VAT 69 &amp; water</span><i class="d-lead"></i><span class="d-price">R75</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">VAT 69 &amp; soda</span><i class="d-lead"></i><span class="d-price">R85</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group">
+          <h4>Buckets of 6</h4>
+          <ul class="dishes">
+            <li>
+              <div class="d-top"><span class="d-name">Castle Lite &times; 6</span><i class="d-lead"></i><span class="d-price">R179</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Corona &times; 6</span><i class="d-lead"></i><span class="d-price">R259</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Devil&rsquo;s Peak Lager &times; 6</span><i class="d-lead"></i><span class="d-price">R190</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Windhoek Lager &times; 6</span><i class="d-lead"></i><span class="d-price">R239</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Bacardi Breezer &times; 6</span><i class="d-lead"></i><span class="d-price">R225</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Caribbean Twist &times; 6</span><i class="d-lead"></i><span class="d-price">R225</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Hunters &times; 6</span><i class="d-lead"></i><span class="d-price">R225</span></div>
+            </li>
+            <li>
+              <div class="d-top"><span class="d-name">Savanna &times; 6</span><i class="d-lead"></i><span class="d-price">R225</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- DRINKS-PANELS-END --></div>
+    <p class="note">Drinks prices in South African Rand. Alcohol is not sold to persons under the age of 18.</p>
+    </div>
 
     <p class="note"><b>Please note:</b> prices are in South African Rand and include VAT. Blackboard specials change daily &mdash; ask your server for today&rsquo;s price. Menu correct as at August 2026.</p>
     <div class="card-cta rv"><a class="cardbtn" href="/loyalty" data-myc><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a></div>
@@ -2070,16 +3321,16 @@ html,body{overflow-anchor:none}
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
 
 
-  var mtabs=[].slice.call(document.querySelectorAll('.mtab'));
-  mtabs.forEach(function(t){
+  [].slice.call(document.querySelectorAll('.mtab')).forEach(function(t){
     t.addEventListener('click',function(){
-      mtabs.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      var wrap=t.closest('.menu-wrap');
+      [].slice.call(wrap.querySelectorAll('.mtab')).forEach(function(x){ x.setAttribute('aria-selected','false'); });
       t.setAttribute('aria-selected','true');
-      [].slice.call(document.querySelectorAll('.menu-panel')).forEach(function(p){ p.hidden=true; });
+      [].slice.call(wrap.querySelectorAll('.menu-panel')).forEach(function(p){ p.hidden=true; });
       var p=document.getElementById('panel-'+t.getAttribute('data-panel'));
       if(p){ p.hidden=false; }
-      var nav=document.getElementById('nav'), wrap=document.querySelector('.menu-wrap');
-      var navh=nav?nav.offsetHeight:0, top=wrap.getBoundingClientRect().top;
+      var nav=document.getElementById('nav'), sw=document.getElementById('mswitch');
+      var navh=(nav?nav.offsetHeight:0)+(sw?sw.offsetHeight:0), top=wrap.getBoundingClientRect().top;
       if(top<navh){ window.scrollTo({top:top+window.scrollY-navh,behavior:'instant'}); }
       var bar=t.parentNode; if(bar.scrollWidth>bar.clientWidth){ bar.scrollTo({left:bar.scrollLeft+t.getBoundingClientRect().left-bar.getBoundingClientRect().left-(bar.clientWidth-t.offsetWidth)/2,behavior:'smooth'}); }
     });
@@ -2143,6 +3394,25 @@ html,body{overflow-anchor:none}
     else el.textContent=title;
   });
 }catch(e){}})();
+</script>
+<script>
+/* Food | Drinks on the website menu. #drinks (nav link, shared links) opens the drinks side. */
+(function(){
+  var sw=document.getElementById('mswitch'); if(!sw) return;
+  var food=document.getElementById('menu-food'), drinks=document.getElementById('menu-drinks');
+  var btns=[].slice.call(sw.querySelectorAll('.seg-b'));
+  function setMode(m, jump){
+    var d=m==='drinks'; food.hidden=d; drinks.hidden=!d;
+    btns.forEach(function(b){ var on=b.getAttribute('data-mode')===m; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
+    if(d){ drinks.classList.add('in','visible','show'); }
+    var nav=document.getElementById('nav'), navh=nav?nav.offsetHeight:0, top=sw.getBoundingClientRect().top;
+    if(jump==='always'||top<navh){ window.scrollTo({top:top+window.scrollY-navh-8,behavior:'instant'}); }
+  }
+  btns.forEach(function(b){ b.addEventListener('click',function(){ setMode(b.getAttribute('data-mode'),true); }); });
+  function fromHash(){ if(location.hash==='#drinks'){ setMode('drinks','always'); } }
+  [].slice.call(document.querySelectorAll('a[href="#drinks"]')).forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); history.replaceState(null,'','#drinks'); setMode('drinks','always'); var nl=document.getElementById('navlinks'); if(nl&&nl.classList.contains('open')){ var bg=document.getElementById('burger'); if(bg) bg.click(); } }); });
+  fromHash(); window.addEventListener('hashchange',fromHash);
+})();
 </script>
 </body>
 </html>
