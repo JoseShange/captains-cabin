@@ -1765,11 +1765,10 @@ html,body{overflow-anchor:none}
          <figure><img loading="lazy" src="images/event-YOURNAME.jpg" alt="Short description of the event"></figure>
     -->
     <div class="posters rv" id="posters">
-      <figure id="sunset-run" data-until="2026-10-31"><img src="images/event-sunset-run-2026-10-30-v3-sm.jpg" data-full="images/event-sunset-run-2026-10-30-v3.jpg" width="600" height="794" alt="Captain's Cabin Sunset Run, Friday 30 October 2026, start 18:30 at the Cabin, 20 Main Rd, Saldanha. 5 km, all paces welcome, free entry. 30% off meals and drinks after the run for registered runners."></figure>
       <figure><img loading="lazy" src="images/event-car-wash-v1-sm.jpg" data-full="images/event-car-wash-v1.jpg" width="600" height="794" alt="We wash your car while you eat. Car wash open 10:00 to 19:00. 10% off your meal when we wash your car."></figure>
     </div>
     <div class="poster-cta rv">
-      <a class="btn" data-until="2026-10-31" href="/loyalty?join=run">Join the Run Club &amp; register</a>
+      <a class="btn" href="/loyalty?join=run">Join the Run Club</a>
       <a class="btn sea" href="#carwash">Car wash &middot; 10% off your meal</a>
     </div>
 
@@ -1787,8 +1786,8 @@ html,body{overflow-anchor:none}
 <section class="sec clubs" id="clubs">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Run club &middot; Cycle club &middot; Coffee rave</p>
-      <h2>Run it, ride it,<br>then refuel</h2>
+      <p class="eyebrow">Run club &middot; Coffee rave</p>
+      <h2>Run it,<br>then refuel</h2>
       <div class="rule"></div>
       <p>Everyone&rsquo;s welcome, every pace. Meet at the Cabin, head out along the bay, and come back to coffee, music and a proper breakfast.</p>
     </div>
@@ -1798,7 +1797,7 @@ html,body{overflow-anchor:none}
         <p class="when">Every Saturday</p>
         <div class="time">09:00</div>
         <h3>Run Club</h3>
-        <p>The Saturday morning run and ride, starting and finishing at the Cabin on Main Road. Runners and riders, all levels welcome.</p>
+        <p>The Saturday morning run, starting and finishing at the Cabin on Main Road. All paces welcome. Extra club runs are announced on our socials.</p>
         <div class="perk"><div><b>Club perks &middot; 09:00 &ndash; 12:00</b>Free coffee, water and juice with every meal you order &mdash; plus 30% off any breakfast.</div></div>
       </article>
 
@@ -1809,19 +1808,12 @@ html,body{overflow-anchor:none}
         <p>Morning music, good coffee and good people. Come straight off the run, or just come for the vibe &mdash; no sweat required.</p>
         <div class="perk"><div><b>Rave perks &middot; 09:00 &ndash; 12:00</b>Free coffee, water and juice with every meal you order &mdash; plus 30% off any breakfast.</div></div>
       </article>
-
-      <article class="club sea">
-        <p class="when">Monday &amp; Wednesday</p>
-        <div class="time">18:00</div>
-        <h3>Sunset Run</h3>
-        <p>A midweek run timed for the light going down over Saldanha Bay. Finish back at the Cabin and stay for dinner.</p>
-        <div class="perk"><div><b>Runner perk</b>A free beer, cider or cold drink of your choice after the run &mdash; plus 30% off your meal that day.</div></div>
-      </article>
     </div>
 
     <div class="clubs-foot rv">
-      <p>Perks are for that day&rsquo;s participants. Beer and cider for over-18s only. Bringing a group or have a question? Give us a call.</p>
-      <a class="btn" href="tel:+27600201219">060 020 1219</a>
+      <p>Join the Run Club free to get a sticker and 15 points at every club run, plus a R100 voucher every 5 runs. Perks are for that day&rsquo;s participants. Beer and cider for over-18s only.</p>
+      <a class="btn" href="/loyalty?join=run">Join the Run Club</a>
+      <a class="btn ghost" href="tel:+27600201219">Call 060 020 1219</a>
       <a class="btn ghost" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener">Follow the club</a>
     </div>
   </div>
@@ -2093,7 +2085,7 @@ html,body{overflow-anchor:none}
   (function(){
     var h=location.hash;
     if(['#events','#sunset-run','#posters'].indexOf(h)<0) return;
-    var t=(document.getElementById('sunset-run')||posters);
+    var t=posters;
     if(!t) return;
     if('scrollRestoration' in history) history.scrollRestoration='manual';
     var stop=false, n=document.getElementById('nav');

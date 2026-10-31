@@ -38,10 +38,10 @@
   status = 200
   force = true
 
-# Short address for the Sunset Run poster QR / links: lands on the poster on the home page.
+# Old Sunset Run poster QR codes still in circulation: send them to the Run Club section.
 [[redirects]]
   from = "/sunset-run"
-  to = "/#sunset-run"
+  to = "/#clubs"
   status = 302
 
 # The app's background worker and install script must never be stuck in a browser cache.
@@ -60,3 +60,14 @@
   for = "/site.webmanifest"
   [headers.values]
     Cache-Control = "public, max-age=300"
+
+# Short addresses for any run poster or post (morning, evening, any run): straight to Run Club sign-up.
+[[redirects]]
+  from = "/runclub"
+  to = "/loyalty?join=run"
+  status = 302
+
+[[redirects]]
+  from = "/run-club"
+  to = "/loyalty?join=run"
+  status = 302
