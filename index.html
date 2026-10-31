@@ -599,6 +599,10 @@ html,body{overflow-anchor:none}
    CLUBS (run, ride & coffee rave) + SLOTS
    ================================================================== */
 .clubs{border-top:1px solid var(--line);background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
+.runweek{max-width:640px;margin:26px auto 0;padding:18px 20px;border:1px solid var(--line);border-left:3px solid var(--sea);background:rgba(95,179,207,.06)}
+.runweek .eyebrow{margin:0 0 8px}
+.rw-row{display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 0;border-top:1px solid var(--line)}
+.rw-row b{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);min-width:130px}
 .club-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .club{position:relative;display:flex;flex-direction:column;background:var(--ink-3);border:1px solid var(--line);border-radius:2px;padding:30px 28px 28px;overflow:hidden}
 .club::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--orange)}
@@ -1767,6 +1771,11 @@ html,body{overflow-anchor:none}
     <div class="posters rv" id="posters">
       <figure><img loading="lazy" src="images/event-car-wash-v1-sm.jpg" data-full="images/event-car-wash-v1.jpg" width="600" height="794" alt="We wash your car while you eat. Car wash open 10:00 to 19:00. 10% off your meal when we wash your car."></figure>
     </div>
+    <div class="runweek rv">
+      <p class="eyebrow">Weekly runs from the Cabin</p>
+      <div class="rw-row"><b>Mon &middot; Wed &middot; Fri</b><span>Social Sunset Run &middot; 5&nbsp;km &middot; meet 18:00, run 18:30</span></div>
+      <div class="rw-row"><b>Saturday</b><span>Saturday 10K &middot; 09:00</span></div>
+    </div>
     <div class="poster-cta rv">
       <a class="btn" href="/loyalty?join=run">Join the Run Club</a>
       <a class="btn sea" href="#carwash">Car wash &middot; 10% off your meal</a>
@@ -1786,7 +1795,7 @@ html,body{overflow-anchor:none}
 <section class="sec clubs" id="clubs">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Run club &middot; Coffee rave</p>
+      <p class="eyebrow">Sunset runs &middot; Saturday 10K &middot; Coffee rave</p>
       <h2>Run it,<br>then refuel</h2>
       <div class="rule"></div>
       <p>Everyone&rsquo;s welcome, every pace. Meet at the Cabin, head out along the bay, and come back to coffee, music and a proper breakfast.</p>
@@ -1794,10 +1803,10 @@ html,body{overflow-anchor:none}
 
     <div class="club-grid rv">
       <article class="club">
-        <p class="when">Every Saturday</p>
+        <p class="when">Every Saturday morning</p>
         <div class="time">09:00</div>
-        <h3>Run Club</h3>
-        <p>The Saturday morning run, starting and finishing at the Cabin on Main Road. All paces welcome. Extra club runs are announced on our socials.</p>
+        <h3>Saturday 10K</h3>
+        <p>Our Saturday morning 10&nbsp;km, starting and finishing at the Cabin on Main Road. All paces welcome.</p>
         <div class="perk"><div><b>Club perks &middot; 09:00 &ndash; 12:00</b>Free coffee, water and juice with every meal you order &mdash; plus 30% off any breakfast.</div></div>
       </article>
 
@@ -1807,6 +1816,13 @@ html,body{overflow-anchor:none}
         <h3>Coffee Rave</h3>
         <p>Morning music, good coffee and good people. Come straight off the run, or just come for the vibe &mdash; no sweat required.</p>
         <div class="perk"><div><b>Rave perks &middot; 09:00 &ndash; 12:00</b>Free coffee, water and juice with every meal you order &mdash; plus 30% off any breakfast.</div></div>
+      </article>
+      <article class="club sea">
+        <p class="when">Monday, Wednesday &amp; Friday</p>
+        <div class="time">18:30<small>meet 18:00</small></div>
+        <h3>Social Sunset Run</h3>
+        <p>A social 5&nbsp;km along Saldanha Bay as the sun goes down. Meet at the Cabin at 18:00, we run at 18:30, then stay for dinner.</p>
+        <div class="perk"><div><b>Runner perk</b>A free beer, cider or cold drink of your choice after the run &mdash; plus 30% off your meal that day.</div></div>
       </article>
     </div>
 
