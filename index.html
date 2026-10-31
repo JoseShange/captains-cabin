@@ -195,6 +195,10 @@ font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacin
 .petbadge svg{width:22px;height:22px;fill:currentColor;flex:none}
 .btn.sea{background:var(--sea);border-color:var(--sea);color:var(--ink)}
 .btn.sea:hover{background:transparent;color:var(--sea)}
+.mycard{display:inline-flex;align-items:center;gap:7px;margin-left:auto;padding:8px 13px;border:1.5px solid #fff;border-radius:2px;text-decoration:none;color:#fff;background:var(--orange);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.mycard svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
+.mycard:hover{background:transparent}
+@media(max-width:760px){.nav .brand>span{display:none}.mycard{padding:7px 11px;font-size:.78rem}}
 .burger{display:none;background:none;border:0;color:var(--cream);cursor:pointer;padding:8px}
 .burger svg{width:26px;height:26px}
 
@@ -711,6 +715,7 @@ html,body{overflow-anchor:none}
     <a href="#visit">Find Us</a>
     <a class="btn" href="tel:+27600201219">Call &amp; Book</a>
   </div>
+  <a class="mycard" href="/loyalty" data-myc><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19M6 15h4"/></svg><span class="myc-l">Loyalty Card</span></a>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
   </button>
@@ -728,7 +733,7 @@ html,body{overflow-anchor:none}
       <p class="sr-only">Pet friendly: dogs and cats welcome</p>
       <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
       <div class="toppills">
-        <a class="btn loybtn" href="/loyalty">Click here to set up your Loyalty Card</a>
+        <a class="btn loybtn" href="/loyalty" data-myc>Open or join your Loyalty Card</a>
       </div>
       <div class="cta">
         <a class="btn" href="tel:+27227141716">Call 022 714 1716</a>
@@ -1664,7 +1669,7 @@ html,body{overflow-anchor:none}
     </div>
 
     <p class="note"><b>Please note:</b> prices are in South African Rand and include VAT. Blackboard specials change daily &mdash; ask your server for today&rsquo;s price. Menu correct as at August 2026.</p>
-    <div class="card-cta rv"><a class="cardbtn" href="/loyalty"><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a></div>
+    <div class="card-cta rv"><a class="cardbtn" href="/loyalty" data-myc><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a></div>
   </div>
 </section>
 
@@ -2105,6 +2110,23 @@ html,body{overflow-anchor:none}
     });
   });
 })();
+</script>
+<script>
+/* Loyalty buttons: this site and /loyalty share one address, so a phone that is already
+   signed in shows "Open my Loyalty Card" and one tap opens the card with no sign-in. */
+(function(){try{
+  var ls=window.localStorage, signed=!!ls.getItem('sb-iryzgvggaqkvwgmjbdkw-auth-token'),
+      name=ls.getItem('cc-name')||'', known=!!ls.getItem('cc-email');
+  if(!signed&&!known)return;
+  var title=signed?'Open my Loyalty Card':'Sign in to my Loyalty Card',
+      sub=signed?((name?'Hi '+name+' \u00b7 ':'')+'Your points, vouchers & QR'):'One code by email \u00b7 no password';
+  document.querySelectorAll('[data-myc]').forEach(function(el){
+    var t=el.querySelector('.cb-title'),s=el.querySelector('.cb-sub'),l=el.querySelector('.myc-l');
+    if(t){t.textContent=title;if(s)s.textContent=sub;}
+    else if(l){l.textContent=signed?'My Card':'Sign in';}
+    else el.textContent=title;
+  });
+}catch(e){}})();
 </script>
 </body>
 </html>
