@@ -14,6 +14,13 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon-v2.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Captain's Cabin">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="/app-install.js" defer></script>
+
 <meta name="theme-color" content="#0b0d10">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,6 +69,8 @@ border:2px solid var(--orange);background:var(--orange);color:#fff}
 .cardbtn .cb-title{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.11em;font-size:1.02rem;font-weight:700;line-height:1.15;text-wrap:balance}
 .cardbtn .cb-sub{font-size:.82rem;color:rgba(255,255,255,.88);letter-spacing:.01em}
 .cardbtn:active{transform:translateY(1px)}
+.dlapp{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;width:100%;margin-top:12px;min-height:56px;padding:12px 16px;border:1.5px solid var(--cream);border-radius:2px;background:transparent;color:var(--cream);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.11em;text-transform:uppercase}
+.dlapp small{flex-basis:100%;font-family:'Barlow',sans-serif;font-weight:400;font-size:.8rem;letter-spacing:.01em;text-transform:none;color:var(--muted);margin-top:2px}
 .cardbtn + .social{margin-top:12px}
 .sbtn.ghost{background:transparent;border-color:rgba(245,241,234,.35);color:var(--cream)}
 .sbtn svg{width:19px;height:19px;fill:currentColor;flex:none}
@@ -172,6 +181,7 @@ background:var(--orange);color:#fff;display:grid;place-items:center;opacity:0;po
 <script>(function(){var b=document.getElementById('ratebtn'),o=document.getElementById('rateopts');b.addEventListener('click',function(){var open=o.hidden;o.hidden=!open;b.setAttribute('aria-expanded',open);});})();</script>
 <p class="lede">Order at your table with your server. Tap a section below to jump straight to it.</p>
 <a class="cardbtn" href="/loyalty" data-myc><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
+<button class="dlapp" type="button" data-install><svg viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;vertical-align:-3px;margin-right:8px"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11.5l3 3 3-3M10 18.5h4"/></svg>Download the app<small>Our icon on your home screen &middot; Android &amp; iPhone</small></button>
 <div class="social">
 <a class="sbtn ghost" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"></path></svg>Instagram</a>
 <a class="sbtn ghost" href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"></path></svg>Facebook</a>

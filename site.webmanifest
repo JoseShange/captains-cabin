@@ -1,13 +1,22 @@
 {
-  "name": "Captain's Cabin Restaurant & Pub",
+  "id": "/cabin-app",
+  "name": "Captain's Cabin",
   "short_name": "Captain's Cabin",
-  "start_url": "/",
+  "description": "Your Captain's Cabin loyalty card, points, vouchers and the menu.",
+  "start_url": "/loyalty?app=1",
   "scope": "/",
-  "icons": [
-    { "src": "icon-192-v2.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512-v2.png", "sizes": "512x512", "type": "image/png" }
-  ],
+  "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#0b0d10",
   "background_color": "#0b0d10",
-  "display": "standalone"
+  "icons": [
+    { "src": "/icon-192-v2.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512-v2.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-192-maskable-v1.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-512-maskable-v1.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "My Loyalty Card", "url": "/loyalty?app=1" },
+    { "name": "Menu", "url": "/menu/" }
+  ]
 }

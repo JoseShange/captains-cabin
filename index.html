@@ -24,7 +24,13 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon-v2.png">
-<link rel="manifest" href="site.webmanifest">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Captain's Cabin">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="/app-install.js" defer></script>
+
 <meta name="theme-color" content="#0b0d10">
 
 <script>
@@ -163,6 +169,7 @@ section{position:relative}
 .btn.ghost:hover{border-color:var(--orange);color:var(--orange-soft)}
 .toppills{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .loybtn{border-color:#fff}
+.dlapp{cursor:pointer;font:inherit;background:transparent}
 .toppills .petbadge{margin-top:0}
 /* Loyalty Program: a real rectangular button with a glowing white border, so it reads as "tap here to start" */
 .loybadge{position:relative;display:inline-flex;align-items:center;gap:14px;padding:14px 20px 14px 16px;border-radius:6px;
@@ -734,6 +741,7 @@ html,body{overflow-anchor:none}
       <p class="sub">Family restaurant by day &middot; Cocktail &amp; sports bar by night</p>
       <div class="toppills">
         <a class="btn loybtn" href="/loyalty" data-myc>Open or join your Loyalty Card</a>
+        <button class="btn ghost dlapp" type="button" data-install><svg viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;vertical-align:-3px;margin-right:8px"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11.5l3 3 3-3M10 18.5h4"/></svg>Download the app</button>
       </div>
       <div class="cta">
         <a class="btn" href="tel:+27227141716">Call 022 714 1716</a>

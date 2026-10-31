@@ -43,3 +43,20 @@
   from = "/sunset-run"
   to = "/#sunset-run"
   status = 302
+
+# The app's background worker and install script must never be stuck in a browser cache.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+    Service-Worker-Allowed = "/"
+
+[[headers]]
+  for = "/app-install.js"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
+
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
