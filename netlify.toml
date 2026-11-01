@@ -71,3 +71,9 @@
   from = "/run-club"
   to = "/loyalty?join=run"
   status = 302
+
+# Weekly run RSVP page. /rsvp is the short link for social posts and run posters.
+[[redirects]]
+  from = "/rsvp"
+  to = "/runs"
+  status = 301

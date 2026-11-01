@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSVP for this week's runs | Captain's Cabin Run Club</title>
+<meta name="description" content="Social Sunset Run 5K Mon, Wed & Fri (meet 18:00, run 18:30) and the Saturday 10K at 09:00 from Captain's Cabin, Saldanha. Tap the runs you're coming to.">
+<link rel="canonical" href="https://captainscabinwestcoast.com/runs">
+<meta property="og:type" content="website">
+<meta property="og:title" content="This week's runs at Captain's Cabin — RSVP">
+<meta property="og:description" content="Sunset Run 5K Mon · Wed · Fri, meet 18:00. Saturday 10K at 09:00. Tap the runs you're coming to.">
+<meta property="og:url" content="https://captainscabinwestcoast.com/runs">
+<meta property="og:image" content="https://captainscabinwestcoast.com/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon-v2.png">
+<meta name="theme-color" content="#0b0d10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0d10;--ink-2:#12161b;--ink-3:#191f26;--cream:#f5f1ea;--muted:#a5adb8;--red:#e3121b;--red-soft:#ff5c5c;--sea:#5fb3cf;--line:rgba(245,241,234,.12)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--ink);color:var(--cream);font:400 16px/1.5 Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+header img{height:46px;width:auto}
+header a{color:var(--muted);font:600 .8rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+.eyebrow{margin-top:26px;color:var(--red-soft);font:600 .85rem 'Barlow Condensed',sans-serif;letter-spacing:.2em;text-transform:uppercase}
+h1{font:400 clamp(2.4rem,11vw,3.6rem)/.95 Anton,sans-serif;text-transform:uppercase;margin-top:6px}
+.lede{color:var(--muted);margin-top:12px}
+.runs{display:grid;gap:10px;margin-top:22px}
+.run{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 16px;background:var(--ink-2);border:2px solid var(--ink-3);border-radius:4px;cursor:pointer;transition:border-color .15s,background .15s}
+.run input{position:absolute;opacity:0;pointer-events:none}
+.run .day{width:58px;text-align:center;border-right:1px solid var(--line);padding-right:12px}
+.run .day b{display:block;font:400 1.9rem/1 Anton,sans-serif}
+.run .day small{font:600 .75rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.run h3{font:700 1.15rem/1.15 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.run .t{color:var(--muted);font-size:.9rem}
+.run .going{font-size:.8rem;color:var(--sea);margin-top:2px}
+.tick{width:30px;height:30px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center}
+.tick svg{width:16px;height:16px;stroke:var(--ink);stroke-width:3;fill:none;opacity:0}
+.run.sea .day b{color:var(--sea)}
+.run:has(input:checked){border-color:var(--red);background:#1a1012}
+.run:has(input:checked) .tick{background:var(--red);border-color:var(--red)}
+.run:has(input:checked) .tick svg{opacity:1;stroke:#fff}
+.run input:focus-visible ~ .tick{outline:2px solid var(--sea);outline-offset:3px}
+form .f{margin-top:16px}
+label.l{display:block;font:600 .8rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+input[type=text],input[type=tel]{width:100%;min-height:52px;padding:12px 14px;background:var(--ink-2);border:2px solid var(--ink-3);border-radius:4px;color:var(--cream);font:500 1.05rem Barlow,sans-serif}
+input:focus{outline:none;border-color:var(--sea)}
+.party{display:flex;align-items:center;gap:0;width:max-content;border:2px solid var(--ink-3);border-radius:4px;background:var(--ink-2)}
+.party button{width:52px;height:50px;background:none;border:0;color:var(--cream);font:400 1.6rem Anton,sans-serif;cursor:pointer}
+.party output{min-width:54px;text-align:center;font:400 1.5rem Anton,sans-serif}
+.hint{font-size:.82rem;color:var(--muted);margin-top:6px}
+.btn{display:block;width:100%;margin-top:22px;min-height:56px;border:0;border-radius:2px;background:var(--red);color:#fff;font:700 1.15rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.btn[disabled]{opacity:.55;cursor:wait}
+.err{margin-top:12px;color:var(--red-soft);font-weight:600;min-height:1.2em}
+.done{display:none;margin-top:26px;padding:22px 18px;background:var(--ink-2);border-left:4px solid var(--sea);border-radius:4px}
+.done h2{font:400 2rem/1 Anton,sans-serif;text-transform:uppercase}
+.done p{margin-top:10px;color:var(--muted)}
+.done ul{margin:12px 0 0 18px}
+.ghost{display:inline-block;margin-top:16px;color:var(--cream);font:600 .9rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.club{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+.club a{color:var(--sea);font-weight:600}
+.empty{padding:18px;background:var(--ink-2);border-radius:4px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a href="/" aria-label="Captain's Cabin home"><img src="/brand/logo-cream.svg" alt="Captain's Cabin"></a>
+    <a href="/#clubs">Run Club</a>
+  </header>
+
+  <p class="eyebrow">Run Club · RSVP</p>
+  <h1>This week's runs</h1>
+  <p class="lede">Tap every run you're coming to so we're ready for you. Starts and finishes at the Cabin, 20 Main Rd, Saldanha. All paces welcome.</p>
+
+  <form id="f" novalidate>
+    <div class="runs" id="runs"><div class="empty">Loading this week's runs…</div></div>
+
+    <div class="f">
+      <label class="l" for="name">First name</label>
+      <input id="name" type="text" autocomplete="given-name" maxlength="40" required>
+    </div>
+    <div class="f">
+      <label class="l" for="phone">Cellphone</label>
+      <input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="082 123 4567" required>
+      <p class="hint">Only used by the Cabin if a run is moved or cancelled.</p>
+    </div>
+    <div class="f">
+      <label class="l" id="pl">How many of you?</label>
+      <div class="party" role="group" aria-labelledby="pl">
+        <button type="button" id="minus" aria-label="One less">−</button>
+        <output id="party">1</output>
+        <button type="button" id="plus" aria-label="One more">+</button>
+      </div>
+    </div>
+    <button class="btn" id="go" type="submit">I'm coming</button>
+    <p class="err" id="err" role="alert"></p>
+  </form>
+
+  <div class="done" id="done" role="status">
+    <h2>See you there</h2>
+    <ul id="doneList"></ul>
+    <p>Changed your mind or bringing more people? Just submit again with the same number.</p>
+    <a class="ghost" href="/loyalty?join=run">Join the Run Club for stickers &amp; points →</a>
+  </div>
+
+  <p class="club">Run Club members get a sticker and 15 points every run, and a R100 voucher every 5 runs. <a href="/loyalty?join=run">Join free</a>. Beer and cider for over-18s only. Questions: <a href="tel:+27600201219">060 020 1219</a>.</p>
+</div>
+
+<script>
+(function(){
+  var URL_='https://iryzgvggaqkvwgmjbdkw.supabase.co/rest/v1/rpc/';
+  var KEY='sb_publishable_azMYchhgL_TokDtKGQ1EVQ_U8YRbdS8';
+  var H={'apikey':KEY,'Content-Type':'application/json'};
+  var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var runsEl=document.getElementById('runs'), runs=[];
+  var name=document.getElementById('name'), phone=document.getElementById('phone');
+  var want=(new URLSearchParams(location.search).get('run')||'').split(',');
+
+  function when(r){ return /10K/i.test(r.name) ? 'Start 09:00' : 'Meet 18:00 · run 18:30'; }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function d(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
+
+  function render(){
+    if(!runs.length){ runsEl.innerHTML='<div class="empty">No runs scheduled in the next 7 days. Check back soon or follow us on Instagram.</div>'; return; }
+    runsEl.innerHTML=runs.map(function(r){
+      var dt=d(r.run_date), sea=/10K/i.test(r.name)?' sea':'';
+      var g=r.going>0 ? r.going+(r.going==1?' runner':' runners')+' coming' : 'Be the first to RSVP';
+      return '<label class="run'+sea+'"><input type="checkbox" name="run" value="'+r.run_date+'"'+(want.indexOf(r.run_date)>-1?' checked':'')+'>'+
+        '<div class="day"><b>'+dt.getDate()+'</b><small>'+DAYS[dt.getDay()]+'</small></div>'+
+        '<div><h3>'+esc(r.name)+'</h3><div class="t">'+when(r)+'</div><div class="going">'+g+'</div></div>'+
+        '<span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></label>';
+    }).join('');
+  }
+
+  function load(){
+    return fetch(URL_+'run_rsvp_counts',{method:'POST',headers:H,body:'{}'})
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(j){ runs=j; render(); })
+      .catch(function(){ runsEl.innerHTML='<div class="empty">Couldn’t load the runs. Check your connection and refresh.</div>'; });
+  }
+  load();
+
+  // Remember the person on this phone so the next RSVP is one tap.
+  try{ var s=JSON.parse(localStorage.getItem('cc_rsvp')||'{}'); if(s.n) name.value=s.n; if(s.p) phone.value=s.p; }catch(e){}
+
+  var party=1, out=document.getElementById('party');
+  document.getElementById('minus').onclick=function(){ party=Math.max(1,party-1); out.textContent=party; };
+  document.getElementById('plus').onclick=function(){ party=Math.min(10,party+1); out.textContent=party; };
+
+  var err=document.getElementById('err'), go=document.getElementById('go');
+  document.getElementById('f').addEventListener('submit',function(e){
+    e.preventDefault(); err.textContent='';
+    var dates=[].map.call(document.querySelectorAll('input[name=run]:checked'),function(i){return i.value;});
+    var n=name.value.trim(), p=phone.value.trim();
+    if(!dates.length){ err.textContent='Tap at least one run.'; return; }
+    if(!n){ err.textContent='Please enter your first name.'; name.focus(); return; }
+    if(p.replace(/\D/g,'').length<9){ err.textContent='Please enter your cellphone number.'; phone.focus(); return; }
+    go.disabled=true; go.textContent='Saving…';
+    fetch(URL_+'rsvp_runs',{method:'POST',headers:H,body:JSON.stringify({p_dates:dates,p_first_name:n,p_phone:p,p_party:party})})
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.message||'Something went wrong.'); return j; }); })
+      .then(function(){
+        try{ localStorage.setItem('cc_rsvp',JSON.stringify({n:n,p:p})); }catch(e){}
+        document.getElementById('doneList').innerHTML=runs.filter(function(r){return dates.indexOf(r.run_date)>-1;}).map(function(r){
+          var dt=d(r.run_date); return '<li><b>'+DAYS[dt.getDay()]+' '+dt.getDate()+' '+MON[dt.getMonth()]+'</b> · '+esc(r.name)+' · '+when(r)+'</li>'; }).join('');
+        document.getElementById('f').style.display='none';
+        var done=document.getElementById('done'); done.style.display='block'; done.scrollIntoView({behavior:'smooth',block:'start'});
+      })
+      .catch(function(x){ err.textContent=x.message; })
+      .then(function(){ go.disabled=false; go.textContent='I’m coming'; });
+  });
+})();
+</script>
+</body>
+</html>
