@@ -10,14 +10,18 @@
   var ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
   var inApp = /FBAN|FBAV|FB_IAB|Instagram|Line\/|Snapchat|TikTok|WhatsApp|; wv\)/i.test(ua);
   var deferred = null;
+  var CARD_HOST = "card.captainscabinwestcoast.com";
+  var onCardHost = location.hostname === CARD_HOST;
   // Which home-screen app is this window? The Cabin Card app (table QR menu) starts at /menu/?app=1,
   // the website app at /loyalty?app=1. Remembered per window, so buttons know which app they're in.
   var appKind = (function () { try {
-    if (standalone && /[?&]app=1/.test(location.search)) sessionStorage.setItem("cc_app", location.pathname.indexOf("/menu") === 0 ? "table" : "site");
+    if (standalone && /[?&]app=1/.test(location.search)) sessionStorage.setItem("cc_app", (onCardHost || location.pathname.indexOf("/menu") === 0) ? "table" : "site");
     return sessionStorage.getItem("cc_app") || ""; } catch (e) { return ""; } })();
   var android = /Android/i.test(ua);
-  var CARD_PAGE = "https://captainscabinwestcoast.com/cabin-card/";
-  var CHROME_INTENT = "intent://captainscabinwestcoast.com/cabin-card/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" + encodeURIComponent(CARD_PAGE) + ";end";
+  // The Cabin Card app lives on its own address (card.) so Android sees it as a separate app from the
+  // website app. Two apps on the same address clash: Chrome says "This app is already installed".
+  var CARD_PAGE = "https://" + CARD_HOST + "/cabin-card/";
+  var CHROME_INTENT = "intent://" + CARD_HOST + "/cabin-card/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" + encodeURIComponent(CARD_PAGE) + ";end";
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () {}); });
@@ -86,7 +90,12 @@
     }
     document.querySelectorAll("[data-install]").forEach(function (b) {
       if (b.__cc) return; b.__cc = true;
-      b.addEventListener("click", function (e) { e.preventDefault(); install(); });
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+        // Cabin Card button on the main website address: install happens on the card. address.
+        if (b.hasAttribute("data-install-table") && !onCardHost && !inApp) { location.href = CARD_PAGE; return; }
+        install();
+      });
     });
   }
   window.ccInstallWire = wire; // the card page redraws itself, so it calls this again
