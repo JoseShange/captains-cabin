@@ -610,6 +610,67 @@ html,body{overflow-anchor:none}
 .runweek .eyebrow{margin:0 0 8px}
 .rw-row{display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 0;border-top:1px solid var(--line)}
 .rw-row b{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);min-width:130px}
+/* ===== Club cards: rotating stack (one in front, two behind) ===== */
+.cf{position:relative;margin-top:10px;--cw:min(400px,80vw);--off:62%;--sc:.84}
+.cf-stage{position:relative;display:grid;justify-items:center;touch-action:pan-y;user-select:none;-webkit-user-select:none;padding:10px 0 6px}
+.cfc{grid-area:1/1;position:relative;width:var(--cw);box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;isolation:isolate;
+  padding:26px 22px 22px;border-radius:4px;transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .55s,opacity .55s;will-change:transform;
+  box-shadow:0 24px 50px rgba(0,0,0,.45)}
+.cfc.is-c{transform:translateX(0) scale(1);z-index:3}
+.cfc.is-l{transform:translateX(calc(var(--off) * -1)) scale(var(--sc));z-index:2;filter:brightness(.62) saturate(.85);cursor:pointer}
+.cfc.is-r{transform:translateX(var(--off)) scale(var(--sc));z-index:2;filter:brightness(.62) saturate(.85);cursor:pointer}
+.cfc.is-l *, .cfc.is-r *{pointer-events:none}
+.cf.dragging .cfc{transition:none}
+.cf-bg{position:absolute;right:-8px;top:-30px;z-index:-1;font-family:'Anton',sans-serif;font-size:10rem;line-height:1;opacity:.16}
+.cf-eye{margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:.82rem}
+.cf-time{font-family:'Anton',sans-serif;font-size:clamp(3.2rem,15vw,4.4rem);line-height:1;margin:12px 0 0;font-variant-numeric:tabular-nums}
+.cf-time small{font-size:.38em;margin-left:8px;opacity:.75;letter-spacing:.04em}
+.cf-h{margin:10px 0 0;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(2.1rem,10vw,2.7rem);line-height:.95;letter-spacing:.01em}
+.cf-p{margin:12px 0 0;font-weight:500;font-size:.98rem;line-height:1.45}
+.cf-chip{margin:14px 0 0;padding:11px 13px;font-size:.92rem;line-height:1.4;font-weight:600}
+.cf-chip b{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
+.cf-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:18px}
+.cf-btn{flex:1 1 100%;display:flex;align-items:center;justify-content:center;min-height:52px;padding:12px 14px;border-radius:2px;text-decoration:none;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;text-align:center}
+.cf-btn.ink{background:#0b0d10;color:#fff}.cf-btn.white{background:#fff;color:#0b0d10}
+.cf-btn:active{transform:translateY(1px)}
+/* Sunset Run: sea blue */
+.cf-sun{background:#5fb3cf;color:#0b0d10}
+.cf-sun .cf-h span{color:#fff}.cf-sun .cf-bg{color:#fff;opacity:.28}
+.cf-sun .cf-chip{background:#0b0d10;color:#fff}.cf-sun .cf-chip b{color:#5fb3cf}
+/* Saturday 10K: Cabin red */
+.cf-10k{background:#e3121b;color:#fff}
+.cf-10k .cf-h span{color:#0b0d10}.cf-10k .cf-bg{color:#0b0d10;opacity:.2}
+.cf-10k .cf-chip{background:#fff;color:#0b0d10}.cf-10k .cf-chip b{color:#e3121b}
+.cf-10k .cf-btn.white{color:#e3121b}
+/* Coffee Rave: espresso + neon */
+.cf-rave{background:radial-gradient(120% 80% at 85% 0%,rgba(255,45,149,.55),transparent 55%),radial-gradient(90% 70% at 0% 100%,rgba(155,60,255,.45),transparent 60%),#1d100b;color:#f6e7d6}
+.cf-rave .cf-eye{color:#ffb36b}
+.cf-rave .cf-time{color:#fff;text-shadow:0 0 22px rgba(255,45,149,.7)}
+.cf-rave .cf-h span{color:#ff2d95;text-shadow:0 0 18px rgba(255,45,149,.55)}
+.cf-rave .cf-chip{background:rgba(255,45,149,.14);border:1px solid rgba(255,45,149,.6);color:#f6e7d6}.cf-rave .cf-chip b{color:#ff7cc0}
+.cf-btn.rave{background:#ff2d95;color:#1d100b;box-shadow:0 0 24px rgba(255,45,149,.45)}
+.cf-beans{position:absolute;inset:0;width:100%;height:100%;z-index:-1;fill:#6b3b22;stroke:#1d100b;opacity:.5}
+.cf-rave .cf-eye{padding-right:64px}
+.cf-cup{position:absolute;right:16px;top:16px;width:52px;height:52px;fill:#c98a4b;stroke:#ffb36b;opacity:.9}
+.cf-cup path:first-child{stroke:#ff7cc0}
+/* Controls */
+.cf-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+.cf-arrow{width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(245,241,234,.3);background:transparent;color:var(--cream);border-radius:50%;cursor:pointer}
+.cf-arrow svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.cf-arrow:hover{border-color:var(--cream)}
+.cf-dots{display:flex;gap:8px}
+.cf-dots button{width:10px;height:10px;padding:0;border:0;border-radius:5px;background:rgba(245,241,234,.3);cursor:pointer;transition:width .25s,background .25s}
+.cf-dots button[aria-selected="true"]{width:28px;background:var(--orange)}
+.cf-dots button[data-i="0"][aria-selected="true"]{background:#5fb3cf}.cf-dots button[data-i="2"][aria-selected="true"]{background:#ff2d95}
+/* Join strip under the cards */
+.clubs-join{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;align-items:center;margin-top:34px;padding:24px;border:1px solid var(--line);border-left:4px solid var(--sea);background:rgba(95,179,207,.06)}
+.cj-h{margin:6px 0 0;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(1.6rem,5vw,2.2rem);line-height:1}
+.cj-p{margin:10px 0 0;color:#cfd6de;font-size:.95rem}
+.cj-acts{display:grid;gap:10px}.cj-acts .btn{justify-content:center;text-align:center}
+@media (min-width:900px){.cf{--cw:380px;--off:78%;--sc:.86}}
+@media (max-width:760px){.clubs-join{grid-template-columns:minmax(0,1fr);padding:20px}.cf{--off:16%;--sc:.86}}
+@media (prefers-reduced-motion:reduce){.cfc{transition:none}}
 .club-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .club{position:relative;display:flex;flex-direction:column;background:var(--ink-3);border:1px solid var(--line);border-radius:2px;padding:30px 28px 28px;overflow:hidden}
 .club::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--orange)}
@@ -678,18 +739,6 @@ html,body{overflow-anchor:none}
 }
 @media(max-width:1000px){ .club-grid{grid-template-columns:1fr 1fr} .club:last-child{grid-column:1 / -1} }
 @media(max-width:760px){
-  /* Phone: the three clubs sit side by side in a swipe row; the next card peeks in. */
-  .club-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-    margin:0 -20px;padding:4px 20px 14px;scroll-padding:0 20px;scrollbar-width:none}
-  .club-grid::-webkit-scrollbar{display:none}
-  .club{flex:0 0 82%;scroll-snap-align:start;padding:24px 18px 20px}
-  .club:last-child{grid-column:auto}
-  .club .time{font-size:clamp(2.6rem,13vw,3.4rem)}
-  .club .perk{margin-bottom:18px}
-  .club-dots{display:flex;justify-content:center;gap:8px;margin-top:4px}
-  .club-dots i{width:8px;height:8px;border-radius:50%;background:rgba(245,241,234,.3);transition:background .2s,width .2s}
-  .club-dots i.on{width:22px;border-radius:4px;background:var(--orange)}
-  .club-swipe{display:block!important;text-align:center;color:var(--muted);font-size:.85rem;margin:8px 0 0;letter-spacing:.04em}
   .slots{padding:68px 0}
   .slots-inner{grid-template-columns:1fr;gap:30px}
 }
@@ -3050,15 +3099,6 @@ html,body{overflow-anchor:none}
       <figure><img loading="lazy" src="images/event-oxigym-10-v1-sm.jpg" data-full="images/event-oxigym-10-v1.jpg" width="600" height="848" alt="Oxigym members get 10% off their bill at Captain's Cabin. Scan to get your free Cabin card, then show your Oxigym card when you pay. Once a day per member."></figure>
       <figure><img loading="lazy" src="images/event-car-wash-v1-sm.jpg" data-full="images/event-car-wash-v1.jpg" width="600" height="794" alt="We wash your car while you eat. Car wash open 10:00 to 19:00. 10% off your meal when we wash your car."></figure>
     </div>
-    <div class="runweek rv">
-      <p class="eyebrow">Weekly runs from the Cabin</p>
-      <div class="rw-row"><b>Mon &middot; Wed &middot; Fri</b><span>Social Sunset Run &middot; 5&nbsp;km &middot; meet 18:00, run 18:30</span></div>
-      <div class="rw-row"><b>Saturday</b><span>Saturday 10K &middot; 09:00</span></div>
-      <div class="rw-cta">
-        <a class="btn" href="/runs">RSVP for this week&rsquo;s runs</a>
-        <a class="btn sea" href="/loyalty?join=run">Join the Run Club</a>
-      </div>
-    </div>
     <div class="poster-cta rv">
       <a class="btn ghost" href="/loyalty?join=oxigym">Oxigym members &middot; 10% off your bill</a>
       <a class="btn ghost" href="#cwbook" data-cwbook>Book a car wash &middot; 10% off your meal</a>
@@ -3078,48 +3118,63 @@ html,body{overflow-anchor:none}
 <section class="sec clubs" id="clubs">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Sunset runs &middot; Saturday 10K &middot; Coffee rave</p>
+      <p class="eyebrow">Run Club &middot; Sunset runs &middot; Saturday 10K &middot; Coffee Rave</p>
       <h2>Run it,<br>then refuel</h2>
       <div class="rule"></div>
       <p>Everyone&rsquo;s welcome, every pace. Meet at the Cabin, head out along the bay, and come back to coffee, music and a proper breakfast.</p>
     </div>
 
-    <div class="club-grid rv">
-      <article class="club sea">
-        <p class="when">Monday, Wednesday &amp; Friday</p>
-        <div class="time">18:30<small>meet 18:00</small></div>
-        <h3>Social Sunset Run</h3>
-        <p>A social 5&nbsp;km along Saldanha Bay as the sun goes down. Meet at the Cabin at 18:00, we run at 18:30, then stay for dinner.</p>
-        <div class="perk"><div><b>Runner perk</b>30% off your meal that day. <!--PROMO-NOV7-->This week only (until Sat 7 Nov): a free beer, cider or cold drink after the run.<!--/PROMO-NOV7--></div></div>
-        <a class="btn sea club-rsvp" href="/runs">RSVP for a Sunset Run</a>
-      </article>
-
-      <article class="club">
-        <p class="when">Every Saturday morning</p>
-        <div class="time">09:00</div>
-        <h3>Saturday 10K</h3>
-        <p>Our Saturday morning 10&nbsp;km, starting and finishing at the Cabin on Main Road. All paces welcome.<!--PROMO-NOV7--> <b>Sat 7 Nov only:</b> a free drink after the run &mdash; beer, cider, coffee, tea, juice, water or a cold drink.<!--/PROMO-NOV7--></p>
-        <div class="perk"><div><b>Club perks &middot; 09:00 &ndash; 12:00</b>Free coffee, water and juice with every meal you order &mdash; plus 30% off any breakfast.</div></div>
-        <a class="btn club-rsvp" href="/runs">RSVP for the Saturday 10K</a>
-      </article>
-
-      <article class="club">
-        <p class="when">Every Saturday</p>
-        <div class="time">09:00<small>&ndash; 12:00</small></div>
-        <h3>Coffee Rave</h3>
-        <p>Morning music, good coffee and good people. Come straight off the run, or just come for the vibe &mdash; no sweat required.</p>
-        <div class="perk"><div><b>Rave perks &middot; 09:00 &ndash; 12:00</b>Free coffee, water and juice with every meal you order &mdash; plus 30% off any breakfast.</div></div>
-      </article>
+    <!-- Club cards: one in front, two behind. Swipe (or tap a side card / the arrows) and they rotate. -->
+    <div class="cf rv" id="cf" role="region" aria-roledescription="carousel" aria-label="Runs and Coffee Rave">
+      <div class="cf-stage">
+        <article class="cfc cf-sun" aria-roledescription="slide" aria-label="Social Sunset Run">
+          <span class="cf-bg" aria-hidden="true">5K</span>
+          <p class="cf-eye">Mon &middot; Wed &middot; Fri &middot; 5&nbsp;km</p>
+          <div class="cf-time">18:30<small>meet 18:00</small></div>
+          <h3 class="cf-h">Social<br><span>Sunset Run</span></h3>
+          <p class="cf-p">Along Saldanha Bay as the sun goes down. Meet at the Cabin, run at 18:30, then stay for dinner.</p>
+          <p class="cf-chip"><b>Runner perk</b> 30% off your meal that day<!--PROMO-NOV7--> &middot; until Sat 7 Nov: a free beer, cider or cold drink after the run<!--/PROMO-NOV7--></p>
+          <div class="cf-acts"><a class="cf-btn ink" href="/runs" data-rsvp="sun">RSVP for a Sunset Run</a><a class="cf-btn white" href="/loyalty?join=run">Join the Run Club</a></div>
+        </article>
+        <article class="cfc cf-10k" aria-roledescription="slide" aria-label="Saturday 10K">
+          <span class="cf-bg" aria-hidden="true">10K</span>
+          <p class="cf-eye">Every Saturday &middot; 10&nbsp;km</p>
+          <div class="cf-time">09:00</div>
+          <h3 class="cf-h">Saturday<br><span>10K</span></h3>
+          <p class="cf-p">Starts and finishes at the Cabin on Main Road. All paces welcome.<!--PROMO-NOV7--> <b>Sat 7 Nov only:</b> a free drink after the run.<!--/PROMO-NOV7--></p>
+          <p class="cf-chip"><b>Club perks 09:00&ndash;12:00</b> free coffee, water &amp; juice with every meal, plus 30% off any breakfast</p>
+          <div class="cf-acts"><a class="cf-btn white" href="/runs" data-rsvp="10k">RSVP for the 10K</a><a class="cf-btn ink" href="/loyalty?join=run">Join the Run Club</a></div>
+        </article>
+        <article class="cfc cf-rave" aria-roledescription="slide" aria-label="Coffee Rave">
+          <svg class="cf-beans" aria-hidden="true" viewBox="0 0 200 200"><defs><g id="bean"><ellipse rx="9" ry="13"/><path d="M0-12c-4 6 4 18 0 24" fill="none" stroke-width="2.2"/></g></defs>
+            <use href="#bean" x="20" y="24" transform="rotate(-25 20 24)"/><use href="#bean" x="170" y="36" transform="rotate(30 170 36)"/><use href="#bean" x="150" y="170" transform="rotate(-40 150 170)"/><use href="#bean" x="36" y="160" transform="rotate(20 36 160)"/><use href="#bean" x="100" y="12" transform="rotate(70 100 12)"/></svg>
+          <svg class="cf-cup" aria-hidden="true" viewBox="0 0 64 64"><path d="M22 6c-3 4 3 7 0 11M32 4c-3 4 3 7 0 11M42 6c-3 4 3 7 0 11" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M10 24h40v14a18 18 0 0 1-18 18h-4a18 18 0 0 1-18-18z"/><path d="M50 28h4a7 7 0 0 1 0 14h-5" fill="none" stroke-width="4"/></svg>
+          <p class="cf-eye">Every Saturday &middot; music &amp; coffee</p>
+          <div class="cf-time">09:00<small>&ndash; 12:00</small></div>
+          <h3 class="cf-h">Coffee<br><span>Rave</span></h3>
+          <p class="cf-p">Morning beats, strong coffee and good people. Come straight off the run, or just come for the vibe. No sweat required.</p>
+          <p class="cf-chip"><b>Rave perks</b> free coffee, water &amp; juice with every meal, plus 30% off any breakfast</p>
+          <div class="cf-acts"><a class="cf-btn rave" href="/runs?run=rave">RSVP for the Coffee Rave</a></div>
+        </article>
+      </div>
+      <div class="cf-nav">
+        <button class="cf-arrow" type="button" data-dir="-1" aria-label="Previous card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="cf-dots" role="tablist" aria-label="Choose a card"></div>
+        <button class="cf-arrow" type="button" data-dir="1" aria-label="Next card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
     </div>
-    <div class="club-dots" aria-hidden="true" style="display:none"></div>
-    <p class="club-swipe" style="display:none">Swipe for more &rarr;</p>
 
-    <div class="clubs-foot rv">
-      <p>Join the Run Club free to get a sticker and 15 points at every club run, plus a R100 voucher every 5 runs. Perks are for that day&rsquo;s participants. Beer and cider for over-18s only.</p>
-      <a class="btn" href="/runs">RSVP for this week&rsquo;s runs</a>
-      <a class="btn ghost" href="/loyalty?join=run">Join the Run Club</a>
-      <a class="btn ghost" href="tel:+27600201219">Call 060 020 1219</a>
-      <a class="btn ghost" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener">Follow the club</a>
+    <div class="clubs-join rv">
+      <div>
+        <p class="eyebrow">Captain&rsquo;s Cabin Run Club &middot; free</p>
+        <p class="cj-h">Join once. Earn at every run.</p>
+        <p class="cj-p">A sticker and 15 points at every club run, a R100 voucher every 5 runs, and your Cabin loyalty card for meals too. Perks are for that day&rsquo;s participants. Beer and cider for over-18s only.</p>
+      </div>
+      <div class="cj-acts">
+        <a class="btn sea" href="/loyalty?join=run">Join the Run Club</a>
+        <a class="btn" href="/runs">RSVP for this week</a>
+        <a class="btn ghost" href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener">Follow the club</a>
+      </div>
     </div>
   </div>
 </section>
@@ -3511,14 +3566,52 @@ html,body{overflow-anchor:none}
 })();
 </script>
 <script>
-/* Club swipe row on phones: dots follow the card in view. */
+/* Club cards: three cards in a rotating stack. The front card is "c", the one behind on the left "l",
+   on the right "r". Swipe left (or the right arrow) and every card moves one place left, round in a loop. */
 (function(){
-  var g=document.querySelector('.club-grid'), d=document.querySelector('.club-dots'); if(!g||!d) return;
-  var cards=g.querySelectorAll('.club'); if(!window.matchMedia('(max-width:760px)').matches) return;
-  d.style.display='flex'; d.innerHTML=Array.prototype.map.call(cards,function(_,i){return '<i'+(i?'':' class="on"')+'></i>';}).join('');
-  var dots=d.querySelectorAll('i');
-  g.addEventListener('scroll',function(){ var w=cards[0].offsetWidth+12, n=Math.round(g.scrollLeft/w);
-    dots.forEach(function(x,i){x.classList.toggle('on',i===n);}); var sw=document.querySelector('.club-swipe'); if(sw&&n>0) sw.style.visibility='hidden'; },{passive:true});
+  var cf=document.getElementById('cf'); if(!cf) return;
+  var stage=cf.querySelector('.cf-stage'), cards=[].slice.call(cf.querySelectorAll('.cfc')), n=cards.length, cur=0;
+  var dots=cf.querySelector('.cf-dots');
+  dots.innerHTML=cards.map(function(c,i){ return '<button type="button" role="tab" data-i="'+i+'" aria-label="'+c.getAttribute('aria-label')+'"></button>'; }).join('');
+  function paint(){
+    cards.forEach(function(c,i){
+      var k=((i-cur)%n+n)%n; c.classList.remove('is-c','is-l','is-r');
+      c.classList.add(k===0?'is-c':k===1?'is-r':'is-l'); c.setAttribute('aria-hidden', k===0?'false':'true');
+      c.querySelectorAll('a,button').forEach(function(a){ a.tabIndex = k===0 ? 0 : -1; });
+    });
+    dots.querySelectorAll('button').forEach(function(b,i){ b.setAttribute('aria-selected', i===cur?'true':'false'); });
+  }
+  function go(d){ cur=((cur+d)%n+n)%n; paint(); }
+  cf.querySelectorAll('.cf-arrow').forEach(function(b){ b.onclick=function(){ go(+b.getAttribute('data-dir')); }; });
+  dots.addEventListener('click',function(e){ var b=e.target.closest('button'); if(b){ cur=+b.getAttribute('data-i'); paint(); } });
+  cards.forEach(function(c){ c.addEventListener('click',function(e){
+    if(c.classList.contains('is-r')){ e.preventDefault(); go(1); } else if(c.classList.contains('is-l')){ e.preventDefault(); go(-1); } }); });
+  cf.addEventListener('keydown',function(e){ if(e.key==='ArrowRight') go(1); if(e.key==='ArrowLeft') go(-1); });
+  // Swipe: follow the finger a little, then rotate in the direction of the swipe.
+  var x0=null, y0=0, dx=0, moved=false;
+  stage.addEventListener('pointerdown',function(e){ if(e.pointerType==='mouse' && e.button!==0) return; x0=e.clientX; y0=e.clientY; dx=0; moved=false; },{passive:true});
+  stage.addEventListener('pointermove',function(e){
+    if(x0===null) return; dx=e.clientX-x0;
+    if(!moved && Math.abs(dx)>8 && Math.abs(dx)>Math.abs(e.clientY-y0)){ moved=true; cf.classList.add('dragging'); }
+    if(moved){ var front=cards[cur]; front.style.transform='translateX('+dx*0.6+'px) rotate('+dx*0.02+'deg)'; }
+  },{passive:true});
+  function end(){
+    if(x0===null) return; cards[cur].style.transform=''; cf.classList.remove('dragging');
+    if(moved && Math.abs(dx)>45) go(dx<0?1:-1);
+    x0=null;
+  }
+  stage.addEventListener('pointerup',end); stage.addEventListener('pointercancel',end); stage.addEventListener('pointerleave',end);
+  stage.addEventListener('click',function(e){ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } },true);
+  // RSVP buttons open the RSVP page with the next date of that run already ticked.
+  function ymd(d){ return d.toLocaleDateString('en-CA',{timeZone:'Africa/Johannesburg'}); }
+  function next(days, hour){ var now=new Date(), h=+now.toLocaleTimeString('en-GB',{timeZone:'Africa/Johannesburg',hour:'2-digit',hour12:false});
+    for(var i=0;i<8;i++){ var d=new Date(now.getTime()+i*864e5);
+      var day=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Intl.DateTimeFormat('en-US',{timeZone:'Africa/Johannesburg',weekday:'short'}).format(d));
+      if(days.indexOf(day)>-1 && (i>0 || h<hour)) return ymd(d); } return ''; }
+  var sun=cf.querySelector('[data-rsvp="sun"]'), tk=cf.querySelector('[data-rsvp="10k"]');
+  var s1=next([1,3,5],18), s2=next([6],9);
+  if(sun&&s1) sun.href='/runs?run='+s1; if(tk&&s2) tk.href='/runs?run='+s2;
+  paint();
 })();
 </script>
 </body>

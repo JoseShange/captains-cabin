@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RSVP for this week's runs | Captain's Cabin Run Club</title>
+<title>RSVP: runs &amp; Coffee Rave | Captain's Cabin</title>
 <meta name="description" content="Social Sunset Run 5K Mon, Wed & Fri (meet 18:00, run 18:30) and the Saturday 10K at 09:00 from Captain's Cabin, Saldanha. Tap the runs you're coming to.">
 <link rel="canonical" href="https://captainscabinwestcoast.com/runs">
 <meta property="og:type" content="website">
@@ -41,6 +41,8 @@ h1{font:400 clamp(2.4rem,11vw,3.6rem)/.95 Anton,sans-serif;text-transform:upperc
 .tick{width:30px;height:30px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center}
 .tick svg{width:16px;height:16px;stroke:var(--ink);stroke-width:3;fill:none;opacity:0}
 .run.sea .day b{color:var(--sea)}
+.run.rave .day b{color:#ff3ea5}.run.rave h3{color:#ff8fca}
+.run.rave .going{color:#ffb37a}
 .run:has(input:checked){border-color:var(--red);background:#1a1012}
 .run:has(input:checked) .tick{background:var(--red);border-color:var(--red)}
 .run:has(input:checked) .tick svg{opacity:1;stroke:#fff}
@@ -74,8 +76,8 @@ input:focus{outline:none;border-color:var(--sea)}
   </header>
 
   <p class="eyebrow">Run Club · RSVP</p>
-  <h1>This week's runs</h1>
-  <p class="lede">Tap every run you're coming to so we're ready for you. Starts and finishes at the Cabin, 20 Main Rd, Saldanha. All paces welcome.</p>
+  <h1>This week's runs &amp; rave</h1>
+  <p class="lede">Tap every run, and the Saturday Coffee Rave, you're coming to so we're ready for you. Starts and finishes at the Cabin, 20 Main Rd, Saldanha. All paces welcome.</p>
 
   <form id="f" novalidate>
     <div class="runs" id="runs"><div class="empty">Loading this week's runs…</div></div>
@@ -118,20 +120,23 @@ input:focus{outline:none;border-color:var(--sea)}
   var H={'apikey':KEY,'Content-Type':'application/json'};
   var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var runsEl=document.getElementById('runs'), runs=[];
+  var runsEl=document.getElementById('runs'), runs=[], raves=[];
   var name=document.getElementById('name'), phone=document.getElementById('phone');
   var want=(new URLSearchParams(location.search).get('run')||'').split(',');
 
-  function when(r){ return /10K/i.test(r.name) ? 'Start 09:00' : 'Meet 18:00 · run 18:30'; }
+  function when(r){ return r.rave ? '09:00 – 12:00 · music, coffee, 30% off breakfast' : /10K/i.test(r.name) ? 'Start 09:00' : 'Meet 18:00 · run 18:30'; }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function d(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
 
   function render(){
-    if(!runs.length){ runsEl.innerHTML='<div class="empty">No runs scheduled in the next 7 days. Check back soon or follow us on Instagram.</div>'; return; }
-    runsEl.innerHTML=runs.map(function(r){
-      var dt=d(r.run_date), sea=/10K/i.test(r.name)?' sea':'';
-      var g=r.going>0 ? r.going+(r.going==1?' runner':' runners')+' coming' : 'Be the first to RSVP';
-      return '<label class="run'+sea+'"><input type="checkbox" name="run" value="'+r.run_date+'"'+(want.indexOf(r.run_date)>-1?' checked':'')+'>'+
+    var all=runs.concat(raves).sort(function(a,b){ return a.run_date<b.run_date?-1:a.run_date>b.run_date?1:(a.rave?1:-1); });
+    if(!all.length){ runsEl.innerHTML='<div class="empty">No runs scheduled in the next 7 days. Check back soon or follow us on Instagram.</div>'; return; }
+    runsEl.innerHTML=all.map(function(r){
+      var dt=d(r.run_date), sea=r.rave?' rave':/10K/i.test(r.name)?' sea':'', val=(r.rave?'rave:':'')+r.run_date;
+      var who=r.rave?(r.going==1?' raver':' ravers'):(r.going==1?' runner':' runners');
+      var g=r.going>0 ? r.going+who+' coming' : 'Be the first to RSVP';
+      var pre=want.indexOf(val)>-1 || (r.rave && want.indexOf('rave')>-1);
+      return '<label class="run'+sea+'"><input type="checkbox" name="run" value="'+val+'"'+(pre?' checked':'')+'>'+
         '<div class="day"><b>'+dt.getDate()+'</b><small>'+DAYS[dt.getDay()]+'</small></div>'+
         '<div><h3>'+esc(r.name)+'</h3><div class="t">'+when(r)+'</div><div class="going">'+g+'</div></div>'+
         '<span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></label>';
@@ -139,9 +144,9 @@ input:focus{outline:none;border-color:var(--sea)}
   }
 
   function load(){
-    return fetch(URL_+'run_rsvp_counts',{method:'POST',headers:H,body:'{}'})
-      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-      .then(function(j){ runs=j; render(); })
+    var get=function(fn){ return fetch(URL_+fn,{method:'POST',headers:H,body:'{}'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); };
+    return Promise.all([get('run_rsvp_counts'), get('rave_rsvp_counts').catch(function(){ return []; })])
+      .then(function(j){ runs=j[0]; raves=j[1].map(function(x){ return {run_date:x.rave_date, name:'Coffee Rave', going:x.going, rave:true}; }); render(); })
       .catch(function(){ runsEl.innerHTML='<div class="empty">Couldn’t load the runs. Check your connection and refresh.</div>'; });
   }
   load();
@@ -156,17 +161,20 @@ input:focus{outline:none;border-color:var(--sea)}
   var err=document.getElementById('err'), go=document.getElementById('go');
   document.getElementById('f').addEventListener('submit',function(e){
     e.preventDefault(); err.textContent='';
-    var dates=[].map.call(document.querySelectorAll('input[name=run]:checked'),function(i){return i.value;});
+    var picked=[].map.call(document.querySelectorAll('input[name=run]:checked'),function(i){return i.value;});
+    var dates=picked.filter(function(v){return v.indexOf('rave:')<0;}), rdates=picked.filter(function(v){return v.indexOf('rave:')===0;}).map(function(v){return v.slice(5);});
     var n=name.value.trim(), p=phone.value.trim();
-    if(!dates.length){ err.textContent='Tap at least one run.'; return; }
+    if(!picked.length){ err.textContent='Tap at least one run or the Coffee Rave.'; return; }
     if(!n){ err.textContent='Please enter your first name.'; name.focus(); return; }
     if(p.replace(/\D/g,'').length<9){ err.textContent='Please enter your cellphone number.'; phone.focus(); return; }
     go.disabled=true; go.textContent='Saving…';
-    fetch(URL_+'rsvp_runs',{method:'POST',headers:H,body:JSON.stringify({p_dates:dates,p_first_name:n,p_phone:p,p_party:party})})
-      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.message||'Something went wrong.'); return j; }); })
+    var post=function(fn,ds){ if(!ds.length) return Promise.resolve(0);
+      return fetch(URL_+fn,{method:'POST',headers:H,body:JSON.stringify({p_dates:ds,p_first_name:n,p_phone:p,p_party:party})})
+        .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.message||'Something went wrong.'); return j; }); }); };
+    post('rsvp_runs',dates).then(function(){ return post('rsvp_rave',rdates); })
       .then(function(){
         try{ localStorage.setItem('cc_rsvp',JSON.stringify({n:n,p:p})); }catch(e){}
-        document.getElementById('doneList').innerHTML=runs.filter(function(r){return dates.indexOf(r.run_date)>-1;}).map(function(r){
+        document.getElementById('doneList').innerHTML=runs.concat(raves).filter(function(r){return picked.indexOf((r.rave?'rave:':'')+r.run_date)>-1;}).map(function(r){
           var dt=d(r.run_date); return '<li><b>'+DAYS[dt.getDay()]+' '+dt.getDate()+' '+MON[dt.getMonth()]+'</b> · '+esc(r.name)+' · '+when(r)+'</li>'; }).join('');
         document.getElementById('f').style.display='none';
         var done=document.getElementById('done'); done.style.display='block'; done.scrollIntoView({behavior:'smooth',block:'start'});
