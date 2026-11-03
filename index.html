@@ -645,6 +645,21 @@ html,body{overflow-anchor:none}
 .carwash p.cw-deal b{color:var(--orange-soft)}
 .posters figure{cursor:zoom-in}
 .poster-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.rw-cta{display:flex;flex-wrap:wrap;gap:10px;padding-top:14px;border-top:1px solid var(--line)}
+.rw-cta .btn{flex:1 1 220px;justify-content:center;text-align:center}
+.cwbook{margin-top:26px;padding:20px;border:1px solid var(--line);border-left:3px solid var(--sea);background:rgba(95,179,207,.06)}
+.cwbook .eyebrow{margin:0 0 12px}
+.cwb-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.cwb-grid label{display:flex;flex-direction:column;gap:6px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;color:var(--muted)}
+.cwb-grid label small{text-transform:none;letter-spacing:0}
+.cwb-grid label.wide{grid-column:1/-1}
+.cwb-grid input,.cwb-grid select{font:inherit;font-family:Barlow,sans-serif;text-transform:none;letter-spacing:0;font-size:1rem;color:var(--cream);background:var(--ink-2);border:1px solid rgba(245,241,234,.25);padding:12px;border-radius:2px;min-height:46px;width:100%;box-sizing:border-box}
+.cwb-grid input:focus,.cwb-grid select:focus{outline:2px solid var(--sea);outline-offset:1px}
+.cwb-grid .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cwbook .btn{width:100%;justify-content:center}
+.cwb-msg{margin:12px 0 0;font-weight:600;min-height:1em}
+.cwb-msg.ok{color:var(--sea)}.cwb-msg.err{color:var(--orange-soft)}
+@media (max-width:520px){.cwb-grid{grid-template-columns:minmax(0,1fr)}}
 .navlinks a{white-space:nowrap}
 @media(max-width:1260px) and (min-width:1081px){ .navlinks{gap:16px} .navlinks a{letter-spacing:.1em} }
 @media(max-width:1080px){
@@ -3027,12 +3042,14 @@ html,body{overflow-anchor:none}
       <p class="eyebrow">Weekly runs from the Cabin</p>
       <div class="rw-row"><b>Mon &middot; Wed &middot; Fri</b><span>Social Sunset Run &middot; 5&nbsp;km &middot; meet 18:00, run 18:30</span></div>
       <div class="rw-row"><b>Saturday</b><span>Saturday 10K &middot; 09:00</span></div>
+      <div class="rw-cta">
+        <a class="btn" href="/runs">RSVP for this week&rsquo;s runs</a>
+        <a class="btn sea" href="/loyalty?join=run">Join the Run Club</a>
+      </div>
     </div>
     <div class="poster-cta rv">
-      <a class="btn" href="/runs">RSVP for this week&rsquo;s runs</a>
-      <a class="btn ghost" href="/loyalty?join=run">Join the Run Club</a>
-      <a class="btn" href="/loyalty?join=oxygen">Oxygen members &middot; 10% off your bill</a>
-      <a class="btn sea" href="#carwash">Car wash &middot; 10% off your meal</a>
+      <a class="btn ghost" href="/loyalty?join=oxygen">Oxygen members &middot; 10% off your bill</a>
+      <a class="btn ghost" href="#cwbook" data-cwbook>Book a car wash &middot; 10% off your meal</a>
     </div>
 
     <div class="events-empty rv" id="eventsEmpty">
@@ -3145,12 +3162,26 @@ html,body{overflow-anchor:none}
         <p class="cw-deal"><b>10% off your meal</b> when we wash your car while you eat.</p>
         <p>Call or WhatsApp us for prices or to check if there&rsquo;s a gap before you come in.</p>
         <p class="cw-tag">Eat, drink, drive off clean.</p>
+        <form class="cwbook" id="cwbook" hidden novalidate>
+          <p class="eyebrow">Book a car wash</p>
+          <div class="cwb-grid">
+            <label>Your name<input name="name" required autocomplete="name"></label>
+            <label>Cellphone<input name="phone" type="tel" required autocomplete="tel" placeholder="e.g. 082 123 4567"></label>
+            <label>Day<input name="date" type="date" required></label>
+            <label>Time<select name="time" required><option value="">Pick a time</option></select></label>
+            <label class="wide">Your car <small>(optional)</small><input name="car" placeholder="e.g. White Toyota Hilux"></label>
+            <label class="hp" aria-hidden="true">Leave empty<input name="website" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <button class="btn sea" type="submit">Book my car wash</button>
+          <p class="cwb-msg" role="status" aria-live="polite"></p>
+        </form>
       </div>
       <div class="slots-hours">
         <i>Car wash open</i>
         <b>10:00 &ndash; 19:00</b>
         <span>Ask us for prices &amp; availability</span>
         <div class="cw-cta">
+          <a class="btn sea" href="#cwbook" data-cwbook>Book a car wash</a>
           <a class="btn" href="https://wa.me/27649916181" target="_blank" rel="noopener">WhatsApp 064 991 6181</a>
           <a class="btn ghost" href="tel:+27227141716">Call 022 714 1716</a>
         </div>
@@ -3416,6 +3447,50 @@ html,body{overflow-anchor:none}
   function fromHash(){ if(location.hash==='#drinks'){ setMode('drinks','always'); } }
   [].slice.call(document.querySelectorAll('a[href="#drinks"]')).forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); history.replaceState(null,'','#drinks'); setMode('drinks','always'); var nl=document.getElementById('navlinks'); if(nl&&nl.classList.contains('open')){ var bg=document.getElementById('burger'); if(bg) bg.click(); } }); });
   fromHash(); window.addEventListener('hashchange',fromHash);
+})();
+</script>
+<script>
+/* Car wash booking: the form posts to a Make.com webhook, which puts the booking in the
+   Captain's Cabin Google Calendar and texts the customer. Slots are on the hour, 10:00-18:00
+   (car wash open 10:00-19:00). */
+(function(){
+  var HOOK = "https://hook.us2.make.com/djabdkqrrdyj5o47c9c11uhwvum0syf4";
+  var LIVE = false; // false until the Cabin's Google Calendar is connected in Make: buttons open WhatsApp instead
+  var f = document.getElementById("cwbook"); if (!f) return;
+  if (!LIVE) { document.querySelectorAll("[data-cwbook]").forEach(function(a){ a.href = "https://wa.me/27649916181?text=" + encodeURIComponent("Hi, I'd like to book a car wash"); a.target = "_blank"; a.rel = "noopener"; a.removeAttribute("data-cwbook"); }); return; }
+  var msg = f.querySelector(".cwb-msg"), d = f.elements.date, t = f.elements.time;
+  function today(){ return new Date().toLocaleDateString("en-CA", { timeZone: "Africa/Johannesburg" }); }
+  function nowHour(){ return +new Date().toLocaleTimeString("en-GB", { timeZone: "Africa/Johannesburg", hour: "2-digit", hour12: false }); }
+  function fillTimes(){
+    var keep = t.value, first = (d.value === today()) ? nowHour() + 1 : 10;
+    t.innerHTML = '<option value="">Pick a time</option>';
+    for (var h = Math.max(10, first); h <= 18; h++) { var v = (h < 10 ? "0" : "") + h + ":00"; t.insertAdjacentHTML("beforeend", '<option' + (v === keep ? " selected" : "") + '>' + v + '</option>'); }
+    if (t.options.length === 1) t.innerHTML = '<option value="">No times left today. Pick another day.</option>';
+  }
+  d.min = today(); d.value = nowHour() < 18 ? today() : ""; fillTimes(); d.onchange = fillTimes;
+  document.querySelectorAll("[data-cwbook]").forEach(function(a){ a.addEventListener("click", function(e){
+    e.preventDefault(); f.hidden = false; f.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ f.elements.name.focus({ preventScroll: true }); }, 400);
+  }); });
+  if (location.hash === "#cwbook") f.hidden = false;
+  function e164(p){ p = String(p).replace(/[^0-9+]/g, ""); if (p.indexOf("+") === 0) return p; if (p.indexOf("27") === 0) return "+" + p; if (p.indexOf("0") === 0) return "+27" + p.slice(1); return p; }
+  f.onsubmit = function(e){
+    e.preventDefault(); msg.className = "cwb-msg"; msg.textContent = "";
+    var name = f.elements.name.value.trim(), phone = e164(f.elements.phone.value);
+    if (!name) { msg.className = "cwb-msg err"; msg.textContent = "Please add your name."; return; }
+    if (!/^\+27[0-9]{9}$/.test(phone)) { msg.className = "cwb-msg err"; msg.textContent = "Please check your cellphone number."; return; }
+    if (!d.value || !t.value) { msg.className = "cwb-msg err"; msg.textContent = "Pick a day and a time."; return; }
+    var b = f.querySelector("button"); b.disabled = true; b.textContent = "Booking…";
+    fetch(HOOK, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
+      name: name, phone: phone, car: f.elements.car.value.trim(), date: d.value, time: t.value,
+      start: d.value + "T" + t.value + ":00+02:00", website: f.elements.website.value }) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(j){
+        if (j.result === "booked") { msg.className = "cwb-msg ok"; msg.textContent = "Booked! " + (j.when || "") + ". We've sent you an SMS. Need to change it? WhatsApp 064 991 6181."; f.reset(); d.value = today(); fillTimes(); }
+        else throw new Error(j.message || "");
+      })
+      .catch(function(er){ msg.className = "cwb-msg err"; msg.textContent = (er && er.message) || "We couldn't book that just now. Please WhatsApp 064 991 6181 and we'll sort it out."; })
+      .then(function(){ b.disabled = false; b.textContent = "Book my car wash"; });
+  };
 })();
 </script>
 </body>
