@@ -625,7 +625,7 @@ html,body{overflow-anchor:none}
 .club.sea .perk div{border-color:rgba(95,179,207,.55);background:rgba(95,179,207,.08)}
 .perk b{display:block;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-size:.7rem;font-weight:700;color:var(--orange-soft);margin-bottom:4px}
 .club.sea .perk b{color:var(--sea)}
-.club-rsvp{margin-top:20px;width:100%;justify-content:center;text-align:center}
+.club-rsvp{margin-top:auto;width:100%;justify-content:center;text-align:center}
 .clubs-foot{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:34px}
 .clubs-foot p{color:var(--muted);font-size:.92rem;flex:1 1 320px}
 .slots{border-top:1px solid var(--line);padding:84px 0;background:var(--ink)}
@@ -678,8 +678,18 @@ html,body{overflow-anchor:none}
 }
 @media(max-width:1000px){ .club-grid{grid-template-columns:1fr 1fr} .club:last-child{grid-column:1 / -1} }
 @media(max-width:760px){
-  .club-grid{grid-template-columns:1fr} .club:last-child{grid-column:auto}
-  .club{padding:26px 20px 22px}
+  /* Phone: the three clubs sit side by side in a swipe row; the next card peeks in. */
+  .club-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    margin:0 -20px;padding:4px 20px 14px;scroll-padding:0 20px;scrollbar-width:none}
+  .club-grid::-webkit-scrollbar{display:none}
+  .club{flex:0 0 82%;scroll-snap-align:start;padding:24px 18px 20px}
+  .club:last-child{grid-column:auto}
+  .club .time{font-size:clamp(2.6rem,13vw,3.4rem)}
+  .club .perk{margin-bottom:18px}
+  .club-dots{display:flex;justify-content:center;gap:8px;margin-top:4px}
+  .club-dots i{width:8px;height:8px;border-radius:50%;background:rgba(245,241,234,.3);transition:background .2s,width .2s}
+  .club-dots i.on{width:22px;border-radius:4px;background:var(--orange)}
+  .club-swipe{display:block!important;text-align:center;color:var(--muted);font-size:.85rem;margin:8px 0 0;letter-spacing:.04em}
   .slots{padding:68px 0}
   .slots-inner{grid-template-columns:1fr;gap:30px}
 }
@@ -3075,6 +3085,15 @@ html,body{overflow-anchor:none}
     </div>
 
     <div class="club-grid rv">
+      <article class="club sea">
+        <p class="when">Monday, Wednesday &amp; Friday</p>
+        <div class="time">18:30<small>meet 18:00</small></div>
+        <h3>Social Sunset Run</h3>
+        <p>A social 5&nbsp;km along Saldanha Bay as the sun goes down. Meet at the Cabin at 18:00, we run at 18:30, then stay for dinner.</p>
+        <div class="perk"><div><b>Runner perk</b>30% off your meal that day. <!--PROMO-NOV7-->This week only (until Sat 7 Nov): a free beer, cider or cold drink after the run.<!--/PROMO-NOV7--></div></div>
+        <a class="btn sea club-rsvp" href="/runs">RSVP for a Sunset Run</a>
+      </article>
+
       <article class="club">
         <p class="when">Every Saturday morning</p>
         <div class="time">09:00</div>
@@ -3091,15 +3110,9 @@ html,body{overflow-anchor:none}
         <p>Morning music, good coffee and good people. Come straight off the run, or just come for the vibe &mdash; no sweat required.</p>
         <div class="perk"><div><b>Rave perks &middot; 09:00 &ndash; 12:00</b>Free coffee, water and juice with every meal you order &mdash; plus 30% off any breakfast.</div></div>
       </article>
-      <article class="club sea">
-        <p class="when">Monday, Wednesday &amp; Friday</p>
-        <div class="time">18:30<small>meet 18:00</small></div>
-        <h3>Social Sunset Run</h3>
-        <p>A social 5&nbsp;km along Saldanha Bay as the sun goes down. Meet at the Cabin at 18:00, we run at 18:30, then stay for dinner.</p>
-        <div class="perk"><div><b>Runner perk</b>30% off your meal that day. <!--PROMO-NOV7-->This week only (until Sat 7 Nov): a free beer, cider or cold drink after the run.<!--/PROMO-NOV7--></div></div>
-        <a class="btn sea club-rsvp" href="/runs">RSVP for a Sunset Run</a>
-      </article>
     </div>
+    <div class="club-dots" aria-hidden="true" style="display:none"></div>
+    <p class="club-swipe" style="display:none">Swipe for more &rarr;</p>
 
     <div class="clubs-foot rv">
       <p>Join the Run Club free to get a sticker and 15 points at every club run, plus a R100 voucher every 5 runs. Perks are for that day&rsquo;s participants. Beer and cider for over-18s only.</p>
@@ -3495,6 +3508,17 @@ html,body{overflow-anchor:none}
       .catch(function(er){ msg.className = "cwb-msg err"; msg.textContent = (er && er.message) || "We couldn't book that just now. Please WhatsApp 064 991 6181 and we'll sort it out."; })
       .then(function(){ b.disabled = false; b.textContent = "Book my car wash"; });
   };
+})();
+</script>
+<script>
+/* Club swipe row on phones: dots follow the card in view. */
+(function(){
+  var g=document.querySelector('.club-grid'), d=document.querySelector('.club-dots'); if(!g||!d) return;
+  var cards=g.querySelectorAll('.club'); if(!window.matchMedia('(max-width:760px)').matches) return;
+  d.style.display='flex'; d.innerHTML=Array.prototype.map.call(cards,function(_,i){return '<i'+(i?'':' class="on"')+'></i>';}).join('');
+  var dots=d.querySelectorAll('i');
+  g.addEventListener('scroll',function(){ var w=cards[0].offsetWidth+12, n=Math.round(g.scrollLeft/w);
+    dots.forEach(function(x,i){x.classList.toggle('on',i===n);}); var sw=document.querySelector('.club-swipe'); if(sw&&n>0) sw.style.visibility='hidden'; },{passive:true});
 })();
 </script>
 </body>
