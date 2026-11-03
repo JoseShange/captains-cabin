@@ -10,6 +10,14 @@
   var ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
   var inApp = /FBAN|FBAV|FB_IAB|Instagram|Line\/|Snapchat|TikTok|WhatsApp|; wv\)/i.test(ua);
   var deferred = null;
+  // Which home-screen app is this window? The Cabin Card app (table QR menu) starts at /menu/?app=1,
+  // the website app at /loyalty?app=1. Remembered per window, so buttons know which app they're in.
+  var appKind = (function () { try {
+    if (standalone && /[?&]app=1/.test(location.search)) sessionStorage.setItem("cc_app", location.pathname.indexOf("/menu") === 0 ? "table" : "site");
+    return sessionStorage.getItem("cc_app") || ""; } catch (e) { return ""; } })();
+  var android = /Android/i.test(ua);
+  var CARD_PAGE = "https://captainscabinwestcoast.com/cabin-card/";
+  var CHROME_INTENT = "intent://captainscabinwestcoast.com/cabin-card/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" + encodeURIComponent(CARD_PAGE) + ";end";
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () {}); });
@@ -52,14 +60,30 @@
       ["Tap the Share button " + SHARE + " at the bottom (or top) of the screen",
        "Scroll down and tap <b>Add to Home Screen</b> " + PLUS,
        "Tap <b>Add</b>, then open the new icon and sign in once with your email and PIN"]);
+    if (android && !/Chrome\//.test(ua)) { location.href = CHROME_INTENT; return; }
     sheet("Add to your phone", "Use your browser&rsquo;s menu to add the Captain&rsquo;s Cabin icon.",
       ["Tap " + DOTS + " (top right in Chrome, bottom in Samsung Internet)",
        "Tap <b>Install app</b> or <b>Add to Home screen</b>",
        "Tap <b>Install</b> or <b>Add</b>"]);
   }
 
+  // Cabin Card buttons (data-install-table) inside another home-screen app: that window can't install,
+  // so the button opens the Cabin Card download page in Chrome (Android) or explains Safari (iPhone).
+  function fromOtherApp() {
+    if (android) { location.href = CHROME_INTENT; return; }
+    sheet("Open in Safari", "You&rsquo;re inside the Captain&rsquo;s Cabin app, which can&rsquo;t add another app.",
+      ["Open <b>Safari</b> and go to <b>captainscabinwestcoast.com/cabin-card</b>", "Tap the Share button " + SHARE + ", then <b>Add to Home Screen</b> " + PLUS]);
+  }
   function wire() {
-    if (standalone) return hideAll();
+    if (standalone) {
+      document.querySelectorAll("[data-install]").forEach(function (b) {
+        if (b.hasAttribute("data-install-table") && appKind !== "table") {
+          if (b.__cc) return; b.__cc = true;
+          b.addEventListener("click", function (e) { e.preventDefault(); fromOtherApp(); });
+        } else { b.hidden = true; b.style.display = "none"; }
+      });
+      return;
+    }
     document.querySelectorAll("[data-install]").forEach(function (b) {
       if (b.__cc) return; b.__cc = true;
       b.addEventListener("click", function (e) { e.preventDefault(); install(); });
