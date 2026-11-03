@@ -45,6 +45,8 @@ li:nth-child(2) i{background:var(--red)}li:nth-child(3) i{background:var(--pink)
   <p class="eye">Captain&rsquo;s Cabin &middot; Saldanha</p>
   <h1>Cabin Card</h1>
   <p class="lede">The menu, your loyalty card and the Run Club, one tap away on your home screen.</p>
+  <p id="signedin" hidden style="margin:14px 0 0;padding:10px 12px;border:1px solid rgba(95,179,207,.45);border-radius:4px;color:var(--sea);font-weight:600">&#10003; You&rsquo;re signed in. Your points come with you.</p>
+  <script>if (/[?&]signedin=1/.test(location.search)) { document.getElementById("signedin").hidden = false; history.replaceState(null, "", location.pathname); }</script>
   <ul>
     <li><i></i>Full food &amp; drinks menu</li>
     <li><i></i>Your loyalty card, points &amp; vouchers</li>
