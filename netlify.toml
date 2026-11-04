@@ -77,25 +77,3 @@
   from = "/rsvp"
   to = "/runs"
   status = 301
-
-# Cabin Card app (table QR menu + loyalty card) lives on card.captainscabinwestcoast.com, a separate
-# address from the website app, so Android installs them as two apps instead of saying
-# "This app is already installed". Same files, same deploy (card. is a domain alias of this site).
-[[redirects]]
-  from = "https://captainscabinwestcoast.com/cabin-card/*"
-  to = "https://card.captainscabinwestcoast.com/cabin-card/:splat"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "https://www.captainscabinwestcoast.com/cabin-card/*"
-  to = "https://card.captainscabinwestcoast.com/cabin-card/:splat"
-  status = 302
-  force = true
-
-# The card. address has no homepage of its own: send it to the real website.
-[[redirects]]
-  from = "https://card.captainscabinwestcoast.com/"
-  to = "https://captainscabinwestcoast.com/"
-  status = 302
-  force = true
