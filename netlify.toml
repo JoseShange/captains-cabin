@@ -77,3 +77,11 @@
   from = "/rsvp"
   to = "/runs"
   status = 301
+
+# The separate Cabin Card app was cancelled (Nov 2026). Anything still pointing at the old
+# card. address (an installed icon, a shared link) goes to the same page on the real website.
+[[redirects]]
+  from = "https://card.captainscabinwestcoast.com/*"
+  to = "https://captainscabinwestcoast.com/:splat"
+  status = 301
+  force = true
