@@ -73,13 +73,10 @@
 
   // Cabin Card buttons (data-install-table) inside another home-screen app: that window can't install,
   // so the button opens the Cabin Card download page in Chrome (Android) or explains Safari (iPhone).
-  // On Android it goes through the loyalty card page first, which signs the member in on the new address.
-  var HANDOFF = "/loyalty?to=card";
   function fromOtherApp() {
-    if (android) { location.href = onCardHost ? CHROME_INTENT : HANDOFF; return; }
+    if (android) { location.href = CHROME_INTENT; return; }
     sheet("Open in Safari", "You&rsquo;re inside the Captain&rsquo;s Cabin app, which can&rsquo;t add another app.",
-      ["Open <b>Safari</b> and go to <b>captainscabinwestcoast.com/cabin-card</b>", "Tap the Share button " + SHARE + ", then <b>Add to Home Screen</b> " + PLUS,
-       "Open the new icon and sign in once with your email and PIN"]);
+      ["Open <b>Safari</b> and go to <b>captainscabinwestcoast.com/cabin-card</b>", "Tap the Share button " + SHARE + ", then <b>Add to Home Screen</b> " + PLUS]);
   }
   function wire() {
     if (standalone) {
@@ -96,7 +93,7 @@
       b.addEventListener("click", function (e) {
         e.preventDefault();
         // Cabin Card button on the main website address: install happens on the card. address.
-        if (b.hasAttribute("data-install-table") && !onCardHost && !inApp) { location.href = android ? HANDOFF : CARD_PAGE; return; }
+        if (b.hasAttribute("data-install-table") && !onCardHost && !inApp) { location.href = CARD_PAGE; return; }
         install();
       });
     });
