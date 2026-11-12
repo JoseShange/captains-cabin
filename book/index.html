@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a table | Captain's Cabin Saldanha</title>
+<meta name="description" content="Pick your table at Captain's Cabin, 20 Main Rd, Saldanha: restaurant, sea-view front deck, upper deck, bar or conference room.">
+<link rel="canonical" href="https://captainscabinwestcoast.com/book">
+<meta property="og:title" content="Book a table at Captain's Cabin">
+<meta property="og:image" content="https://captainscabinwestcoast.com/og-image.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon-v2.png">
+<meta name="theme-color" content="#0b0d10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0B0F; --panel:#15151c; --panel2:#1d1d26; --line:#2c2c38;
+  --red:#D9202A; --sea:#5DB6D8; --cream:#F3EBDD; --muted:#9a98a6; --brass:#D4A23A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ink);color:var(--cream);font-family:Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 140px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 0 4px}.top img{height:42px;width:auto;display:block}.toplink{color:var(--muted);font:600 13px "Barlow Condensed";letter-spacing:1.5px;text-transform:uppercase;text-decoration:none}
+.loading{opacity:.45;pointer-events:none;transition:opacity .2s}
+.proto{background:var(--brass);color:var(--ink);font:600 12px/1.3 Barlow;text-align:center;padding:7px 12px;letter-spacing:.2px}
+header{padding:22px 0 8px;text-align:center}
+.brand{font:500 13px "Barlow Condensed";letter-spacing:5px;color:var(--sea);text-transform:uppercase}
+h1{font:400 44px/1 Anton;letter-spacing:.5px;margin-top:6px;text-transform:uppercase}
+h1 span{color:var(--red)}
+.lede{color:var(--muted);font-size:14px;margin-top:8px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:16px}
+.lbl{font:600 11px "Barlow Condensed";letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field select,.field input{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--cream);border-radius:10px;padding:11px 10px;font:600 16px Barlow;appearance:none;-webkit-appearance:none}
+.field input[type=date]{min-height:46px}
+.stepper{display:flex;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;height:46px}
+.stepper button{width:46px;height:44px;font-size:22px;font-weight:600;color:var(--sea)}
+.stepper .n{flex:1;text-align:center;font:400 24px Anton}
+.toggle{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:14px;color:var(--cream);cursor:pointer;user-select:none}
+.sw{width:42px;height:24px;border-radius:12px;background:var(--line);position:relative;transition:.2s;flex:none}
+.sw:after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:var(--cream);top:3px;left:3px;transition:.2s}
+.toggle.on .sw{background:var(--sea)} .toggle.on .sw:after{left:21px}
+.hold{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.45}
+.hold b{color:var(--cream)}
+.match{display:inline-block;background:#0B6B3A;color:#fff;font:700 11px "Barlow Condensed";letter-spacing:1.5px;padding:3px 8px;border-radius:4px;text-transform:uppercase;margin-right:6px}
+
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-top:18px;padding-bottom:4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:9px 14px;font:600 15px "Barlow Condensed";letter-spacing:.8px;text-transform:uppercase;white-space:nowrap}
+.tab.on{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.tab:disabled{opacity:.35;cursor:not-allowed}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.badge{font:600 12px Barlow;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--cream)}
+.badge.smoke{border-color:#6b4b2a;color:#e8b67a}
+.badge.nosmoke{border-color:#2a5b6b;color:var(--sea)}
+.badge.adult{border-color:#6b2a2e;color:#ff8a90}
+.badge.view{border-color:#2a5b6b;color:var(--sea)}
+.areaNote{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45}
+
+.mapbox{margin-top:12px;background:#101016;border:1px solid var(--line);border-radius:14px;padding:8px;position:relative}
+svg{display:block;width:100%;height:auto}
+.wall{fill:none;stroke:#4a4a58;stroke-width:3}
+.zone{fill:#191922;stroke:#2c2c38;stroke-width:1.5}
+.feature{fill:#24242e;stroke:#3a3a48;stroke-width:1}
+.ftxt{fill:#8d8b99;font:600 10px "Barlow Condensed";letter-spacing:1.2px;text-transform:uppercase}
+.sea{fill:url(#seaG)}
+.seatxt{fill:#cfeefa;font:600 10px "Barlow Condensed";letter-spacing:2px}
+.t{cursor:pointer;transition:transform .15s}
+.t rect,.t circle,.t path{stroke-width:2;transition:fill .15s,stroke .15s}
+.t text{pointer-events:none;font-family:Anton;fill:var(--ink)}
+.t .seats{font:700 9px "Barlow Condensed";letter-spacing:.5px}
+.t.free rect,.t.free circle,.t.free path{fill:var(--sea);stroke:#9fe0f5}
+.t.best rect,.t.best circle{fill:var(--sea);stroke:#fff;stroke-width:3}
+.t.small rect,.t.small circle,.t.saved rect,.t.saved circle{fill:#3a3a46;stroke:#4a4a58}
+.t.small text,.t.saved text{fill:#7d7b88}
+.t.booked rect,.t.booked circle,.t.booked path{fill:#2a2a33;stroke:#3a3a45}
+.t.booked text{fill:#5d5b66}
+.t.walkin{cursor:default}
+.t.walkin rect,.t.walkin circle,.t.walkin path{fill:url(#hatch);stroke:#4a4a58}
+.t.walkin text{fill:#8d8b99}
+.t.sel rect,.t.sel circle,.t.sel path{fill:var(--red);stroke:#fff;stroke-width:3}
+.t.sel text{fill:#fff}
+.t.combo rect{fill:var(--red);stroke:#fff;stroke-width:3}
+.t.combo text{fill:#fff}
+.door{fill:#D9202A;opacity:.85}
+.chair{fill:#3a3a48}
+
+.legend{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:12px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+.combos{margin-top:12px}
+.combo-btn{display:flex;justify-content:space-between;align-items:center;width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-top:8px;text-align:left;font-size:15px}
+.combo-btn.on{border-color:var(--red);background:#2a1214}
+.combo-btn b{font:400 18px Anton;letter-spacing:.5px}
+.combo-btn span{color:var(--muted);font-size:13px}
+.msg{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:14px;line-height:1.5;border:1px solid var(--line);background:var(--panel)}
+.msg.warn{border-color:#6b4b2a;background:#1f1710}
+.msg.info{border-color:#2a5b6b;background:#0f1a1f}
+.msg b{color:#fff}
+
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,15,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.bar-in{max-width:560px;margin:0 auto;display:flex;gap:12px;align-items:center}
+.bar .sum{flex:1;font-size:13px;color:var(--muted);line-height:1.35}
+.bar .sum b{display:block;color:var(--cream);font:400 19px Anton;letter-spacing:.4px}
+.cta{background:var(--red);color:#fff;font:700 16px "Barlow Condensed";letter-spacing:1.5px;text-transform:uppercase;padding:14px 20px;border-radius:10px;white-space:nowrap}
+.cta:disabled{background:#3a3a46;color:#77757f;cursor:not-allowed}
+
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-end;justify-content:center;z-index:20}
+.sheet.open{display:flex}
+.sheet-in{background:var(--panel);width:100%;max-width:560px;border-radius:18px 18px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto}
+.sheet h2{font:400 30px Anton;text-transform:uppercase;letter-spacing:.5px}
+.sheet .x{float:right;font-size:26px;color:var(--muted);line-height:1}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:14px 0;font-size:15px}
+.kv dt{color:var(--muted)} .kv dd{font-weight:600}
+.sheet .field{margin-top:10px}
+.sheet .field input,.sheet .field textarea{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--cream);border-radius:10px;padding:12px;font:500 16px Barlow}
+.sheet .cta{width:100%;margin-top:16px;padding:16px}
+.err{color:#ff8a90;font-size:13px;margin-top:6px;min-height:16px}
+.slip{background:#fbf8f1;color:#111;font:13px/1.45 "Courier New",monospace;padding:16px;border-radius:4px;margin-top:14px;box-shadow:0 6px 24px rgba(0,0,0,.4);white-space:pre-wrap}
+.ok{font:400 40px Anton;color:var(--sea);text-transform:uppercase}
+.small{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top"><a href="/"><img src="/brand/logo-cream.svg" alt="Captain's Cabin" height="42"></a><a href="tel:+27600201219" class="toplink">Call 060 020 1219</a></nav>
+  <header>
+    <div class="brand">Captain's Cabin · Saldanha</div>
+    <h1>Pick your <span>table</span></h1>
+    <p class="lede">Choose a day, time and group size, then tap the table you want.</p>
+  </header>
+
+  <section class="card">
+    <div class="row">
+      <div class="field"><div class="lbl">Date</div><input type="date" id="date"></div>
+      <div class="field"><div class="lbl">Time</div><select id="time"></select></div>
+    </div>
+    <div style="margin-top:12px">
+      <div class="lbl">Guests</div>
+      <div class="stepper"><button id="minus" aria-label="Fewer guests">−</button><div class="n" id="party">2</div><button id="plus" aria-label="More guests">+</button></div>
+    </div>
+    <div class="toggle" id="kids"><div class="sw"></div>Children in our group</div>
+    <div class="hold" id="hold"></div>
+  </section>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="badges" id="badges"></div>
+  <div class="areaNote" id="areaNote"></div>
+  <div class="mapbox"><svg id="map" xmlns="http://www.w3.org/2000/svg"></svg></div>
+  <div class="legend">
+    <span><i style="background:var(--sea)"></i>Available</span>
+    <span><i style="background:var(--sea);outline:2px solid #fff"></i>Best fit</span>
+    <span><i style="background:var(--red)"></i>Your pick</span>
+    <span><i style="background:#2a2a33"></i>Booked</span>
+    <span><i style="background:#3a3a46"></i>Wrong size</span>
+    <span><i style="background:repeating-linear-gradient(45deg,#2a2a33 0 3px,#3a3a46 3px 6px)"></i>Walk-in only</span>
+  </div>
+  <div id="extra"></div>
+</div>
+
+<div class="bar"><div class="bar-in">
+  <div class="sum" id="sum"><b>No table yet</b>Tap a blue table on the map</div>
+  <button class="cta" id="go" disabled>Book</button>
+</div></div>
+
+<div class="sheet" id="sheet"><div class="sheet-in" id="sheetIn"></div></div>
+
+<script>
+/* ---------- Venue data (from Jose's walk-through, 11 Nov 2026) ---------- */
+const AREAS = {
+  restaurant:{
+    name:"Restaurant", badges:[["nosmoke","Non-smoking"],["","Family friendly"],["","Kids play area"]],
+    note:"The middle restaurant. Tables 2+3, 4+5 and 6+7 can be joined for bigger groups.",
+    vb:"0 0 360 470", combos:[["2","3"],["4","5"],["6","7"]],
+    draw(){return `
+      <rect class="wall" x="10" y="10" width="340" height="450" rx="6"/>
+      <rect class="feature" x="16" y="16" width="86" height="26" rx="3"/><text class="ftxt" x="59" y="33" text-anchor="middle">Kids play</text>
+      <rect class="feature" x="130" y="16" width="100" height="26" rx="3"/><text class="ftxt" x="180" y="33" text-anchor="middle">Fireplace</text>
+      <rect class="feature" x="16" y="56" width="10" height="150" rx="2"/>
+      <rect class="door" x="10" y="212" width="16" height="44" rx="2"/><text class="ftxt" x="32" y="238" text-anchor="start">Door · deck</text>
+      <rect class="feature" x="16" y="262" width="10" height="110" rx="2"/>
+      <rect class="feature" x="334" y="56" width="10" height="330" rx="2"/><text class="ftxt" x="326" y="220" transform="rotate(90 326 220)" text-anchor="middle">Bar windows</text>
+      <rect class="feature" x="16" y="388" width="130" height="62" rx="4"/><text class="ftxt" x="81" y="423" text-anchor="middle">Sushi bar</text>`},
+    tables:[
+      {id:"3",seats:6,x:44,y:62,w:100,h:58},
+      {id:"2",seats:4,x:44,y:136,w:76,h:56},
+      {id:"1",seats:6,x:44,y:272,w:100,h:58},
+      {id:"4",seats:4,x:226,y:62,w:80,h:54},
+      {id:"5",seats:4,x:226,y:124,w:80,h:54},
+      {id:"6",seats:4,x:226,y:216,w:80,h:54},
+      {id:"7",seats:4,x:226,y:278,w:80,h:54},
+    ]},
+  deck:{
+    name:"Front deck", badges:[["view","Sea view"],["smoke","Smoking area"],["","Big screens"]],
+    note:"Covered deck along the railing, looking over the bay. Neighbouring tables can be pushed together.",
+    vb:"0 0 360 600", combos:[["15","16"],["16","17"],["22","23"],["23","24"],["25","26"]],
+    draw(){return `
+      <rect class="sea" x="326" y="0" width="34" height="600"/>
+      <text class="seatxt" x="343" y="420" transform="rotate(90 343 420)" text-anchor="middle">SALDANHA BAY · RAILING</text>
+      <path class="wall" d="M324 64 H10 V592 H324"/>
+      <rect class="door" x="4" y="204" width="14" height="78" rx="2"/><text class="ftxt" x="26" y="246" text-anchor="start">Door · restaurant</text>
+      <rect class="door" x="318" y="194" width="14" height="90" rx="2"/><text class="ftxt" x="310" y="243" text-anchor="end">Front door</text>
+      <rect class="feature" x="10" y="296" width="8" height="290" rx="2"/>`},
+    tables:[
+      {id:"26",seats:4,x:30,y:76,w:48,h:62},
+      {id:"25",seats:4,x:32,y:148,w:44,h:48},
+      {id:"13",seats:4,x:194,y:78,w:118,h:36},
+      {id:"14",seats:2,x:288,y:130,w:30,h:56,walkin:true,label:"Window counter"},
+      {id:"24",seats:6,x:24,y:290,w:120,h:50},
+      {id:"23",seats:6,x:24,y:346,w:120,h:48},
+      {id:"22",seats:6,x:24,y:408,w:120,h:48},
+      {id:"21",seats:6,x:30,y:466,w:98,h:38,label:"High table"},
+      {id:"20",seats:6,x:24,y:514,w:120,h:58},
+      {id:"15",seats:4,x:212,y:304,w:106,h:42},
+      {id:"16",seats:4,x:208,y:358,w:110,h:44},
+      {id:"17",seats:4,x:208,y:416,w:110,h:46},
+      {id:"18",seats:2,x:282,y:472,w:36,h:36,note:"Small table"},
+      {id:"19",seats:6,x:200,y:518,w:118,h:52},
+    ]},
+  upper:{
+    name:"Upper deck", badges:[["view","Ocean view"],["smoke","Smoking area"],["","Tiki-Bar"]],
+    note:"Rooftop deck with the Tiki-Bar. Book a bench, or the open seating area where staff set up tables for your group.",
+    vb:"0 0 360 440", combos:[], openCap:35,
+    draw(){return `
+      <rect class="sea" x="10" y="0" width="340" height="30"/>
+      <text class="seatxt" x="180" y="20" text-anchor="middle">OCEAN · GLASS RAILING (≈11 m)</text>
+      <path class="wall" d="M10 32 V430 H350 V32"/>
+      <rect class="door" x="344" y="100" width="12" height="70" rx="2"/><text class="ftxt" x="338" y="135" transform="rotate(90 338 135)" text-anchor="middle">Stairs</text>`},
+    tables:[
+      {id:"U1",seats:4,x:22,y:42,w:70,h:44},
+      {id:"U2",seats:4,x:104,y:42,w:70,h:44},
+      {id:"U3",seats:4,x:186,y:42,w:70,h:44},
+      {id:"U4",seats:4,x:268,y:42,w:70,h:44},
+      {id:"OPEN",seats:35,x:22,y:100,w:300,h:318,open:true,label:"Open seating",
+        path:"M22 100 H322 V184 H158 V418 H22 Z",tx:90,ty:300},
+      {id:"TIKI",seats:5,x:172,y:198,w:166,h:220,walkin:true,label:"Tiki-Bar · 5 stools"},
+    ]},
+  bar:{
+    name:"Bar", badges:[["adult","18+ only"],["smoke","Smoking area"],["","Sport on screens"]],
+    note:"Two tables can be booked online. The rest of the bar is for walk-ins.",
+    vb:"0 0 360 400", combos:[], adult:true,
+    draw(){return `
+      <rect class="wall" x="10" y="10" width="340" height="380" rx="6"/>
+      <path class="feature" d="M16 16 H344 V48 H48 V172 H16 Z"/>
+      <text class="ftxt" x="196" y="36" text-anchor="middle">Bar counter · walk-in</text>
+      <rect class="feature" x="334" y="60" width="10" height="94" rx="2"/>
+      <rect class="feature" x="334" y="206" width="10" height="130" rx="2"/>
+      <text class="ftxt" x="326" y="290" transform="rotate(90 326 290)" text-anchor="middle">Window · restaurant</text>
+      <circle cx="324" cy="180" r="20" class="feature"/><text class="ftxt" x="324" y="184" text-anchor="middle">Wheel</text>
+      <rect class="feature" x="16" y="346" width="110" height="34" rx="3"/><text class="ftxt" x="71" y="367" text-anchor="middle">Captain mural</text>`},
+    tables:[
+      {id:"B1",seats:4,x:22,y:186,w:60,h:60},
+      {id:"R1",seats:5,x:200,y:150,w:46,h:46,walkin:true,round:true,label:"High table"},
+      {id:"B2",seats:4,x:20,y:272,w:60,h:60},
+      {id:"R2",seats:2,x:104,y:284,w:36,h:36,walkin:true,round:true,label:"High table"},
+      {id:"Q",seats:4,x:164,y:272,w:56,h:56,walkin:true,label:"Quintin's"},
+    ]},
+  conf:{
+    name:"Conference room", badges:[["view","Sea view"],["","Seats 10"],["","Screen"]],
+    note:"Private room for 5–10 people. Booked as a whole room and confirmed by a manager.",
+    vb:"0 0 360 300", combos:[], conf:true,
+    draw(){return `
+      <rect class="sea" x="70" y="0" width="220" height="26"/>
+      <text class="seatxt" x="180" y="17" text-anchor="middle">SLIDING DOOR · BAY VIEW</text>
+      <rect class="wall" x="10" y="28" width="340" height="262" rx="6"/>
+      <rect class="feature" x="300" y="110" width="12" height="90" rx="2"/><text class="ftxt" x="294" y="155" transform="rotate(90 294 155)" text-anchor="middle">TV screen</text>`},
+    tables:[{id:"CONF",seats:10,x:70,y:110,w:200,h:90,label:"Whole room · 10 seats"}]}
+};
+
+/* ---------- State ---------- */
+const S = {area:"restaurant", party:2, kids:false, sel:null, busy:new Set(), openLeft:35, hold:3, match:false, err:null, ready:false};
+const SB="https://iryzgvggaqkvwgmjbdkw.supabase.co/rest/v1/rpc/";
+const SBH={"apikey":"sb_publishable_azMYchhgL_TokDtKGQ1EVQ_U8YRbdS8","Content-Type":"application/json"};
+function rpc(fn,body){return fetch(SB+fn,{method:"POST",headers:SBH,body:JSON.stringify(body)}).then(r=>{if(!r.ok)throw new Error("net");return r.json()})}
+const $ = id => document.getElementById(id);
+
+function pad(n){return String(n).padStart(2,"0")}
+function iso(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+function dow(isoStr){return new Date(isoStr+"T12:00:00").getDay()}
+function lastSlot(isoStr){const d=dow(isoStr);return (d===5||d===6)?22:21} // kitchen closes 23:00 Fri/Sat, 22:00 other days
+function isMatch(){return S.match}
+function holdHours(){return S.hold}
+function fmtDate(isoStr){return new Date(isoStr+"T12:00:00").toLocaleDateString("en-ZA",{weekday:"short",day:"numeric",month:"short"})}
+function addH(t,h){const [a,b]=t.split(":").map(Number);const m=a*60+b+h*60;return pad(Math.floor(m/60)%24)+":"+pad(m%60)}
+
+let loadSeq=0;
+function load(){
+  const seq=++loadSeq; document.querySelector(".mapbox").classList.add("loading");
+  rpc("table_availability",{p_date:$("date").value,p_time:$("time").value}).then(j=>{
+    if(seq!==loadSeq)return;
+    S.busy=new Set(j.busy||[]); S.openLeft=j.open_left; S.hold=j.hold_hours; S.match=j.match_night; S.err=j.error; S.ready=true;
+    document.querySelector(".mapbox").classList.remove("loading"); render();
+  }).catch(()=>{ if(seq!==loadSeq)return; S.err="Can't load availability right now. Please call 060 020 1219."; document.querySelector(".mapbox").classList.remove("loading"); render(); });
+}
+function booked(id){return S.busy.has(id)}
+function openBookedSeats(){return AREAS.upper.openCap - Math.max(0,S.openLeft)}
+/* ---------- Controls ---------- */
+function initDate(){
+  const t=new Date();t.setDate(t.getDate()+1);
+  $("date").value=iso(t);$("date").min=iso(new Date());
+}
+function fillTimes(){
+  const keep=$("time").value;const last=lastSlot($("date").value);let h="";
+  for(let m=9*60;m<=last*60;m+=30){const v=pad(Math.floor(m/60))+":"+pad(m%60);h+=`<option ${v===(keep||"19:00")?"selected":""}>${v}</option>`}
+  $("time").innerHTML=h;if(!$("time").value)$("time").value=pad(last)+":00";
+}
+function renderHold(){
+  const d=$("date").value,t=$("time").value,h=holdHours();
+  $("hold").innerHTML=(S.err?`<div class="msg warn" style="margin:0 0 10px">${S.err}</div>`:"")+(isMatch(d)?`<span class="match">Match night</span>`:"")+
+    `Your table is held for <b>${h} hours</b> (${t}–${addH(t,h)}). After that it goes to walk-ins. Last booking ${fmtDate(d)}: <b>${pad(lastSlot(d))}:00</b> (kitchen closes ${lastSlot(d)+1}:00).`;
+}
+function renderTabs(){
+  $("tabs").innerHTML=Object.entries(AREAS).map(([k,a])=>{
+    const dis=a.adult&&S.kids;
+    return `<button class="tab ${k===S.area?"on":""}" data-a="${k}" ${dis?"disabled":""}>${a.name}${dis?" · 18+":""}</button>`}).join("");
+  $("tabs").querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.area=b.dataset.a;S.sel=null;render()});
+}
+
+/* ---------- Table states ---------- */
+function stateOf(t){
+  const p=S.party,a=AREAS[S.area];
+  if(t.walkin)return"walkin";
+  if(!S.ready||S.err)return"booked";
+  if(t.open)return (a.openCap-openBookedSeats()>=p)?"free":"booked";
+  if(a.conf)return (p<5||p>10)?"small":(booked(t.id)?"booked":"free");
+  if(booked(t.id))return"booked";
+  if(t.seats<p)return"small";
+  return"free";
+}
+function areaStates(){
+  const a=AREAS[S.area],st={};
+  a.tables.forEach(t=>st[t.id]=stateOf(t));
+  // keep big tables for big groups: a table with 3+ spare seats is held back if a closer fit is free
+  const free=a.tables.filter(t=>st[t.id]==="free"&&!t.open&&!a.conf);
+  if(free.length){
+    const best=Math.min(...free.map(t=>t.seats));
+    free.forEach(t=>{ if(t.seats-S.party>=3 && t.seats>best) st[t.id]="saved"; });
+    free.filter(t=>t.seats===best).forEach(t=>{ if(st[t.id]==="free") st[t.id]="best"; });
+  }
+  return st;
+}
+function comboOptions(st){
+  const a=AREAS[S.area];
+  const singles=a.tables.filter(t=>["free","best","saved"].includes(st[t.id])&&!t.open);
+  if(singles.some(t=>t.seats>=S.party))return[];
+  return a.combos.map(ids=>{
+    const ts=ids.map(id=>a.tables.find(t=>t.id===id));
+    return {ids,seats:ts.reduce((s,t)=>s+t.seats,0),ok:ts.every(t=>!booked(t.id))};
+  }).filter(c=>c.ok&&c.seats>=S.party);
+}
+
+/* ---------- Draw map ---------- */
+function render(){
+  renderTabs();renderHold();
+  const a=AREAS[S.area];
+  $("badges").innerHTML=a.badges.map(([c,t])=>`<span class="badge ${c}">${t}</span>`).join("");
+  $("areaNote").textContent=a.note;
+  const st=areaStates();
+  const selIds=S.sel?S.sel.ids:[];
+  let g=`<defs><linearGradient id="seaG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c5f78"/><stop offset="1" stop-color="#5DB6D8"/></linearGradient>
+    <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#2a2a33"/><rect width="3" height="6" fill="#3a3a46"/></pattern></defs>`;
+  g+=a.draw();
+  a.tables.forEach(t=>{
+    let cls=st[t.id];
+    if(selIds.includes(t.id))cls=selIds.length>1?"combo":"sel";
+    const cx=t.tx||t.x+t.w/2,cy=t.ty||t.y+t.h/2;
+    const shape=t.path?`<path d="${t.path}" stroke-dasharray="6 5"/>`:t.round?`<circle cx="${cx}" cy="${cy}" r="${t.w/2}"/>`:`<rect x="${t.x}" y="${t.y}" width="${t.w}" height="${t.h}" rx="${t.open?14:6}" ${t.open?'stroke-dasharray="6 5"':""}/>`;
+    const big=t.open||t.id==="CONF"||t.id==="TIKI";
+    const title=t.open?"OPEN SEATING":t.id==="CONF"?"CONFERENCE":t.id==="TIKI"?"TIKI-BAR":t.id;
+    const sub=t.open?`${Math.max(0,a.openCap-openBookedSeats())} of ${a.openCap} left`:t.walkin?"WALK-IN":t.id==="CONF"?"WHOLE ROOM · 5–10 GUESTS":t.seats+" SEATS";
+    const fs=t.open?16:big?20:(t.w<40?13:20);
+    g+=`<g class="t ${cls}" data-id="${t.id}" role="button" aria-label="Table ${t.id}">${shape}
+      <text x="${cx}" y="${cy+(t.h<50?4:2)}" text-anchor="middle" font-size="${fs}">${title}</text>
+      ${`<text class="seats" x="${cx}" y="${cy+(big?20:(t.h<50?16:18))}" text-anchor="middle">${t.h<50&&!big?t.seats+"P":sub}</text>`}</g>`;
+  });
+  $("map").setAttribute("viewBox",a.vb);$("map").innerHTML=g;
+  $("map").querySelectorAll(".t").forEach(el=>el.onclick=()=>pick(el.dataset.id,st));
+  renderExtra(st);renderBar();
+}
+
+function pick(id,st){
+  const a=AREAS[S.area],t=a.tables.find(x=>x.id===id),s=st[id];
+  if(t.walkin){flash(`<b>${t.label||"This table"}</b> is kept for walk-ins. Just come in and grab it if it's free.`);return}
+  if(s==="booked"){flash(`<b>${t.open?"Open seating":"Table "+id}</b> is already booked at ${$("time").value}. Try another time or table.`);return}
+  if(s==="small"){flash(a.conf?`The conference room is for <b>5 to 10 people</b>.`:`<b>Table ${id}</b> seats ${t.seats}. You're ${S.party}, so pick a bigger table${a.combos.length?" or a joined table below":""}.`);return}
+  if(s==="saved"){flash(`<b>Table ${id}</b> seats ${t.seats}, so we keep it for bigger groups. The tables with a white outline fit ${S.party} best.`);return}
+  S.sel={area:S.area,ids:[id],seats:t.open?S.party:t.seats,open:!!t.open,conf:!!a.conf};
+  render();
+}
+let flashT;function flash(html){const el=document.querySelector("#extra .flash");if(el){el.innerHTML=html;el.style.display="block";clearTimeout(flashT);flashT=setTimeout(()=>el.style.display="none",5000)}}
+
+function renderExtra(st){
+  const a=AREAS[S.area];let h=`<div class="msg warn flash" style="display:none"></div>`;
+  const big=S.party>10;
+  if(a.conf){
+    h+=`<div class="msg info"><b>R1,000 deposit</b>, which comes off your food and drinks bill. After a manager confirms, you get a payment link by WhatsApp. Pay within 24 hours or the room is released. Cancel 48+ hours before for a full refund. Later cancellations and no-shows keep the deposit.</div>`;
+  } else if(big){
+    h+=`<div class="msg info">Groups of <b>more than 10</b> are confirmed by a manager, so we can set the tables up for you. Pick an area and send a request.</div>`;
+  }
+  const combos=a.conf?[]:comboOptions(st);
+  if(combos.length){
+    h+=`<div class="combos"><div class="lbl" style="margin-top:14px">Join tables for ${S.party}</div>`+
+      combos.map(c=>{const on=S.sel&&S.sel.ids.join("+")===c.ids.join("+");
+        return `<button class="combo-btn ${on?"on":""}" data-ids="${c.ids.join(",")}"><b>Tables ${c.ids.join(" + ")}</b><span>${c.seats} seats</span></button>`}).join("")+`</div>`;
+  } else if(!a.conf){
+    const any=a.tables.some(t=>["free","best","saved"].includes(st[t.id]));
+    if(!any) h+=`<div class="msg warn">Nothing in the <b>${a.name.toLowerCase()}</b> fits ${S.party} at ${$("time").value}. Try another area or time${S.party>4?", or call 060 020 1219":""}.</div>`;
+  }
+  $("extra").innerHTML=h;
+  $("extra").querySelectorAll(".combo-btn").forEach(b=>b.onclick=()=>{
+    const ids=b.dataset.ids.split(",");const a=AREAS[S.area];
+    S.sel={area:S.area,ids,seats:ids.reduce((s,id)=>s+a.tables.find(t=>t.id===id).seats,0)};render()});
+}
+
+function isRequest(){return S.sel&&(S.sel.conf||S.party>10)}
+function selLabel(){
+  if(!S.sel)return"";const a=AREAS[S.sel.area];
+  if(S.sel.conf)return"Conference room";
+  if(S.sel.open)return"Upper deck · open seating";
+  return a.name+" · Table"+(S.sel.ids.length>1?"s ":" ")+S.sel.ids.join(" + ");
+}
+function renderBar(){
+  if(!S.sel||S.err){$("sum").innerHTML=`<b>No table yet</b>Tap a blue table on the map`;$("go").disabled=true;$("go").textContent="Book";return}
+  $("sum").innerHTML=`<b>${selLabel()}</b>${fmtDate($("date").value)} · ${$("time").value} · ${S.party} ${S.party===1?"guest":"guests"}`;
+  $("go").disabled=false;$("go").textContent=isRequest()?"Request":"Book";
+}
+
+/* ---------- Booking sheet ---------- */
+function openSheet(){
+  const req=isRequest();const d=$("date").value,t=$("time").value,h=holdHours();
+  $("sheetIn").innerHTML=`<button class="x" onclick="closeSheet()" aria-label="Close">×</button>
+    <h2>${req?"Send request":"Confirm booking"}</h2>
+    <dl class="kv"><dt>Where</dt><dd>${selLabel()}</dd><dt>When</dt><dd>${fmtDate(d)}, ${t}–${addH(t,h)}</dd><dt>Guests</dt><dd>${S.party}${S.kids?" (incl. children)":""}</dd>
+    ${S.sel.conf?`<dt>Deposit</dt><dd>R1,000 (off your bill)</dd>`:""}</dl>
+    <div class="field"><div class="lbl">Your name</div><input id="fName" autocomplete="name" placeholder="Name and surname"></div>
+    <div class="field"><div class="lbl">Cellphone (WhatsApp)</div><input id="fTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 082 123 4567"></div>
+    <div class="field"><div class="lbl">Anything we should know? (optional)</div><input id="fNote" placeholder="Birthday, high chair, wheelchair…"></div>
+    <div class="err" id="fErr"></div>
+    <button class="cta" onclick="submitBooking()">${req?"Send request to manager":"Book table"}</button>
+    <p class="small">${req?"A manager will contact you to confirm.":"You'll get an SMS confirmation."} Questions? Call 060 020 1219.</p>`;
+  $("sheet").classList.add("open");
+}
+function closeSheet(){$("sheet").classList.remove("open")}
+function submitBooking(){
+  const n=$("fName").value.trim(),tel=$("fTel").value.replace(/\D/g,"");
+  if(n.length<2){$("fErr").textContent="Please add your name.";return}
+  if(tel.length<9){$("fErr").textContent="Please add a valid cellphone number.";return}
+  const btn=document.querySelector("#sheetIn .cta"); btn.disabled=true; btn.textContent="Booking…"; $("fErr").textContent="";
+  rpc("book_table",{p_area:S.sel.area,p_table_ids:S.sel.ids,p_date:$("date").value,p_time:$("time").value,p_party:S.party,
+       p_name:n,p_phone:$("fTel").value.trim(),p_kids:S.kids,p_notes:$("fNote").value.trim()||null,p_source:"web"})
+  .then(j=>{
+    if(!j.ok){ $("fErr").textContent=j.error||"That didn't work. Please try again."; btn.disabled=false; btn.textContent="Try again";
+      if(j.code==="taken"){S.sel=null;load();setTimeout(closeSheet,2500)} return; }
+    const req=j.status==="requested";
+    $("sheetIn").innerHTML=`<button class="x" onclick="closeSheet()" aria-label="Close">×</button>
+      <div class="ok">${req?"Request sent":"You're booked"}</div>
+      <dl class="kv"><dt>Reference</dt><dd>${j.ref}</dd><dt>Where</dt><dd>${selLabel()}</dd><dt>When</dt><dd>${fmtDate($("date").value)}, ${j.starts}–${j.ends}</dd><dt>Guests</dt><dd>${S.party}</dd></dl>
+      <p class="small" style="font-size:14px;color:var(--cream)">${req?"A manager will contact you to confirm"+(S.sel.conf?" and send a payment link for the R1,000 deposit (pay within 24 hours to keep the room).":"."):"We've sent you an SMS. See you at the Cabin!"}</p>
+      <p class="small">Need to change or cancel? WhatsApp 064 991 6181 or call 060 020 1219 with your reference.</p>`;
+    S.sel=null; load();
+  }).catch(()=>{$("fErr").textContent="No connection. Please try again or call 060 020 1219.";btn.disabled=false;btn.textContent="Try again"});
+}
+/* ---------- Wire up ---------- */
+$("minus").onclick=()=>{if(S.party>1){S.party--;S.sel=null;$("party").textContent=S.party;render()}};
+$("plus").onclick=()=>{if(S.party<30){S.party++;S.sel=null;$("party").textContent=S.party;render()}};
+$("kids").onclick=()=>{S.kids=!S.kids;$("kids").classList.toggle("on",S.kids);if(S.kids&&AREAS[S.area].adult){S.area="restaurant"}S.sel=null;render()};
+$("date").onchange=()=>{fillTimes();S.sel=null;load()};
+$("time").onchange=()=>{S.sel=null;load()};
+$("go").onclick=openSheet;
+$("sheet").onclick=e=>{if(e.target.id==="sheet")closeSheet()};
+initDate();fillTimes();render();load();
+</script>
+</body>
+</html>
