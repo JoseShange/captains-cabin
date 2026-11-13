@@ -110,7 +110,7 @@ input:focus{outline:none;border-color:var(--sea)}
     <a class="ghost" href="/loyalty?join=run">Join the Run Club for stickers &amp; points →</a>
   </div>
 
-  <p class="club">Run Club members get a sticker and 15 points every run, and a R100 voucher every 5 runs. <a href="/loyalty?join=run">Join free</a>. Beer and cider for over-18s only. Questions: <a href="tel:+27600201219">060 020 1219</a>.</p>
+  <p class="club">Run Club members get a sticker every run, 5 points for a 5K and 10 points for a 10K, and a R100 voucher every 5 runs. <a href="/loyalty?join=run">Join free</a>. Beer and cider for over-18s only. Questions: <a href="tel:+27600201219">060 020 1219</a>.</p>
 </div>
 
 <script>
@@ -124,7 +124,7 @@ input:focus{outline:none;border-color:var(--sea)}
   var name=document.getElementById('name'), phone=document.getElementById('phone');
   var want=(new URLSearchParams(location.search).get('run')||'').split(',');
 
-  function when(r){ return r.rave ? '09:00 – 12:00 · music, coffee, 30% off breakfast' : /10K/i.test(r.name) ? 'Start 09:00' : 'Meet 18:00 · run 18:30'; }
+  function when(r){ return r.rave ? '09:00 – 12:00 · music, coffee, 20% off breakfast' : /10K/i.test(r.name) ? 'Start 09:00' : 'Meet 18:00 · run 18:30'; }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function d(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
 
