@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RSVP: runs &amp; Coffee Rave | Captain's Cabin</title>
-<meta name="description" content="Social Sunset Run 5K Mon, Wed & Fri (meet 18:00, run 18:30) and the Saturday 10K at 09:00 from Captain's Cabin, Saldanha. Tap the runs you're coming to.">
+<meta name="description" content="Social Sunset Run 5K Mon, Wed & Fri (check in from 18:00, run starts 18:00–19:00) and the Saturday 10K at 09:00 from Captain's Cabin, Saldanha. Tap the runs you're coming to.">
 <link rel="canonical" href="https://captainscabinwestcoast.com/runs">
 <meta property="og:type" content="website">
 <meta property="og:title" content="This week's runs at Captain's Cabin — RSVP">
@@ -124,7 +124,7 @@ input:focus{outline:none;border-color:var(--sea)}
   var name=document.getElementById('name'), phone=document.getElementById('phone');
   var want=(new URLSearchParams(location.search).get('run')||'').split(',');
 
-  function when(r){ return r.rave ? '09:00 – 12:00 · music, coffee, 20% off breakfast' : /10K/i.test(r.name) ? 'Start 09:00' : 'Meet 18:00 · run 18:30'; }
+  function when(r){ return r.rave ? '09:00 – 12:00 · music, coffee, 15% off breakfast' : /10K/i.test(r.name) ? 'Start 09:00' : 'Check in from 18:00 · run starts 18:00–19:00'; }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function d(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
 
