@@ -318,13 +318,15 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 /* Menu first (table QR): short title, then the menu; everything else sits under the menu */
 .hero{padding:24px 0 22px;background:linear-gradient(180deg,#1b0a44 0%,#4e1676 30%,#b8307f 55%,#ff7a3d 72%,#2a0f45 73%,#120826 100%)}
 .pc-scene{top:auto;bottom:0;height:100%}
-.pc-scene svg{bottom:0;height:100%;width:max(100%,520px)}
+.pc-scene svg{left:0;transform:none;bottom:0;height:100%;width:100%}
 .hero .lede{margin-top:150px;padding:10px 14px;border-radius:12px;background:rgba(18,8,38,.78)}
 .extras{padding:30px 0 34px;background:linear-gradient(180deg,#170a30 0%,#120826 100%);border-top:1px solid rgba(255,46,151,.35)}
 .extras-h{font-family:'Anton',sans-serif;font-size:1.9rem;line-height:1;text-transform:uppercase;letter-spacing:.01em;color:#fff;text-shadow:0 0 14px rgba(255,46,151,.55)}
 .extras .ratebtn{margin-top:16px}
 .extras .cf-title{margin-top:24px}
 .morelink{display:block;margin-top:14px;text-align:center;font-size:.9rem;color:#bff8ff;text-underline-offset:3px}
+.hero{padding-bottom:150px}
+.chip-more{border-color:var(--cyan)!important;color:#bff8ff!important}
 </style>
 </head>
 <body>
@@ -341,7 +343,7 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 </header>
 <section class="hero">
 <img class="wm" src="/brand/logo-cream.svg" alt="" aria-hidden="true">
-<div class="pc-scene" aria-hidden="true"><svg viewBox="0 0 520 640" preserveAspectRatio="xMidYMax meet">
+<div class="pc-scene" aria-hidden="true"><svg viewBox="0 60 520 420" preserveAspectRatio="xMidYMax slice"><defs><linearGradient id="pcsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b0a44"/><stop offset=".35" stop-color="#4e1676"/><stop offset=".7" stop-color="#b8307f"/><stop offset="1" stop-color="#ff7a3d"/></linearGradient></defs><rect y="60" width="520" height="340" fill="url(#pcsky)"/>
 <circle cx="330" cy="352" r="62" fill="#ffd27a" opacity=".9"/>
 <path d="M0 400V330h30v-34h22v46h26v-96h18v-24h14v120h34v-50h24v58h52v-70h20v70h96v-36h26v-52h16v88h58v-24h30v58h34v40z" fill="#2a0c4a"/>
 <rect x="300" y="250" width="44" height="100" fill="#22093f"/><rect x="307" y="258" width="30" height="84" rx="4" fill="rgba(41,230,255,.12)" stroke="#29e6ff" stroke-width="2.5"/>
@@ -358,9 +360,6 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 <h1>The <em>Menu</em></h1>
 <span class="pc-city" aria-hidden="true">Pirate City</span>
 <p class="petbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"/><ellipse cx="10" cy="5.6" rx="2" ry="2.6"/><ellipse cx="14.4" cy="5.6" rx="2" ry="2.6"/><ellipse cx="18.4" cy="10" rx="2" ry="2.6"/><path d="M12.2 11.2c-3 0-6.2 3.9-6.2 6.4 0 1.7 1.4 2.4 3 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.6 0 3-.7 3-2.4 0-2.5-3.2-6.4-6.2-6.4z"/></svg>Dog &amp; pet friendly</p>
-<p class="lede">Order at your table with your server. Pick Food or Drinks, then tap a section to jump straight to it.</p>
-<div class="quickmenu"><a href="#menu" data-go="food">Food menu</a><a href="#drinks" data-go="drinks">Drinks menu</a></div>
-<a class="morelink" href="#more">Run Club, loyalty card, rate us &amp; more &darr;</a>
 </div>
 </section>
 <div class="menubar" id="menubar">
@@ -380,6 +379,7 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 <a class="chip" href="#kids">For the Kids</a>
 <a class="chip" href="#dessert">Dessert</a>
 <a class="chip" href="#specials">Specials</a>
+<a class="chip chip-more" href="#more">Run Club &amp; more &darr;</a>
 </nav>
 <nav class="chips" id="chips-drinks" aria-label="Drinks sections" hidden><!-- DRINKS-CHIPS-START -->
 <a class="chip" href="#d-beer">Beers &amp; Ciders</a>
@@ -390,7 +390,9 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 <a class="chip" href="#d-shooters">Shooters</a>
 <a class="chip" href="#d-coolers">Coolers</a>
 <a class="chip" href="#d-specials">Drinks Specials</a>
-<!-- DRINKS-CHIPS-END --></nav>
+<!-- DRINKS-CHIPS-END -->
+<a class="chip chip-more" href="#more">Run Club &amp; more &darr;</a>
+</nav>
 </div>
 <main id="menu">
 <div id="food-sections">
