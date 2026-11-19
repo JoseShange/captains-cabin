@@ -314,6 +314,17 @@ main{background:var(--ink-2)}
 .note{border-color:rgba(255,46,151,.5);background:rgba(255,46,151,.08);border-radius:12px}
 .totop{border-radius:12px;box-shadow:var(--glow)}
 footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
+
+/* Menu first (table QR): short title, then the menu; everything else sits under the menu */
+.hero{padding:24px 0 22px;background:linear-gradient(180deg,#1b0a44 0%,#4e1676 30%,#b8307f 55%,#ff7a3d 72%,#2a0f45 73%,#120826 100%)}
+.pc-scene{top:auto;bottom:0;height:100%}
+.pc-scene svg{bottom:0;height:100%;width:max(100%,520px)}
+.hero .lede{margin-top:150px;padding:10px 14px;border-radius:12px;background:rgba(18,8,38,.78)}
+.extras{padding:30px 0 34px;background:linear-gradient(180deg,#170a30 0%,#120826 100%);border-top:1px solid rgba(255,46,151,.35)}
+.extras-h{font-family:'Anton',sans-serif;font-size:1.9rem;line-height:1;text-transform:uppercase;letter-spacing:.01em;color:#fff;text-shadow:0 0 14px rgba(255,46,151,.55)}
+.extras .ratebtn{margin-top:16px}
+.extras .cf-title{margin-top:24px}
+.morelink{display:block;margin-top:14px;text-align:center;font-size:.9rem;color:#bff8ff;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -347,84 +358,9 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 <h1>The <em>Menu</em></h1>
 <span class="pc-city" aria-hidden="true">Pirate City</span>
 <p class="petbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"/><ellipse cx="10" cy="5.6" rx="2" ry="2.6"/><ellipse cx="14.4" cy="5.6" rx="2" ry="2.6"/><ellipse cx="18.4" cy="10" rx="2" ry="2.6"/><path d="M12.2 11.2c-3 0-6.2 3.9-6.2 6.4 0 1.7 1.4 2.4 3 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.6 0 3-.7 3-2.4 0-2.5-3.2-6.4-6.2-6.4z"/></svg>Dog &amp; pet friendly</p>
-<button class="ratebtn" id="ratebtn" type="button" aria-expanded="false" aria-controls="rateopts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>Rate our service</button>
-<div class="rate-opts" id="rateopts" hidden>
-<a class="ro-join" href="/loyalty">Join our loyalty program<small>Then tap "Rate our service" on your card and earn 2 points</small></a>
-<a class="ro-anon" href="/loyalty?anon=1">Rate service without loyalty<small>Quick rating and comment, no sign-up</small></a>
-</div>
-<script>(function(){var b=document.getElementById('ratebtn'),o=document.getElementById('rateopts');b.addEventListener('click',function(){var open=o.hidden;o.hidden=!open;b.setAttribute('aria-expanded',open);});})();</script>
-<p class="lede">Order at your table with your server. Tap a section below to jump straight to it.</p>
+<p class="lede">Order at your table with your server. Pick Food or Drinks, then tap a section to jump straight to it.</p>
 <div class="quickmenu"><a href="#menu" data-go="food">Food menu</a><a href="#drinks" data-go="drinks">Drinks menu</a></div>
-<p class="cf-title">Run Club &amp; Coffee Rave &middot; swipe</p>
-    <!-- Club cards: one in front, two behind. Swipe (or tap a side card / the arrows) and they rotate. -->
-    <div class="cf cf-menu" id="cf" role="region" aria-roledescription="carousel" aria-label="Runs and Coffee Rave">
-      <div class="cf-stage">
-        <article class="cfc cf-sun" aria-roledescription="slide" aria-label="Social Sunset Run">
-          <span class="cf-bg" aria-hidden="true">5K</span>
-          <p class="cf-eye">Mon &middot; Wed &middot; Fri &middot; 5&nbsp;km</p>
-          <div class="cf-time">18:00<small>run starts by 19:00</small></div>
-          <h3 class="cf-h">Social<br><span>Sunset Run</span></h3>
-          <p class="cf-p">Along Saldanha Bay as the sun goes down. Check in at the Cabin from 18:00, the run leader sets off between 18:00 and 19:00, then stay for dinner.</p>
-          <p class="cf-chip"><b>Runner perk</b> 15% off your meal that day</p>
-          <div class="cf-acts"><a class="cf-btn ink" href="/runs" data-rsvp="sun">RSVP for a Sunset Run</a><a class="cf-btn white" href="/loyalty?join=run">Join the Run Club</a></div>
-        </article>
-        <article class="cfc cf-10k" aria-roledescription="slide" aria-label="Saturday 10K">
-          <span class="cf-bg" aria-hidden="true">10K</span>
-          <p class="cf-eye">Every Saturday &middot; 10&nbsp;km</p>
-          <div class="cf-time">09:00</div>
-          <h3 class="cf-h">Saturday<br><span>10K</span></h3>
-          <p class="cf-p">Starts and finishes at the Cabin on Main Road. All paces welcome.</p>
-          <p class="cf-chip"><b>Club perks 09:00&ndash;12:00</b> free coffee, water &amp; juice with every meal, plus 15% off any breakfast</p>
-          <div class="cf-acts"><a class="cf-btn white" href="/runs" data-rsvp="10k">RSVP for the 10K</a><a class="cf-btn ink" href="/loyalty?join=run">Join the Run Club</a></div>
-        </article>
-        <article class="cfc cf-rave" aria-roledescription="slide" aria-label="Coffee Rave">
-          <svg class="cf-beans" aria-hidden="true" viewBox="0 0 200 200"><defs><g id="bean"><ellipse rx="9" ry="13"/><path d="M0-12c-4 6 4 18 0 24" fill="none" stroke-width="2.2"/></g></defs>
-            <use href="#bean" x="20" y="24" transform="rotate(-25 20 24)"/><use href="#bean" x="170" y="36" transform="rotate(30 170 36)"/><use href="#bean" x="150" y="170" transform="rotate(-40 150 170)"/><use href="#bean" x="36" y="160" transform="rotate(20 36 160)"/><use href="#bean" x="100" y="12" transform="rotate(70 100 12)"/></svg>
-          <svg class="cf-cup" aria-hidden="true" viewBox="0 0 64 64"><path d="M22 6c-3 4 3 7 0 11M32 4c-3 4 3 7 0 11M42 6c-3 4 3 7 0 11" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M10 24h40v14a18 18 0 0 1-18 18h-4a18 18 0 0 1-18-18z"/><path d="M50 28h4a7 7 0 0 1 0 14h-5" fill="none" stroke-width="4"/></svg>
-          <p class="cf-eye">Every Saturday &middot; music &amp; coffee</p>
-          <div class="cf-time">09:00<small>&ndash; 12:00</small></div>
-          <h3 class="cf-h">Coffee<br><span>Rave</span></h3>
-          <p class="cf-p">Morning beats, strong coffee and good people. Come straight off the run, or just come for the vibe. No sweat required.</p>
-          <p class="cf-chip"><b>Rave perks</b> free coffee, water &amp; juice with every meal, plus 15% off any breakfast</p>
-          <div class="cf-acts"><a class="cf-btn rave" href="/runs?run=rave">RSVP for the Coffee Rave</a></div>
-        </article>
-      </div>
-      <div class="cf-nav">
-        <button class="cf-arrow" type="button" data-dir="-1" aria-label="Previous card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <div class="cf-dots" role="tablist" aria-label="Choose a card"></div>
-        <button class="cf-arrow" type="button" data-dir="1" aria-label="Next card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-      </div>
-    </div>
-<a class="runclubbtn" href="/loyalty?join=run" data-runbtn><span class="rc-t">Run Club</span><span class="rc-s">Your Run Club card, stickers, points &amp; profile</span></a>
-
-<a class="cardbtn" href="/loyalty" data-myc><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
-<button class="dlapp" type="button" data-install><svg viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;vertical-align:-3px;margin-right:8px"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11.5l3 3 3-3M10 18.5h4"/></svg>Download the app<small>Our icon on your home screen &middot; Android &amp; iPhone</small></button>
-<p class="iconrow-h">Follow us &amp; leave a review</p>
-<div class="iconrow">
-<a href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"></path></svg></a>
-<a href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"></path></svg></a>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener" aria-label="Review us on Google"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.4z"/><path d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path d="M6.4 14a6 6 0 0 1 0-3.9V7.5H3.1a10 10 0 0 0 0 9z"/><path d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.5l3.3 2.6C7.2 7.8 9.4 6 12 6z"/></svg></a>
-<a href="https://www.tripadvisor.co.za/Restaurant_Review-g312671-d11693363-Reviews-Captains-Saldanha_Saldanha_Bay_Municipality_Western_Cape.html" target="_blank" rel="noopener" aria-label="Review us on Tripadvisor"><svg viewBox="0 0 24 24" aria-hidden="true" class="ta"><circle cx="6.8" cy="13" r="4.2"/><circle cx="17.2" cy="13" r="4.2"/><circle cx="6.8" cy="13" r="1.4" class="f"/><circle cx="17.2" cy="13" r="1.4" class="f"/><path d="M2 8.6c2.6-2 6-3 10-3s7.4 1 10 3M12 9.2l-1.6 4.3h3.2z"/></svg></a>
-<a href="/" aria-label="Visit our website"><svg viewBox="0 0 24 24" aria-hidden="true" class="ln"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a14.5 14.5 0 0 1 0 19M12 2.5a14.5 14.5 0 0 0 0 19"/></svg></a>
-</div>
-
-<a class="promo p-oxi" href="/loyalty?join=oxigym" aria-label="Oxigym members get 10% off your bill">
-<p class="p-co"><span>Captain&rsquo;s Cabin</span><i>&times;</i><span>Oxigym</span></p>
-<p class="p-big">10%<small>off your<br>bill</small></p>
-<p class="p-sub">For Oxigym members, every day. Get your free Cabin card.</p>
-<span class="p-btn white">Get my free card</span>
-</a>
-<section class="promo p-wash" aria-label="Car wash while you eat">
-<p class="p-eye">Car wash on site &middot; 10:00&ndash;19:00</p>
-<h2 class="p-h">We wash<br><span class="r">your car</span><br><span class="s">while you eat.</span></h2>
-<p class="p-chip"><b>10% off</b> your meal when we wash your car</p>
-<div class="p-acts"><a class="p-btn sea" href="https://wa.me/27649916181?text=Hi%2C%20I%27d%20like%20to%20book%20a%20car%20wash" target="_blank" rel="noopener">Book on WhatsApp</a><a class="p-btn ghost" href="/#carwash">How it works</a></div>
-</section>
-<div class="whatson">
-<p class="eyebrow">What&rsquo;s on at the Cabin</p>
-<a class="wo-btn" href="/#events">See what&rsquo;s on at the Cabin</a>
-</div>
-<script>(function(){var t=new Date().toISOString().slice(0,10);document.querySelectorAll('[data-until]').forEach(function(el){if(t>=el.getAttribute('data-until'))el.remove();});})();</script>
+<a class="morelink" href="#more">Run Club, loyalty card, rate us &amp; more &darr;</a>
 </div>
 </section>
 <div class="menubar" id="menubar">
@@ -2552,6 +2488,87 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 </div>
 <!-- DRINKS-END -->
 </main>
+<section class="extras" id="more" aria-label="More from the Cabin">
+<div class="wrap">
+<p class="extras-h">More from the Cabin</p>
+<button class="ratebtn" id="ratebtn" type="button" aria-expanded="false" aria-controls="rateopts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>Rate our service</button>
+<div class="rate-opts" id="rateopts" hidden>
+<a class="ro-join" href="/loyalty">Join our loyalty program<small>Then tap "Rate our service" on your card and earn 2 points</small></a>
+<a class="ro-anon" href="/loyalty?anon=1">Rate service without loyalty<small>Quick rating and comment, no sign-up</small></a>
+</div>
+<script>(function(){var b=document.getElementById('ratebtn'),o=document.getElementById('rateopts');b.addEventListener('click',function(){var open=o.hidden;o.hidden=!open;b.setAttribute('aria-expanded',open);});})();</script>
+<p class="cf-title">Run Club &amp; Coffee Rave &middot; swipe</p>
+    <!-- Club cards: one in front, two behind. Swipe (or tap a side card / the arrows) and they rotate. -->
+    <div class="cf cf-menu" id="cf" role="region" aria-roledescription="carousel" aria-label="Runs and Coffee Rave">
+      <div class="cf-stage">
+        <article class="cfc cf-sun" aria-roledescription="slide" aria-label="Social Sunset Run">
+          <span class="cf-bg" aria-hidden="true">5K</span>
+          <p class="cf-eye">Mon &middot; Wed &middot; Fri &middot; 5&nbsp;km</p>
+          <div class="cf-time">18:00<small>run starts by 19:00</small></div>
+          <h3 class="cf-h">Social<br><span>Sunset Run</span></h3>
+          <p class="cf-p">Along Saldanha Bay as the sun goes down. Check in at the Cabin from 18:00, the run leader sets off between 18:00 and 19:00, then stay for dinner.</p>
+          <p class="cf-chip"><b>Runner perk</b> 15% off your meal that day</p>
+          <div class="cf-acts"><a class="cf-btn ink" href="/runs" data-rsvp="sun">RSVP for a Sunset Run</a><a class="cf-btn white" href="/loyalty?join=run">Join the Run Club</a></div>
+        </article>
+        <article class="cfc cf-10k" aria-roledescription="slide" aria-label="Saturday 10K">
+          <span class="cf-bg" aria-hidden="true">10K</span>
+          <p class="cf-eye">Every Saturday &middot; 10&nbsp;km</p>
+          <div class="cf-time">09:00</div>
+          <h3 class="cf-h">Saturday<br><span>10K</span></h3>
+          <p class="cf-p">Starts and finishes at the Cabin on Main Road. All paces welcome.</p>
+          <p class="cf-chip"><b>Club perks 09:00&ndash;12:00</b> free coffee, water &amp; juice with every meal, plus 15% off any breakfast</p>
+          <div class="cf-acts"><a class="cf-btn white" href="/runs" data-rsvp="10k">RSVP for the 10K</a><a class="cf-btn ink" href="/loyalty?join=run">Join the Run Club</a></div>
+        </article>
+        <article class="cfc cf-rave" aria-roledescription="slide" aria-label="Coffee Rave">
+          <svg class="cf-beans" aria-hidden="true" viewBox="0 0 200 200"><defs><g id="bean"><ellipse rx="9" ry="13"/><path d="M0-12c-4 6 4 18 0 24" fill="none" stroke-width="2.2"/></g></defs>
+            <use href="#bean" x="20" y="24" transform="rotate(-25 20 24)"/><use href="#bean" x="170" y="36" transform="rotate(30 170 36)"/><use href="#bean" x="150" y="170" transform="rotate(-40 150 170)"/><use href="#bean" x="36" y="160" transform="rotate(20 36 160)"/><use href="#bean" x="100" y="12" transform="rotate(70 100 12)"/></svg>
+          <svg class="cf-cup" aria-hidden="true" viewBox="0 0 64 64"><path d="M22 6c-3 4 3 7 0 11M32 4c-3 4 3 7 0 11M42 6c-3 4 3 7 0 11" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M10 24h40v14a18 18 0 0 1-18 18h-4a18 18 0 0 1-18-18z"/><path d="M50 28h4a7 7 0 0 1 0 14h-5" fill="none" stroke-width="4"/></svg>
+          <p class="cf-eye">Every Saturday &middot; music &amp; coffee</p>
+          <div class="cf-time">09:00<small>&ndash; 12:00</small></div>
+          <h3 class="cf-h">Coffee<br><span>Rave</span></h3>
+          <p class="cf-p">Morning beats, strong coffee and good people. Come straight off the run, or just come for the vibe. No sweat required.</p>
+          <p class="cf-chip"><b>Rave perks</b> free coffee, water &amp; juice with every meal, plus 15% off any breakfast</p>
+          <div class="cf-acts"><a class="cf-btn rave" href="/runs?run=rave">RSVP for the Coffee Rave</a></div>
+        </article>
+      </div>
+      <div class="cf-nav">
+        <button class="cf-arrow" type="button" data-dir="-1" aria-label="Previous card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="cf-dots" role="tablist" aria-label="Choose a card"></div>
+        <button class="cf-arrow" type="button" data-dir="1" aria-label="Next card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+<a class="runclubbtn" href="/loyalty?join=run" data-runbtn><span class="rc-t">Run Club</span><span class="rc-s">Your Run Club card, stickers, points &amp; profile</span></a>
+
+<a class="cardbtn" href="/loyalty" data-myc><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
+<button class="dlapp" type="button" data-install><svg viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;vertical-align:-3px;margin-right:8px"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11.5l3 3 3-3M10 18.5h4"/></svg>Download the app<small>Our icon on your home screen &middot; Android &amp; iPhone</small></button>
+<p class="iconrow-h">Follow us &amp; leave a review</p>
+<div class="iconrow">
+<a href="https://www.instagram.com/captainscabin_saldanha/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.8-.1zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"></path></svg></a>
+<a href="https://www.facebook.com/captainssaldanhabay/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"></path></svg></a>
+<a href="https://www.google.com/maps/search/?api=1&amp;query=Captain%27s+Cabin+Restaurant+%26+Pub%2C+20+Main+Rd%2C+Saldanha" target="_blank" rel="noopener" aria-label="Review us on Google"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.4z"/><path d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path d="M6.4 14a6 6 0 0 1 0-3.9V7.5H3.1a10 10 0 0 0 0 9z"/><path d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.5l3.3 2.6C7.2 7.8 9.4 6 12 6z"/></svg></a>
+<a href="https://www.tripadvisor.co.za/Restaurant_Review-g312671-d11693363-Reviews-Captains-Saldanha_Saldanha_Bay_Municipality_Western_Cape.html" target="_blank" rel="noopener" aria-label="Review us on Tripadvisor"><svg viewBox="0 0 24 24" aria-hidden="true" class="ta"><circle cx="6.8" cy="13" r="4.2"/><circle cx="17.2" cy="13" r="4.2"/><circle cx="6.8" cy="13" r="1.4" class="f"/><circle cx="17.2" cy="13" r="1.4" class="f"/><path d="M2 8.6c2.6-2 6-3 10-3s7.4 1 10 3M12 9.2l-1.6 4.3h3.2z"/></svg></a>
+<a href="/" aria-label="Visit our website"><svg viewBox="0 0 24 24" aria-hidden="true" class="ln"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a14.5 14.5 0 0 1 0 19M12 2.5a14.5 14.5 0 0 0 0 19"/></svg></a>
+</div>
+
+<a class="promo p-oxi" href="/loyalty?join=oxigym" aria-label="Oxigym members get 10% off your bill">
+<p class="p-co"><span>Captain&rsquo;s Cabin</span><i>&times;</i><span>Oxigym</span></p>
+<p class="p-big">10%<small>off your<br>bill</small></p>
+<p class="p-sub">For Oxigym members, every day. Get your free Cabin card.</p>
+<span class="p-btn white">Get my free card</span>
+</a>
+<section class="promo p-wash" aria-label="Car wash while you eat">
+<p class="p-eye">Car wash on site &middot; 10:00&ndash;19:00</p>
+<h2 class="p-h">We wash<br><span class="r">your car</span><br><span class="s">while you eat.</span></h2>
+<p class="p-chip"><b>10% off</b> your meal when we wash your car</p>
+<div class="p-acts"><a class="p-btn sea" href="https://wa.me/27649916181?text=Hi%2C%20I%27d%20like%20to%20book%20a%20car%20wash" target="_blank" rel="noopener">Book on WhatsApp</a><a class="p-btn ghost" href="/#carwash">How it works</a></div>
+</section>
+<div class="whatson">
+<p class="eyebrow">What&rsquo;s on at the Cabin</p>
+<a class="wo-btn" href="/#events">See what&rsquo;s on at the Cabin</a>
+</div>
+<script>(function(){var t=new Date().toISOString().slice(0,10);document.querySelectorAll('[data-until]').forEach(function(el){if(t>=el.getAttribute('data-until'))el.remove();});})();</script>
+</div>
+</section>
 <footer>
 <div class="wrap">
 <img src="/brand/logo-cream.svg" width="130" height="130" alt="Captain's Cabin">
