@@ -249,7 +249,7 @@ background:var(--orange);color:#fff;display:grid;place-items:center;opacity:0;po
 @media(max-width:360px){ .brand small{display:none} .sbtn{font-size:.76rem;letter-spacing:.08em} }
 @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
 @media print{ .bar,.chips,.social,.totop,footer .social{display:none} body,main{background:#fff;color:#000} .d-name{color:#000} }
-/* ===== Pirate City theme (table QR menu only, 19 Nov 2026): dusk sky, hot-pink + cyan neon, palms, wet-street glow.
+/* ===== Saldanha Bay theme (table QR menu only, 19 Nov 2026): dusk sky, hot-pink + cyan neon, palms, wet-street glow.
    The main website keeps the Cabin red look. ===== */
 :root{--ink:#120826;--ink-2:#170a30;--ink-3:#22103f;--line:rgba(201,181,240,.18);--cream:#fff3fa;--muted:#c9b5f0;
   --orange:#ff2e97;--orange-soft:#ff7cc0;--cyan:#29e6ff;--sun:#ffb347;--glow:0 0 18px rgba(255,46,151,.55)}
@@ -328,7 +328,7 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 .hero{padding-bottom:150px}
 .chip-more{border-color:var(--cyan)!important;color:#bff8ff!important}
 
-/* Saldanha Bay Pirate City picture (20 Nov 2026): one wide scene, cropped to fit any screen */
+/* Saldanha Bay picture (20 Nov 2026): one wide scene, cropped to fit any screen */
 .hero{min-height:clamp(440px,42vw,620px);padding-bottom:24px;background:#120826;display:flex;align-items:flex-start}
 .hero .wrap{width:100%}
 .pc-scene{position:absolute;inset:0;height:auto;top:0;bottom:0}
@@ -347,6 +347,15 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 .pcb.wide{grid-column:1/-1;min-height:72px}
 .pcb:active{transform:translateY(1px)}
 .chip-ta{border-color:#34e0a1!important;color:#b8ffe4!important}
+
+/* Saldanha Bay hero photo (Jose's art, 20 Nov 2026): Cabin right of centre, sunset left behind the title */
+.pc-scene img{object-position:68% 50%}
+@media (min-width:900px){.pc-scene img{object-position:50% 62%}}
+.pc-scene::after{background:linear-gradient(90deg,rgba(18,8,38,.62) 0%,rgba(18,8,38,.15) 48%,rgba(18,8,38,0) 70%),linear-gradient(180deg,rgba(18,8,38,0) 70%,rgba(18,8,38,.85) 100%)}
+.hero h1,.hero .eyebrow{text-shadow:0 2px 14px rgba(18,8,38,.7)}
+/* Run Club side only: the Run Club team photo above the run cards */
+.rc-banner{display:block;margin:24px 0 0;border-radius:16px;overflow:hidden;border:2px solid #ff7a3d;box-shadow:0 0 22px rgba(255,90,60,.45)}
+.rc-banner img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
 </style>
 </head>
 <body>
@@ -363,12 +372,12 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 </header>
 <section class="hero">
 <img class="wm" src="/brand/logo-cream.svg" alt="" aria-hidden="true">
-<div class="pc-scene" aria-hidden="true"><img src="/menu/pirate-city-bay.svg?v=1" alt="" width="1600" height="640" decoding="async" fetchpriority="high"></div>
+<div class="pc-scene" aria-hidden="true"><img src="/menu/saldanha-bay-hero-1672.webp" srcset="/menu/saldanha-bay-hero-900.webp 900w, /menu/saldanha-bay-hero-1672.webp 1672w" sizes="(max-width:899px) 230vw, 100vw" alt="" width="1672" height="941" decoding="async" fetchpriority="high"></div>
 
 <div class="wrap">
 <p class="eyebrow">Captain&rsquo;s Cabin &middot; Welcome aboard</p>
 <h1>The <em>Menu</em></h1>
-<span class="pc-city" aria-hidden="true">Pirate City</span>
+<span class="pc-city" aria-hidden="true">Saldanha Bay</span>
 <p class="petbadge"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="6" cy="10" rx="2" ry="2.6"/><ellipse cx="10" cy="5.6" rx="2" ry="2.6"/><ellipse cx="14.4" cy="5.6" rx="2" ry="2.6"/><ellipse cx="18.4" cy="10" rx="2" ry="2.6"/><path d="M12.2 11.2c-3 0-6.2 3.9-6.2 6.4 0 1.7 1.4 2.4 3 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.6 0 3-.7 3-2.4 0-2.5-3.2-6.4-6.2-6.4z"/></svg>Dog &amp; pet friendly</p>
 </div>
 </section>
@@ -2511,6 +2520,7 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 <a class="ro-anon" href="/loyalty?anon=1">Rate service without loyalty<small>Quick rating and comment, no sign-up</small></a>
 </div>
 <script>(function(){var b=document.getElementById('ratebtn'),o=document.getElementById('rateopts');b.addEventListener('click',function(){var open=o.hidden;o.hidden=!open;b.setAttribute('aria-expanded',open);});})();</script>
+<a class="rc-banner" href="/loyalty?view=runclub" aria-label="Captain's Run Club"><img src="/menu/run-club-team-800.webp" srcset="/menu/run-club-team-800.webp 800w, /menu/run-club-team-1200.webp 1200w" sizes="(min-width:700px) 640px, 100vw" alt="Captain's Cabin Run Club runners on the Saldanha Bay waterfront at sunset" width="1200" height="675" loading="lazy" decoding="async"></a>
 <p class="cf-title">Run Club &amp; Coffee Rave &middot; swipe</p>
     <!-- Club cards: one in front, two behind. Swipe (or tap a side card / the arrows) and they rotate. -->
     <div class="cf cf-menu" id="cf" role="region" aria-roledescription="carousel" aria-label="Runs and Coffee Rave">
