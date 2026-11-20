@@ -336,6 +336,17 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 .pc-scene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,8,38,.55) 0%,rgba(18,8,38,0) 45%)}
 .pc-scene img{object-position:57% 100%}
 @media (min-width:900px){.pc-scene img{object-position:50% 85%}}
+.pc-btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.pcb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:62px;padding:10px 12px;border-radius:18px;text-decoration:none;text-align:center;font-family:'Anton',sans-serif;font-size:1.35rem;letter-spacing:.02em;text-transform:uppercase;line-height:1.05}
+.pcb .cb-title{font:inherit}
+.pcb small{font-family:'Barlow',sans-serif;text-transform:none;letter-spacing:0;font-size:.8rem;margin-top:2px}
+.pcb.pink{background:#ff2e97;color:#fff;box-shadow:0 0 20px rgba(255,46,151,.55)}
+.pcb.cyan{border:2.5px solid #29e6ff;color:#b9f6ff;background:rgba(18,8,38,.7);box-shadow:0 0 16px rgba(41,230,255,.4)}
+.pcb.sun{border:2.5px solid #ffb347;color:#ffe2b8;background:rgba(18,8,38,.7);box-shadow:0 0 16px rgba(255,179,71,.4)}
+.pcb.sun small{color:#ffd8a6}
+.pcb.wide{grid-column:1/-1;min-height:72px}
+.pcb:active{transform:translateY(1px)}
+.chip-ta{border-color:#34e0a1!important;color:#b8ffe4!important}
 </style>
 </head>
 <body>
@@ -379,6 +390,7 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 <a class="chip" href="#dessert">Dessert</a>
 <a class="chip" href="#specials">Specials</a>
 <a class="chip chip-more" href="#more">Run Club &amp; more &darr;</a>
+<a class="chip chip-ta" href="https://www.tripadvisor.co.za/Restaurant_Review-g312671-d11693363-Reviews-Captains-Saldanha_Saldanha_Bay_Municipality_Western_Cape.html" target="_blank" rel="noopener">Tripadvisor &#8599;</a>
 </nav>
 <nav class="chips" id="chips-drinks" aria-label="Drinks sections" hidden><!-- DRINKS-CHIPS-START -->
 <a class="chip" href="#d-beer">Beers &amp; Ciders</a>
@@ -391,6 +403,7 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 <a class="chip" href="#d-specials">Drinks Specials</a>
 <!-- DRINKS-CHIPS-END -->
 <a class="chip chip-more" href="#more">Run Club &amp; more &darr;</a>
+<a class="chip chip-ta" href="https://www.tripadvisor.co.za/Restaurant_Review-g312671-d11693363-Reviews-Captains-Saldanha_Saldanha_Bay_Municipality_Western_Cape.html" target="_blank" rel="noopener">Tripadvisor &#8599;</a>
 </nav>
 </div>
 <main id="menu">
@@ -2538,9 +2551,11 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
         <button class="cf-arrow" type="button" data-dir="1" aria-label="Next card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
-<a class="runclubbtn" href="/loyalty?join=run" data-runbtn><span class="rc-t">Run Club</span><span class="rc-s">Your Run Club card, stickers, points &amp; profile</span></a>
-
-<a class="cardbtn" href="/loyalty" data-myc><span class="cb-title">Join the Captain&rsquo;s Cabin Card</span><span class="cb-sub">Earn 5 points per meal &middot; 100 points = R100 off</span></a>
+<div class="pc-btns">
+<a class="pcb pink" href="/book/">Book a table</a>
+<a class="pcb cyan" href="/loyalty">My card</a>
+<a class="pcb sun wide" href="/loyalty?view=runclub" data-runbtn>Captain&rsquo;s Run Club<small>I&rsquo;m here button, my runs, points, vouchers &amp; free drinks</small></a>
+</div>
 <button class="dlapp" type="button" data-install><svg viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;vertical-align:-3px;margin-right:8px"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11.5l3 3 3-3M10 18.5h4"/></svg>Download the app<small>Our icon on your home screen &middot; Android &amp; iPhone</small></button>
 <p class="iconrow-h">Follow us &amp; leave a review</p>
 <div class="iconrow">
