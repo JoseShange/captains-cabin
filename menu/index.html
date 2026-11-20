@@ -327,6 +327,15 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 .morelink{display:block;margin-top:14px;text-align:center;font-size:.9rem;color:#bff8ff;text-underline-offset:3px}
 .hero{padding-bottom:150px}
 .chip-more{border-color:var(--cyan)!important;color:#bff8ff!important}
+
+/* Saldanha Bay Pirate City picture (20 Nov 2026): one wide scene, cropped to fit any screen */
+.hero{min-height:clamp(440px,42vw,620px);padding-bottom:24px;background:#120826;display:flex;align-items:flex-start}
+.hero .wrap{width:100%}
+.pc-scene{position:absolute;inset:0;height:auto;top:0;bottom:0}
+.pc-scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 100%;display:block}
+.pc-scene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,8,38,.55) 0%,rgba(18,8,38,0) 45%)}
+.pc-scene img{object-position:57% 100%}
+@media (min-width:900px){.pc-scene img{object-position:50% 85%}}
 </style>
 </head>
 <body>
@@ -343,17 +352,7 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 </header>
 <section class="hero">
 <img class="wm" src="/brand/logo-cream.svg" alt="" aria-hidden="true">
-<div class="pc-scene" aria-hidden="true"><svg viewBox="0 60 520 420" preserveAspectRatio="xMidYMax slice"><defs><linearGradient id="pcsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b0a44"/><stop offset=".35" stop-color="#4e1676"/><stop offset=".7" stop-color="#b8307f"/><stop offset="1" stop-color="#ff7a3d"/></linearGradient></defs><rect y="60" width="520" height="340" fill="url(#pcsky)"/>
-<circle cx="330" cy="352" r="62" fill="#ffd27a" opacity=".9"/>
-<path d="M0 400V330h30v-34h22v46h26v-96h18v-24h14v120h34v-50h24v58h52v-70h20v70h96v-36h26v-52h16v88h58v-24h30v58h34v40z" fill="#2a0c4a"/>
-<rect x="300" y="250" width="44" height="100" fill="#22093f"/><rect x="307" y="258" width="30" height="84" rx="4" fill="rgba(41,230,255,.12)" stroke="#29e6ff" stroke-width="2.5"/>
-<g font-family="Anton,sans-serif" font-size="13" fill="#bff8ff" text-anchor="middle"><text x="322" y="276">C</text><text x="322" y="292">A</text><text x="322" y="308">B</text><text x="322" y="324">I</text><text x="322" y="340">N</text></g>
-<rect x="0" y="400" width="520" height="240" fill="#160830"/>
-<rect x="270" y="410" width="120" height="6" rx="3" fill="#ffd27a" opacity=".35"/><rect x="312" y="422" width="8" height="120" rx="4" fill="#29e6ff" opacity=".28"/>
-<rect x="150" y="420" width="10" height="110" rx="5" fill="#ff2e97" opacity=".25"/><rect x="40" y="500" width="180" height="3" rx="1.5" fill="#ff2e97" opacity=".3"/><rect x="290" y="530" width="200" height="3" rx="1.5" fill="#29e6ff" opacity=".25"/>
-<g stroke="#0e0520" fill="none" stroke-linecap="round"><path d="M48 400c4-90-2-150-18-210" stroke-width="9"/><path d="M30 190c-28-14-48-4-58 14M30 190c28-18 54-10 66 10M30 190c-8-32-32-44-50-38M30 190c16-36 40-44 60-38M30 190c-4 22-18 40-30 52" stroke-width="7"/>
-<path d="M480 400c-2-70 4-114 18-160" stroke-width="8"/><path d="M498 240c-26-12-46-4-58 14M498 240c24-14 44-6 54 12M498 240c-8-28-30-38-46-32" stroke-width="7"/></g>
-</svg></div>
+<div class="pc-scene" aria-hidden="true"><img src="/menu/pirate-city-bay.svg?v=1" alt="" width="1600" height="640" decoding="async" fetchpriority="high"></div>
 
 <div class="wrap">
 <p class="eyebrow">Captain&rsquo;s Cabin &middot; Welcome aboard</p>
