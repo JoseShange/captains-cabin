@@ -356,6 +356,13 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 /* Run Club side only: the Run Club team photo above the run cards */
 .rc-banner{display:block;margin:24px 0 0;border-radius:16px;overflow:hidden;border:2px solid #ff7a3d;box-shadow:0 0 22px rgba(255,90,60,.45)}
 .rc-banner img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+
+/* New tall hero for phones (20 Nov 2026): runners, the neon Cabin sign, helicopter, kite and bike */
+@media (max-width:899px){
+ .hero{min-height:min(158vw,720px)}
+ .pc-scene img{object-position:50% 38%}
+ .pc-scene::after{background:linear-gradient(180deg,rgba(18,8,38,.55) 0%,rgba(18,8,38,0) 30%,rgba(18,8,38,0) 82%,rgba(18,8,38,.9) 100%)}
+}
 </style>
 </head>
 <body>
@@ -372,7 +379,7 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 </header>
 <section class="hero">
 <img class="wm" src="/brand/logo-cream.svg" alt="" aria-hidden="true">
-<div class="pc-scene" aria-hidden="true"><img src="/menu/saldanha-bay-hero-1672.webp" srcset="/menu/saldanha-bay-hero-900.webp 900w, /menu/saldanha-bay-hero-1672.webp 1672w" sizes="(max-width:899px) 230vw, 100vw" alt="" width="1672" height="941" decoding="async" fetchpriority="high"></div>
+<div class="pc-scene" aria-hidden="true"><picture><source media="(max-width:899px)" srcset="/menu/saldanha-bay-hero-tall-600.webp 600w, /menu/saldanha-bay-hero-tall-941.webp 941w" sizes="100vw" width="941" height="1671"><img src="/menu/saldanha-bay-hero-1672.webp" srcset="/menu/saldanha-bay-hero-900.webp 900w, /menu/saldanha-bay-hero-1672.webp 1672w" sizes="(max-width:899px) 230vw, 100vw" alt="" width="1672" height="941" decoding="async" fetchpriority="high"></picture></div>
 
 <div class="wrap">
 <p class="eyebrow">Captain&rsquo;s Cabin &middot; Welcome aboard</p>
