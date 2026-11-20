@@ -369,6 +369,21 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 .bar-soc a.mycard.rcbtn svg{stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:420px){.bar .brand span{display:none}.bar-soc{gap:5px}.bar-soc a.mycard{padding:0 8px;letter-spacing:.08em}}
 @media (max-width:359px){.bar-soc a[aria-label="Facebook"]{display:none}}
+
+/* The Menu hero (Jose's art, 20 Nov 2026): one finished picture with the title, "Saldanha Bay"
+   and the pet badge painted in, so it is shown whole, never cropped, and the HTML words are kept
+   for screen readers only. Wide screens get a blurred copy of the art behind it. */
+.hero{min-height:0;padding:0;display:block;background:#120826}
+.hero .wrap.hero-txt{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.pc-scene{position:relative;inset:auto;z-index:1;max-width:640px;margin:0 auto;height:auto}
+.pc-scene img{position:static;width:100%;height:auto;aspect-ratio:1199/1312;object-fit:cover;object-position:50% 50%}
+.pc-scene::after{background:linear-gradient(180deg,rgba(18,8,38,0) 88%,#120826 100%)}
+@media (min-width:641px){
+ .hero::before{content:"";position:absolute;inset:-60px;background:url(/menu/the-menu-hero-600.webp) center/cover;filter:blur(36px) brightness(.55);z-index:0}
+ .pc-scene img{object-position:50% 50%}
+ .pc-scene::after{background:none}
+}
+@media (max-width:899px){.hero{min-height:0}.pc-scene img{object-position:50% 50%}}
 </style>
 </head>
 <body>
@@ -386,9 +401,9 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 </header>
 <section class="hero">
 <img class="wm" src="/brand/logo-cream.svg" alt="" aria-hidden="true">
-<div class="pc-scene" aria-hidden="true"><picture><source media="(max-width:899px)" srcset="/menu/saldanha-bay-hero-tall-600.webp 600w, /menu/saldanha-bay-hero-tall-941.webp 941w" sizes="100vw" width="941" height="1671"><img src="/menu/saldanha-bay-hero-1672.webp" srcset="/menu/saldanha-bay-hero-900.webp 900w, /menu/saldanha-bay-hero-1672.webp 1672w" sizes="(max-width:899px) 230vw, 100vw" alt="" width="1672" height="941" decoding="async" fetchpriority="high"></picture></div>
+<div class="pc-scene" aria-hidden="true"><img src="/menu/the-menu-hero-600.webp" srcset="/menu/the-menu-hero-600.webp 600w, /menu/the-menu-hero-1199.webp 1199w" sizes="(min-width:640px) 640px, 100vw" alt="" width="1199" height="1312" decoding="async" fetchpriority="high"></div>
 
-<div class="wrap">
+<div class="wrap hero-txt">
 <p class="eyebrow">Captain&rsquo;s Cabin &middot; Welcome aboard</p>
 <h1>The <em>Menu</em></h1>
 <span class="pc-city" aria-hidden="true">Saldanha Bay</span>
