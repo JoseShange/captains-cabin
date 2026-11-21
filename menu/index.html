@@ -205,7 +205,11 @@ letter-spacing:.13em;font-size:.78rem;font-weight:600;padding:8px 14px;border-ra
 /* Food | Drinks switch: sits at the left of the sticky section bar, always reachable */
 .menubar{position:sticky;top:var(--bar);z-index:25;height:var(--chips);background:var(--ink-2);border-bottom:1px solid var(--line);display:flex;align-items:center}
 .menubar .chips{position:static;height:100%;border:0;background:none;flex:1;min-width:0;padding:0 18px 0 10px}
-.chips[hidden],#drinks-sections[hidden],#food-sections[hidden]{display:none}
+.chips[hidden],#drinks-sections[hidden],#food-sections[hidden],.cat[hidden]{display:none}
+/* One section at a time: a "Next" button ends each section, so scrolling on goes straight past the menu */
+.cat-next{display:flex;justify-content:flex-end;max-width:760px;margin:6px auto 0;padding:0 18px 18px}
+.cat-next button{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.1em;font-weight:700;font-size:.95rem;background:none;color:var(--cream,#f4efe6);border:1px solid var(--line);border-radius:999px;padding:11px 18px;min-height:44px;cursor:pointer}
+.cat-next button:active{transform:translateY(1px)}
 .seg{flex:none;display:flex;margin-left:12px;border:1.5px solid var(--cream);border-radius:2px;overflow:hidden}
 .seg-b{background:none;border:0;color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;padding:0 12px;min-height:36px;cursor:pointer}
 .seg-b.on{background:var(--cream);color:var(--ink)}
@@ -2640,12 +2644,7 @@ c.classList.toggle('on',on);
 if(on && c.parentNode.offsetParent){ c.parentNode.scrollTo({left:c.offsetLeft-c.parentNode.offsetLeft-10,behavior:'smooth'}); }
 });
 }
-if('IntersectionObserver' in window){
-var io=new IntersectionObserver(function(es){
-es.forEach(function(e){ if(e.isIntersecting) setOn(e.target.id); });
-},{rootMargin:'-120px 0px -65% 0px'});
-document.querySelectorAll('.cat').forEach(function(s){ io.observe(s); });
-}
+window.ccChipOn=setOn;
 var t=document.getElementById('totop');
 window.addEventListener('scroll',function(){ t.classList.toggle('show',window.scrollY>900); },{passive:true});
 t.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
@@ -2675,11 +2674,35 @@ t.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}
 var food=document.getElementById('food-sections'), drinks=document.getElementById('drinks-sections');
 var fc=document.getElementById('chips'), dc=document.getElementById('chips-drinks'), menu=document.getElementById('menu');
 var btns=[].slice.call(document.querySelectorAll('.seg-b'));
+/* Tabs: only the chosen section shows (Breakfast first, Beers & Ciders on the drinks side).
+   Scrolling past it carries on to the rest of the page; the chips or "Next" switch sections. */
+var groups={food:[].slice.call(food.querySelectorAll('.cat')), drinks:[].slice.call(drinks.querySelectorAll('.cat'))};
+var cur={food:groups.food[0]&&groups.food[0].id, drinks:groups.drinks[0]&&groups.drinks[0].id};
+function chipName(id){ var a=document.querySelector('.chip[href="#'+id+'"]'); return a?a.textContent.trim():''; }
+['food','drinks'].forEach(function(k){ groups[k].forEach(function(sec,i){
+  var nx=groups[k][i+1]; if(!nx) return;
+  var d=document.createElement('div'); d.className='cat-next';
+  d.innerHTML='<button type="button">Next: '+chipName(nx.id).replace(/&/g,'&amp;')+' &rarr;</button>';
+  d.firstChild.onclick=function(){ show(nx.id,true); };
+  sec.appendChild(d); }); });
+function toMenuTop(){ var bh=document.querySelector('.bar').offsetHeight+document.getElementById('menubar').offsetHeight;
+  window.scrollTo({top:menu.getBoundingClientRect().top+window.scrollY-bh,behavior:'instant'}); }
+function show(id, jump){
+  var k=groups.drinks.some(function(x){return x.id===id;})?'drinks':'food'; cur[k]=id;
+  groups[k].forEach(function(x){ x.hidden=x.id!==id; });
+  if(window.ccChipOn) window.ccChipOn(id);
+  if(jump) toMenuTop();
+}
+show(cur.food); show(cur.drinks); if(window.ccChipOn) window.ccChipOn(cur.food);
+[].slice.call(document.querySelectorAll('.chip')).forEach(function(a){
+  var id=(a.getAttribute('href')||'').slice(1), el=id&&document.getElementById(id);
+  if(!el||!el.classList.contains('cat')) return;
+  a.addEventListener('click',function(e){ e.preventDefault(); show(id,true); try{history.replaceState(null,'','#'+id);}catch(_){} }); });
 function setMode(m, jump){
   var d=m==='drinks';
   food.hidden=d; drinks.hidden=!d; fc.hidden=d; dc.hidden=!d;
   btns.forEach(function(b){ var on=b.getAttribute('data-mode')===m; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
-  (d?dc:fc).scrollLeft=0;
+  (d?dc:fc).scrollLeft=0; if(window.ccChipOn) window.ccChipOn(cur[m]);
   if(jump){ var top=menu.getBoundingClientRect().top; var bh=document.querySelector('.bar').offsetHeight+document.getElementById('menubar').offsetHeight;
     if(jump==='always'||top<bh){ window.scrollTo({top:top+window.scrollY-bh,behavior:'instant'}); } }
 }
@@ -2689,8 +2712,9 @@ function fromHash(){ var h=location.hash.slice(1); if(!h) return;
   if(h==='drinks'){ setMode('drinks','always'); return; }
   var el=document.getElementById(h); if(!el) return;
   var inDrinks=drinks.contains(el), inFood=food.contains(el);
-  if(inDrinks && drinks.hidden){ setMode('drinks'); el.scrollIntoView(); }
-  else if(inFood && food.hidden){ setMode('food'); el.scrollIntoView(); } }
+  if(!el.classList.contains('cat')){ if(inDrinks&&drinks.hidden) setMode('drinks'); else if(inFood&&food.hidden) setMode('food'); el.scrollIntoView(); return; }
+  if(inDrinks && drinks.hidden) setMode('drinks'); else if(inFood && food.hidden) setMode('food');
+  show(h,true); }
 fromHash(); window.addEventListener('hashchange',fromHash);
 })();
 </script>
