@@ -206,10 +206,33 @@ letter-spacing:.13em;font-size:.78rem;font-weight:600;padding:8px 14px;border-ra
 .menubar{position:sticky;top:var(--bar);z-index:25;height:var(--chips);background:var(--ink-2);border-bottom:1px solid var(--line);display:flex;align-items:center}
 .menubar .chips{position:static;height:100%;border:0;background:none;flex:1;min-width:0;padding:0 18px 0 10px}
 .chips[hidden],#drinks-sections[hidden],#food-sections[hidden],.cat[hidden]{display:none}
-/* One section at a time: a "Next" button ends each section, so scrolling on goes straight past the menu */
-.cat-next{display:flex;justify-content:flex-end;max-width:760px;margin:6px auto 0;padding:0 18px 18px}
-.cat-next button{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.1em;font-weight:700;font-size:.95rem;background:none;color:var(--cream,#f4efe6);border:1px solid var(--line);border-radius:999px;padding:11px 18px;min-height:44px;cursor:pointer}
-.cat-next button:active{transform:translateY(1px)}
+/* One section at a time. Made obvious: a hint above the menu, a swipe arrow on the section bar,
+   and a big Next button plus every other section as buttons at the end of each section. */
+.chip{color:var(--cream);border-color:rgba(245,241,234,.35)}
+.menubar .chips{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+.menubar{position:sticky}
+.swipe-arrow{position:absolute;right:4px;top:50%;width:30px;height:30px;margin-top:-15px;border-radius:50%;display:grid;place-items:center;
+  background:var(--orange);color:#fff;border:0;box-shadow:0 0 14px rgba(255,46,151,.7);animation:nudge 1.2s ease-in-out infinite;cursor:pointer;z-index:2}
+.swipe-arrow svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.swipe-arrow[hidden]{display:none}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+.menu-hint{max-width:760px;margin:18px auto 0;padding:0 18px}
+.menu-hint p{margin:0;display:flex;align-items:center;gap:12px;padding:13px 14px;border:2px dashed var(--orange);border-radius:12px;
+  background:rgba(255,46,151,.08);font-weight:600;font-size:1rem;line-height:1.35;color:var(--cream)}
+.menu-hint svg{flex:none;width:28px;height:28px;fill:none;stroke:var(--orange);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.cat-next{max-width:760px;margin:10px auto 0;padding:0 18px 22px}
+.cat-next .nx{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;padding:14px 18px;border:0;border-radius:12px;cursor:pointer;
+  background:var(--orange);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:1.15rem;
+  box-shadow:0 10px 28px rgba(255,46,151,.35)}
+.cat-next .nx svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.2s ease-in-out infinite}
+.cat-next .nx:active{transform:translateY(1px)}
+.cat-next h3{margin:22px 0 10px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-size:.85rem;font-weight:700;color:var(--muted);text-align:center}
+.cat-next .jump{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.cat-next .jump button{min-height:48px;padding:10px 8px;border-radius:10px;border:1px solid rgba(245,241,234,.35);background:rgba(245,241,234,.04);color:var(--cream);
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.92rem;cursor:pointer}
+.cat-next .jump button:active{background:var(--orange);border-color:var(--orange)}
+@media (prefers-reduced-motion:reduce){.swipe-arrow,.menu-hint svg,.cat-next .nx svg{animation:none}}
 .seg{flex:none;display:flex;margin-left:12px;border:1.5px solid var(--cream);border-radius:2px;overflow:hidden}
 .seg-b{background:none;border:0;color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;padding:0 12px;min-height:36px;cursor:pointer}
 .seg-b.on{background:var(--cream);color:var(--ink)}
@@ -447,8 +470,10 @@ footer{background:linear-gradient(180deg,#120826 0%,#2a0f45 100%)}
 <a class="chip chip-more" href="#more">Run Club &amp; more &darr;</a>
 <a class="chip chip-ta" href="https://www.tripadvisor.co.za/Restaurant_Review-g312671-d11693363-Reviews-Captains-Saldanha_Saldanha_Bay_Municipality_Western_Cape.html" target="_blank" rel="noopener">Tripadvisor &#8599;</a>
 </nav>
+<button class="swipe-arrow" id="swipe-arrow" type="button" aria-label="More menu sections"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
 </div>
 <main id="menu">
+<div class="menu-hint"><p><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span id="menu-hint-t">Showing <b>Breakfast</b>. Tap a section above, or swipe the bar, for Starters, Mains, Seafood, Burgers &amp; more.</span></p></div>
 <div id="food-sections">
 <section class="cat" id="breakfast" aria-labelledby="h-breakfast">
 <h2 id="h-breakfast">Breakfast</h2>
@@ -2680,10 +2705,12 @@ var groups={food:[].slice.call(food.querySelectorAll('.cat')), drinks:[].slice.c
 var cur={food:groups.food[0]&&groups.food[0].id, drinks:groups.drinks[0]&&groups.drinks[0].id};
 function chipName(id){ var a=document.querySelector('.chip[href="#'+id+'"]'); return a?a.textContent.trim():''; }
 ['food','drinks'].forEach(function(k){ groups[k].forEach(function(sec,i){
-  var nx=groups[k][i+1]; if(!nx) return;
-  var d=document.createElement('div'); d.className='cat-next';
-  d.innerHTML='<button type="button">Next: '+chipName(nx.id).replace(/&/g,'&amp;')+' &rarr;</button>';
-  d.firstChild.onclick=function(){ show(nx.id,true); };
+  var nx=groups[k][i+1];
+  var d=document.createElement('div'); d.className='cat-next', E=function(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); };
+  d.innerHTML=(nx?'<button type="button" class="nx" data-to="'+nx.id+'">Next: '+E(chipName(nx.id))+' <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>':'')+
+    '<h3>'+(nx?'Or jump to':'More on the '+(k==='food'?'food':'drinks')+' menu')+'</h3><div class="jump">'+
+    groups[k].filter(function(x){ return x!==sec&&x!==nx; }).map(function(x){ return '<button type="button" data-to="'+x.id+'">'+E(chipName(x.id))+'</button>'; }).join('')+'</div>';
+  [].slice.call(d.querySelectorAll('[data-to]')).forEach(function(b){ b.onclick=function(){ show(b.getAttribute('data-to'),true); }; });
   sec.appendChild(d); }); });
 function toMenuTop(){ var bh=document.querySelector('.bar').offsetHeight+document.getElementById('menubar').offsetHeight;
   window.scrollTo({top:menu.getBoundingClientRect().top+window.scrollY-bh,behavior:'instant'}); }
@@ -2691,9 +2718,19 @@ function show(id, jump){
   var k=groups.drinks.some(function(x){return x.id===id;})?'drinks':'food'; cur[k]=id;
   groups[k].forEach(function(x){ x.hidden=x.id!==id; });
   if(window.ccChipOn) window.ccChipOn(id);
+  hint(k);
   if(jump) toMenuTop();
 }
-show(cur.food); show(cur.drinks); if(window.ccChipOn) window.ccChipOn(cur.food);
+function hint(k){ var t=document.getElementById('menu-hint-t'); if(!t) return;
+  t.innerHTML='Showing <b>'+chipName(cur[k]).replace(/&/g,'&amp;')+'</b>. Tap a section above, or swipe the bar, for '+
+    groups[k].filter(function(x){ return x.id!==cur[k]; }).slice(0,4).map(function(x){ return chipName(x.id).replace(/ &.*$/,''); }).join(', ')+' &amp; more.'; }
+var sa=document.getElementById('swipe-arrow');
+function bar(){ return fc.hidden?dc:fc; }
+function arrowCheck(){ var c=bar(); sa.hidden=c.scrollLeft+c.clientWidth>=c.scrollWidth-8; }
+sa.onclick=function(){ var c=bar(); c.scrollBy({left:c.clientWidth*0.7,behavior:'smooth'}); };
+[fc,dc].forEach(function(c){ c.addEventListener('scroll',arrowCheck,{passive:true}); });
+window.addEventListener('resize',arrowCheck);
+show(cur.drinks); show(cur.food);
 [].slice.call(document.querySelectorAll('.chip')).forEach(function(a){
   var id=(a.getAttribute('href')||'').slice(1), el=id&&document.getElementById(id);
   if(!el||!el.classList.contains('cat')) return;
@@ -2702,7 +2739,7 @@ function setMode(m, jump){
   var d=m==='drinks';
   food.hidden=d; drinks.hidden=!d; fc.hidden=d; dc.hidden=!d;
   btns.forEach(function(b){ var on=b.getAttribute('data-mode')===m; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
-  (d?dc:fc).scrollLeft=0; if(window.ccChipOn) window.ccChipOn(cur[m]);
+  (d?dc:fc).scrollLeft=0; if(window.ccChipOn) window.ccChipOn(cur[m]); hint(m); arrowCheck();
   if(jump){ var top=menu.getBoundingClientRect().top; var bh=document.querySelector('.bar').offsetHeight+document.getElementById('menubar').offsetHeight;
     if(jump==='always'||top<bh){ window.scrollTo({top:top+window.scrollY-bh,behavior:'instant'}); } }
 }
@@ -2715,7 +2752,10 @@ function fromHash(){ var h=location.hash.slice(1); if(!h) return;
   if(!el.classList.contains('cat')){ if(inDrinks&&drinks.hidden) setMode('drinks'); else if(inFood&&food.hidden) setMode('food'); el.scrollIntoView(); return; }
   if(inDrinks && drinks.hidden) setMode('drinks'); else if(inFood && food.hidden) setMode('food');
   show(h,true); }
-fromHash(); window.addEventListener('hashchange',fromHash);
+fromHash(); window.addEventListener('hashchange',fromHash); arrowCheck();
+/* Once, shortly after the page opens: slide the section bar along and back so people see it moves. */
+setTimeout(function(){ var c=bar(); if(c.scrollLeft>0||c.scrollWidth<=c.clientWidth) return;
+  c.scrollTo({left:120,behavior:'smooth'}); setTimeout(function(){ c.scrollTo({left:0,behavior:'smooth'}); },900); },1200);
 })();
 </script>
 <script>
