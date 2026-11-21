@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RSVP: runs &amp; Coffee Rave | Captain's Cabin</title>
-<meta name="description" content="Social Sunset Run 5K Mon, Wed & Fri (check in from 18:00, run starts 18:00–19:00) and the Saturday 10K at 09:00 from Captain's Cabin, Saldanha. Tap the runs you're coming to.">
+<title>RSVP: Sunset Runs | Captain's Cabin</title>
+<meta name="description" content="Social Sunset Run 5K Mon, Wed & Fri (check in from 18:00, run starts 18:00–19:00) from Captain's Cabin, Saldanha. Tap the runs you're coming to.">
 <link rel="canonical" href="https://captainscabinwestcoast.com/runs">
 <meta property="og:type" content="website">
 <meta property="og:title" content="This week's runs at Captain's Cabin — RSVP">
-<meta property="og:description" content="Sunset Run 5K Mon · Wed · Fri, meet 18:00. Saturday 10K at 09:00. Tap the runs you're coming to.">
+<meta property="og:description" content="Sunset Run 5K Mon · Wed · Fri, meet 18:00. Tap the runs you're coming to.">
 <meta property="og:url" content="https://captainscabinwestcoast.com/runs">
 <meta property="og:image" content="https://captainscabinwestcoast.com/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -76,8 +76,8 @@ input:focus{outline:none;border-color:var(--sea)}
   </header>
 
   <p class="eyebrow">Run Club · RSVP</p>
-  <h1>This week's runs &amp; rave</h1>
-  <p class="lede">Tap every run, and the Saturday Coffee Rave, you're coming to so we're ready for you. Starts and finishes at the Cabin, 20 Main Rd, Saldanha. All paces welcome.</p>
+  <h1>This week's runs</h1>
+  <p class="lede">Tap every run you're coming to so we're ready for you. Starts and finishes at the Cabin, 20 Main Rd, Saldanha. All paces welcome.</p>
 
   <form id="f" novalidate>
     <div class="runs" id="runs"><div class="empty">Loading this week's runs…</div></div>
@@ -110,7 +110,7 @@ input:focus{outline:none;border-color:var(--sea)}
     <a class="ghost" href="/loyalty?join=run">Join the Run Club for stickers &amp; points →</a>
   </div>
 
-  <p class="club">Run Club members get a sticker every run, 5 points for a 5K and 10 points for a 10K, and a R100 voucher every 5 runs. <a href="/loyalty?join=run">Join free</a>. Beer and cider for over-18s only. Questions: <a href="tel:+27600201219">060 020 1219</a>.</p>
+  <p class="club">Run Club members get a sticker every run, 5 points every run, and a R100 voucher every 5 runs. After the run: 20% off your drink and 20% off your meal. <a href="/loyalty?join=run">Join free</a>. Beer and cider for over-18s only. Questions: <a href="tel:+27600201219">060 020 1219</a>.</p>
 </div>
 
 <script>
@@ -145,8 +145,8 @@ input:focus{outline:none;border-color:var(--sea)}
 
   function load(){
     var get=function(fn){ return fetch(URL_+fn,{method:'POST',headers:H,body:'{}'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); };
-    return Promise.all([get('run_rsvp_counts'), get('rave_rsvp_counts').catch(function(){ return []; })])
-      .then(function(j){ runs=j[0]; raves=j[1].map(function(x){ return {run_date:x.rave_date, name:'Coffee Rave', going:x.going, rave:true}; }); render(); })
+    return Promise.all([get('run_rsvp_counts'), Promise.resolve([])])
+      .then(function(j){ runs=j[0].filter(function(r){ return !/10K/i.test(r.name) && new Date(r.run_date+'T12:00').getDay()!==6; }); raves=j[1].map(function(x){ return {run_date:x.rave_date, name:'Coffee Rave', going:x.going, rave:true}; }); render(); })
       .catch(function(){ runsEl.innerHTML='<div class="empty">Couldn’t load the runs. Check your connection and refresh.</div>'; });
   }
   load();
@@ -164,7 +164,7 @@ input:focus{outline:none;border-color:var(--sea)}
     var picked=[].map.call(document.querySelectorAll('input[name=run]:checked'),function(i){return i.value;});
     var dates=picked.filter(function(v){return v.indexOf('rave:')<0;}), rdates=picked.filter(function(v){return v.indexOf('rave:')===0;}).map(function(v){return v.slice(5);});
     var n=name.value.trim(), p=phone.value.trim();
-    if(!picked.length){ err.textContent='Tap at least one run or the Coffee Rave.'; return; }
+    if(!picked.length){ err.textContent='Tap at least one run.'; return; }
     if(!n){ err.textContent='Please enter your first name.'; name.focus(); return; }
     if(p.replace(/\D/g,'').length<9){ err.textContent='Please enter your cellphone number.'; phone.focus(); return; }
     go.disabled=true; go.textContent='Saving…';

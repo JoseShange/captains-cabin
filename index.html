@@ -3118,14 +3118,14 @@ html,body{overflow-anchor:none}
 <section class="sec clubs" id="clubs">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Run Club &middot; Sunset runs &middot; Saturday 10K &middot; Coffee Rave</p>
+      <p class="eyebrow">Run Club &middot; Sunset runs &middot; Mon, Wed &amp; Fri</p>
       <h2>Run it,<br>then refuel</h2>
       <div class="rule"></div>
-      <p>Everyone&rsquo;s welcome, every pace. Meet at the Cabin, head out along the bay, and come back to coffee, music and a proper breakfast.</p>
+      <p>Everyone&rsquo;s welcome, every pace. Meet at the Cabin, head out along the bay, and come back to 20% off your drink and your meal.</p>
     </div>
 
     <!-- Club cards: one in front, two behind. Swipe (or tap a side card / the arrows) and they rotate. -->
-    <div class="cf rv" id="cf" role="region" aria-roledescription="carousel" aria-label="Runs and Coffee Rave">
+    <div class="cf rv" id="cf" role="region" aria-roledescription="carousel" aria-label="Run Club">
       <div class="cf-stage">
         <article class="cfc cf-sun" aria-roledescription="slide" aria-label="Social Sunset Run">
           <span class="cf-bg" aria-hidden="true">5K</span>
@@ -3133,28 +3133,8 @@ html,body{overflow-anchor:none}
           <div class="cf-time">18:00<small>run starts by 19:00</small></div>
           <h3 class="cf-h">Social<br><span>Sunset Run</span></h3>
           <p class="cf-p">Along Saldanha Bay as the sun goes down. Check in at the Cabin from 18:00, the run leader sets off between 18:00 and 19:00, then stay for dinner.</p>
-          <p class="cf-chip"><b>Runner perk</b> 15% off your meal that day</p>
+          <p class="cf-chip"><b>After the run</b> 20% off your drink (beer, cider or anything from the bar) and 20% off your meal</p>
           <div class="cf-acts"><a class="cf-btn ink" href="/runs" data-rsvp="sun">RSVP for a Sunset Run</a><a class="cf-btn white" href="/loyalty?join=run">Join the Run Club</a></div>
-        </article>
-        <article class="cfc cf-10k" aria-roledescription="slide" aria-label="Saturday 10K">
-          <span class="cf-bg" aria-hidden="true">10K</span>
-          <p class="cf-eye">Every Saturday &middot; 10&nbsp;km</p>
-          <div class="cf-time">09:00</div>
-          <h3 class="cf-h">Saturday<br><span>10K</span></h3>
-          <p class="cf-p">Starts and finishes at the Cabin on Main Road. All paces welcome.</p>
-          <p class="cf-chip"><b>Club perks 09:00&ndash;12:00</b> free coffee, water &amp; juice with every meal, plus 15% off any breakfast</p>
-          <div class="cf-acts"><a class="cf-btn white" href="/runs" data-rsvp="10k">RSVP for the 10K</a><a class="cf-btn ink" href="/loyalty?join=run">Join the Run Club</a></div>
-        </article>
-        <article class="cfc cf-rave" aria-roledescription="slide" aria-label="Coffee Rave">
-          <svg class="cf-beans" aria-hidden="true" viewBox="0 0 200 200"><defs><g id="bean"><ellipse rx="9" ry="13"/><path d="M0-12c-4 6 4 18 0 24" fill="none" stroke-width="2.2"/></g></defs>
-            <use href="#bean" x="20" y="24" transform="rotate(-25 20 24)"/><use href="#bean" x="170" y="36" transform="rotate(30 170 36)"/><use href="#bean" x="150" y="170" transform="rotate(-40 150 170)"/><use href="#bean" x="36" y="160" transform="rotate(20 36 160)"/><use href="#bean" x="100" y="12" transform="rotate(70 100 12)"/></svg>
-          <svg class="cf-cup" aria-hidden="true" viewBox="0 0 64 64"><path d="M22 6c-3 4 3 7 0 11M32 4c-3 4 3 7 0 11M42 6c-3 4 3 7 0 11" fill="none" stroke-width="3" stroke-linecap="round"/><path d="M10 24h40v14a18 18 0 0 1-18 18h-4a18 18 0 0 1-18-18z"/><path d="M50 28h4a7 7 0 0 1 0 14h-5" fill="none" stroke-width="4"/></svg>
-          <p class="cf-eye">Every Saturday &middot; music &amp; coffee</p>
-          <div class="cf-time">09:00<small>&ndash; 12:00</small></div>
-          <h3 class="cf-h">Coffee<br><span>Rave</span></h3>
-          <p class="cf-p">Morning beats, strong coffee and good people. Come straight off the run, or just come for the vibe. No sweat required.</p>
-          <p class="cf-chip"><b>Rave perks</b> free coffee, water &amp; juice with every meal, plus 15% off any breakfast</p>
-          <div class="cf-acts"><a class="cf-btn rave" href="/runs?run=rave">RSVP for the Coffee Rave</a></div>
         </article>
       </div>
       <div class="cf-nav">
@@ -3168,7 +3148,7 @@ html,body{overflow-anchor:none}
       <div>
         <p class="eyebrow">Captain&rsquo;s Cabin Run Club &middot; free</p>
         <p class="cj-h">Join once. Earn at every run.</p>
-        <p class="cj-p">A sticker every club run, 5 points for a 5K and 10 points for a 10K, a R100 voucher every 5 runs, and your Cabin loyalty card for meals too. Perks are for that day&rsquo;s participants. Beer and cider for over-18s only.</p>
+        <p class="cj-p">A sticker and 5 points every club run, 20% off your drink and meal after the run, a R100 voucher every 5 runs, and your Cabin loyalty card for meals too. Perks are for that day&rsquo;s participants. Beer and cider for over-18s only.</p>
       </div>
       <div class="cj-acts">
         <a class="btn sea" href="/loyalty?join=run">Join the Run Club</a>
@@ -3572,7 +3552,7 @@ html,body{overflow-anchor:none}
 (function(){
   var cf=document.getElementById('cf'); if(!cf) return;
   var stage=cf.querySelector('.cf-stage'), cards=[].slice.call(cf.querySelectorAll('.cfc')), n=cards.length, cur=0;
-  var dots=cf.querySelector('.cf-dots');
+  var dots=cf.querySelector('.cf-dots'); if(n<2) cf.querySelector('.cf-nav').style.display='none';
   dots.innerHTML=cards.map(function(c,i){ return '<button type="button" role="tab" data-i="'+i+'" aria-label="'+c.getAttribute('aria-label')+'"></button>'; }).join('');
   function paint(){
     cards.forEach(function(c,i){
@@ -3610,7 +3590,7 @@ html,body{overflow-anchor:none}
       var day=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Intl.DateTimeFormat('en-US',{timeZone:'Africa/Johannesburg',weekday:'short'}).format(d));
       if(days.indexOf(day)>-1 && (i>0 || h<hour)) return ymd(d); } return ''; }
   var sun=cf.querySelector('[data-rsvp="sun"]'), tk=cf.querySelector('[data-rsvp="10k"]');
-  var s1=next([1,3,5],18), s2=next([6],9);
+  var s1=next([1,3,5],18), s2='';
   if(sun&&s1) sun.href='/runs?run='+s1; if(tk&&s2) tk.href='/runs?run='+s2;
   paint();
 })();
