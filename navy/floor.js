@@ -1,4 +1,4 @@
-/* v3 26 Nov 2026: zoomed table seat picker */
+/* v4 26 Nov 2026: upper deck + bar redrawn from Jose's sketches */
 /* Captain's Cabin floor plan for function seating (shared by /navy and /navy/staff).
    Table shapes come from the booking floor plan (/book, Jose's walk-through Nov 2026).
    For functions the upper-deck open seating is split into six set-up tables, U5-U10. */
@@ -27,27 +27,25 @@
         {id:'22',x:24,y:408,w:120,h:48},{id:'21',x:24,y:466,w:124,h:38},{id:'20',x:24,y:514,w:120,h:58},
         {id:'15',x:212,y:304,w:106,h:42},{id:'16',x:208,y:358,w:110,h:44},{id:'17',x:208,y:416,w:110,h:46},
         {id:'18',x:276,y:474,w:42,h:34},{id:'19',x:200,y:518,w:118,h:52}]},
-    upper:{ name:'Upper deck', vb:'0 0 360 440', draw:
-      '<rect class="sea" x="10" y="0" width="340" height="30"/>'+
-      '<text class="seatxt" x="180" y="20" text-anchor="middle">OCEAN · GLASS RAILING</text>'+
-      '<path class="wall" d="M10 32 V430 H350 V32"/>'+
-      '<path class="zone" d="M22 104 H330 V186 H160 V418 H22 Z"/>'+
-      '<text class="ftxt" x="92" y="412" text-anchor="middle">Open seating</text>'+
-      '<rect class="door" x="344" y="100" width="12" height="70" rx="2"/><text class="ftxt" x="338" y="135" transform="rotate(90 338 135)" text-anchor="middle">Stairs</text>',
+    upper:{ name:'Upper deck', vb:'0 0 360 346', draw:
+      '<rect class="sea" x="10" y="0" width="340" height="26"/>'+
+      '<text class="seatxt" x="180" y="17" text-anchor="middle">OCEAN VIEW</text>'+
+      '<path class="wall" d="M10 28 H350 V198 H266 V338 H10 Z"/>'+
+      '<rect class="door" x="342" y="56" width="16" height="112" rx="2"/><text class="ftxt" x="350" y="112" transform="rotate(90 350 112)" text-anchor="middle" style="fill:#fff">Door</text>',
       tables:[
-        {id:'U1',x:22,y:40,w:70,h:56},{id:'U2',x:104,y:40,w:70,h:56},{id:'U3',x:186,y:40,w:70,h:56},{id:'U4',x:268,y:40,w:70,h:56},
-        {id:'U5',x:32,y:114,w:84,h:62},{id:'U6',x:132,y:114,w:84,h:62},{id:'U7',x:232,y:114,w:84,h:62},
-        {id:'U8',x:40,y:198,w:100,h:56},{id:'U9',x:40,y:268,w:100,h:56},{id:'U10',x:40,y:338,w:100,h:56},
-        {id:'TIKI',x:176,y:204,w:160,h:210,label:'Tiki-Bar',row:true}]},
-    bar:{ name:'Bar', vb:'0 0 360 400', draw:
-      '<rect class="wall" x="10" y="10" width="340" height="380" rx="6"/>'+
-      '<path class="feature" d="M16 16 H344 V48 H48 V172 H16 Z"/><text class="ftxt" x="196" y="36" text-anchor="middle">Bar counter</text>'+
-      '<rect class="feature" x="334" y="206" width="10" height="130" rx="2"/><text class="ftxt" x="326" y="290" transform="rotate(90 326 290)" text-anchor="middle">Window · restaurant</text>'+
-      '<circle cx="324" cy="180" r="20" class="feature"/><text class="ftxt" x="324" y="184" text-anchor="middle">Wheel</text>'+
-      '<rect class="feature" x="16" y="346" width="110" height="34" rx="3"/><text class="ftxt" x="71" y="367" text-anchor="middle">Captain mural</text>',
+        {id:'U4',x:18,y:40,w:70,h:56},{id:'U3',x:18,y:110,w:70,h:56},{id:'U2',x:18,y:194,w:70,h:56},{id:'U1',x:18,y:268,w:70,h:56},
+        {id:'U8',x:116,y:38,w:70,h:62},{id:'U9',x:194,y:38,w:70,h:62},{id:'U10',x:272,y:38,w:66,h:62},
+        {id:'U7',x:116,y:122,w:70,h:62},{id:'U6',x:194,y:122,w:70,h:62},{id:'U5',x:272,y:122,w:66,h:62},
+        {id:'TIKI',x:150,y:206,w:110,h:126,label:'Tiki-Bar',col:true}]},
+    bar:{ name:'Bar', vb:'0 0 360 556', draw:
+      '<path class="wall" d="M10 10 H322 V462 H202 V546 H10 Z"/>'+
+      '<path class="feature" d="M14 14 H318 V72 H84 V190 H14 Z"/><text class="ftxt" x="200" y="47" text-anchor="middle">Bar counter</text>'+
+      '<rect class="feature" x="326" y="12" width="24" height="448" rx="2"/><text class="ftxt" x="338" y="236" transform="rotate(90 338 236)" text-anchor="middle">Window · restaurant</text>'+
+      '<rect class="feature" x="288" y="200" width="30" height="112" rx="3"/><text class="ftxt" x="303" y="256" transform="rotate(90 303 256)" text-anchor="middle">Wheel</text>',
       tables:[
-        {id:'B1',x:22,y:186,w:66,h:62},{id:'R1',x:196,y:146,w:56,h:56,round:true},{id:'B2',x:20,y:272,w:66,h:62},
-        {id:'R2',x:96,y:276,w:54,h:54,round:true},{id:'Q',x:164,y:272,w:66,h:62}]},
+        {id:'R1',x:198,y:118,w:62,h:62,round:true},{id:'R3',x:194,y:240,w:62,h:62,round:true},
+        {id:'B1',x:44,y:278,w:70,h:70},{id:'B2',x:40,y:380,w:70,h:64},
+        {id:'R2',x:120,y:460,w:62,h:62,round:true}]},
     conf:{ name:'Conference room', vb:'0 0 360 300', draw:
       '<rect class="sea" x="70" y="0" width="220" height="26"/>'+
       '<text class="seatxt" x="180" y="17" text-anchor="middle">SLIDING DOOR · BAY VIEW</text>'+
@@ -65,6 +63,10 @@
       var a0=n===2?Math.PI:-Math.PI/2;
       for(i=0;i<n;i++){ var a=a0+i*2*Math.PI/n; out.push({x:cx+R*Math.cos(a),y:cy+R*Math.sin(a)}); }
       return {pts:out,r:Math.min(7,Math.PI*R/n-1),lx:cx,ly:cy+4,inside:true};
+    }
+    if(t.col){ // a bar counter with stools down its left side
+      for(i=0;i<n;i++) out.push({x:t.x+15,y:t.y+t.h*(i+1)/(n+1)});
+      return {pts:out,r:9,lx:t.x+t.w/2+12,ly:t.y+t.h/2+5,inside:true};
     }
     if(t.row){ // a bar counter: stools in one row along the top
       for(i=0;i<n;i++) out.push({x:t.x+t.w*(i+1)/(n+1),y:t.y+14});
