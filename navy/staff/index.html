@@ -88,7 +88,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
 .foot{margin-top:24px;font-size:.85rem;color:var(--muted)}
 @media print{
   body{background:#fff;color:#000;font-size:12px}
-  header,.tools,.views,.areas,#signOut,.noprint,.btn{display:none !important}
+  header,.tools,.views,.asw,#signOut,.noprint,.btn{display:none !important}
   .pane{display:block !important}
   .card,.stat,.g,.key>div,.meal ol{background:#fff;border-color:#999;color:#000}
   .stat span,.muted,.g .left,.seatrow .what{color:#333}
@@ -133,7 +133,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
     </div>
 
     <div class="pane" id="v-map">
-      <div class="areas" id="areaTabs"></div>
+      <div class="asw" id="areaTabs"></div>
       <div class="maprow">
         <div class="mapbox"><svg class="fp" id="map" xmlns="http://www.w3.org/2000/svg"></svg></div>
         <div id="tablePanel"></div>
@@ -244,12 +244,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
 
   // ---- seat map ----
   function renderMap(){
-    var tabs=CabinFloor.ORDER.map(function(a){
-      var ts=data.tables.filter(function(t){return t.area_id===a;}); if(!ts.length) return '';
-      var n=done().filter(function(g){ var t=tableOf(g.table_id); return t&&t.area_id===a; }).length;
-      return '<button type="button" class="'+(a===area?'on':'')+'" data-area="'+a+'">'+esc(CabinFloor.AREAS[a].name)+'<small>'+n+' guests</small></button>';
-    }).join('');
-    $('areaTabs').innerHTML=tabs;
+    $('areaTabs').innerHTML=CabinFloor.switcher(areaList(),area);
     var tables={}; data.tables.forEach(function(t){ if(t.area_id===area) tables[t.table_id]={seats:t.seats}; });
     $('map').setAttribute('viewBox',CabinFloor.AREAS[area].vb);
     $('map').innerHTML=CabinFloor.svg(area,{tables:tables,
@@ -276,7 +271,15 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
     }
     $('tablePanel').innerHTML=h;
   }
-  $('areaTabs').addEventListener('click',function(e){ var b=e.target.closest('[data-area]'); if(!b) return; area=b.dataset.area; selTable=null; renderMap(); });
+  function areaList(){
+    return CabinFloor.ORDER.filter(function(a){ return data.tables.some(function(t){return t.area_id===a;}); }).map(function(a){
+      var n=done().filter(function(g){ var t=tableOf(g.table_id); return t&&t.area_id===a; }).length;
+      return {id:a,sub:n+' guests seated'};
+    });
+  }
+  function moveArea(d){ if(!data) return; area=CabinFloor.step(areaList(),area,d); selTable=null; renderMap(); }
+  $('areaTabs').addEventListener('click',function(e){ var b=e.target.closest('[data-step]'); if(b) moveArea(+b.dataset.step); });
+  CabinFloor.swipe($('map'),moveArea);
   $('map').addEventListener('click',function(e){ var g=e.target.closest('[data-t]'); if(!g) return; selTable=g.dataset.t; renderMap();
     if(window.innerWidth<760) setTimeout(function(){ $('tablePanel').scrollIntoView({behavior:'smooth',block:'start'}); },30); });
 
