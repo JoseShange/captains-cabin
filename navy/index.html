@@ -231,8 +231,8 @@ input:focus{outline:none;border-color:var(--sea)}
   'use strict';
   var API='https://iryzgvggaqkvwgmjbdkw.supabase.co/rest/v1/rpc/';
   var KEY='sb_publishable_azMYchhgL_TokDtKGQ1EVQ_U8YRbdS8';
-  var SLUG='navy';
   var params=new URLSearchParams(location.search);
+  var SLUG=(params.get('e')||'navy').toLowerCase().replace(/[^a-z0-9-]/g,'');
   var CODE=(params.get('c')||'').trim();
   var LS='cc-fn-'+SLUG;
   var $=function(id){return document.getElementById(id);};
