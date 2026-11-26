@@ -111,6 +111,8 @@ input:focus{outline:none;border-color:var(--sea)}
 .seats button small{display:block;font:600 .7rem 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .seats button:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
 .seats button.on{background:var(--red);border-color:#fff}
+.zback{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;min-height:52px;border:2px solid var(--cream);border-radius:8px;background:var(--cream);color:var(--ink);font:700 1.05rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.zhint{text-align:center;color:var(--muted);font-size:.9rem;margin-top:6px}
 .seatsel{margin-top:14px;padding:12px 14px;border:2px solid var(--ok);border-radius:6px;background:rgba(60,207,122,.08);font-weight:600}
 .wb{display:flex;align-items:center;gap:14px;margin-top:14px;padding:14px;border-radius:6px;background:var(--ink)}
 .wb .sw{width:64px;height:28px;border-radius:14px;flex:none;border:2px solid rgba(255,255,255,.4)}
@@ -180,6 +182,7 @@ input:focus{outline:none;border-color:var(--sea)}
     <div id="seatPane" class="hide">
       <p class="lede">Pick where you'll sit. Your meal is brought to this seat, so please sit here when the food comes out. Tap a table, then a seat.</p>
       <div class="asw" id="areaTabs"></div>
+      <button type="button" class="zback hide" id="zBack"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>All tables</button>
       <div class="mapbox"><svg class="fp" id="seatMap" xmlns="http://www.w3.org/2000/svg"></svg></div>
       <div id="tablePanel"></div>
     </div>
@@ -381,11 +384,15 @@ input:focus{outline:none;border-color:var(--sea)}
     var mine=seatOf(active);
     $('areaTabs').innerHTML=CabinFloor.switcher(areaList(),area);
     var tables={}; seats.forEach(function(t){ if(t.area_id===area) tables[t.table_id]={seats:t.seats}; });
-    $('seatMap').setAttribute('viewBox',CabinFloor.AREAS[area].vb);
+    var zoom=!!(selTable && tableById(selTable) && tableById(selTable).area_id===area);
+    if(zoom){ tables={}; tables[selTable]={seats:tableById(selTable).seats}; }
+    $('seatMap').setAttribute('viewBox',zoom?CabinFloor.frame(area,selTable):CabinFloor.AREAS[area].vb);
+    $('seatMap').classList.toggle('zoom',zoom); $('zBack').classList.toggle('hide',!zoom);
+    var mc=myColour();
     $('seatMap').innerHTML=CabinFloor.svg(area,{tables:tables,
       tableClass:function(id){ var t=tableById(id); return (id===selTable?'sel ':'')+(freeCount(t)?'':'full'); },
       seat:function(id,n){
-        if(mine&&mine.t===id&&mine.n===n) return {fill:'#e3121b',stroke:'#fff',text:'#fff'};
+        if(mine&&mine.t===id&&mine.n===n) return {fill:mc.hex,stroke:'#fff',text:mc.text};
         if(isTaken(tableById(id),n)) return {fill:'#3a414a',stroke:'#3a414a',text:'#8a939c'};
         return {fill:'none',stroke:'#cfd6de',text:'#cfd6de'};
       }});
@@ -394,10 +401,10 @@ input:focus{outline:none;border-color:var(--sea)}
     if(selTable){
       var t=tableById(selTable);
       if(t && t.area_id===area){
-        h+='<p class="sec">'+esc(seatName(t))+' · tap a seat</p><div class="seats">';
+        h+='<p class="zhint">Tap a seat on the table, or a number below.</p><p class="sec">'+esc(seatName(t))+' · tap a seat</p><div class="seats">';
         for(var n=1;n<=t.seats;n++){
           var on=mine&&mine.t===t.table_id&&mine.n===n, tk=!on&&isTaken(t,n);
-          h+='<button type="button" data-seat="'+n+'" class="'+(on?'on':'')+'"'+(tk?' disabled':'')+'>'+n+'<small>'+(on?'Yours':tk?'Taken':'Free')+'</small></button>';
+          h+='<button type="button" data-seat="'+n+'" class="'+(on?'on':'')+'"'+(on?' style="background:'+mc.hex+';color:'+mc.text+'"':'')+(tk?' disabled':'')+'>'+n+'<small>'+(on?'Yours':tk?'Taken':'Free')+'</small></button>';
         }
         h+='</div>';
       }
@@ -414,11 +421,22 @@ input:focus{outline:none;border-color:var(--sea)}
   function moveArea(d){ if(!seats) return; area=CabinFloor.step(areaList(),area,d); selTable=null; renderSeats(); }
   $('areaTabs').addEventListener('click',function(e){ var b=e.target.closest('[data-step]'); if(b) moveArea(+b.dataset.step); });
   CabinFloor.swipe($('seatMap'),moveArea);
-  $('seatMap').addEventListener('click',function(e){ var g=e.target.closest('[data-t]'); if(!g) return; selTable=g.dataset.t; renderSeats();
-    setTimeout(function(){ $('tablePanel').scrollIntoView({behavior:'smooth',block:'nearest'}); },30); });
+  function myColour(){ // the wristband colour of the meal in this person's basket (red until a meal is chosen)
+    var b=active?basketOf(active):{}, k=Object.keys(b).filter(function(x){return items[x]&&items[x].kind==='food';})[0], it=k&&items[k];
+    return it&&it.hex?{hex:it.hex,text:it.colour==='Yellow'?'#000':'#fff'}:{hex:'#e3121b',text:'#fff'};
+  }
+  function pickSeat(n){
+    var t=tableById(selTable); if(!t||!active||isTaken(t,n)) return;
+    setSeat(active,{t:selTable,n:n}); renderSeats(); updateBar();
+  }
+  $('seatMap').addEventListener('click',function(e){
+    if($('seatMap').classList.contains('zoom')){ var c=e.target.closest('[data-n]'); if(c) pickSeat(+c.dataset.n); return; }
+    var g=e.target.closest('[data-t]'); if(!g) return; selTable=g.dataset.t; renderSeats();
+    setTimeout(function(){ $('zBack').scrollIntoView({behavior:'smooth',block:'start'}); },30); });
+  $('zBack').onclick=function(){ selTable=null; renderSeats(); };
   $('tablePanel').addEventListener('click',function(e){
     var b=e.target.closest('[data-seat]'); if(!b||b.disabled||!active) return;
-    setSeat(active,{t:selTable,n:+b.dataset.seat}); renderSeats(); updateBar();
+    pickSeat(+b.dataset.seat);
   });
 
   document.addEventListener('click',function(e){

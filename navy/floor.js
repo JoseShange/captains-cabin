@@ -1,4 +1,4 @@
-/* v2 26 Nov 2026: area switcher */
+/* v3 26 Nov 2026: zoomed table seat picker */
 /* Captain's Cabin floor plan for function seating (shared by /navy and /navy/staff).
    Table shapes come from the booking floor plan (/book, Jose's walk-through Nov 2026).
    For functions the upper-deck open seating is split into six set-up tables, U5-U10. */
@@ -108,7 +108,7 @@
         '<text class="tn" x="'+sp.lx+'" y="'+sp.ly+'" text-anchor="'+(sp.anchor||'middle')+'" font-size="'+fs+'">'+name+'</text>';
       sp.pts.forEach(function(p,i){
         var s=opt.seat(t.id,i+1)||{};
-        g+='<circle class="st" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+sp.r.toFixed(1)+'" fill="'+(s.fill||'none')+'" stroke="'+(s.stroke||'#cfd6de')+'"/>';
+        g+='<circle class="st" data-n="'+(i+1)+'" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+sp.r.toFixed(1)+'" fill="'+(s.fill||'none')+'" stroke="'+(s.stroke||'#cfd6de')+'"/>';
         if(sp.r>=6) g+='<text class="sn" x="'+p.x.toFixed(1)+'" y="'+(p.y+3).toFixed(1)+'" text-anchor="middle" fill="'+(s.text||'#cfd6de')+'">'+(i+1)+'</text>';
       });
       g+='</g>';
@@ -126,6 +126,14 @@
     '.fp .t.sel .tb{stroke:#fff;stroke-width:3;fill:#2a3644}'+
     '.fp .tn{fill:#f5f1ea;font-family:Anton,Impact,sans-serif;pointer-events:none}'+
     '.fp .st{stroke-width:1.6;pointer-events:none}.fp .sn{font:700 8px Barlow,sans-serif;pointer-events:none}';
+  // viewBox that frames one table with room around it (for the zoomed seat picker)
+  function frame(areaId,tableId){
+    var t=AREAS[areaId].tables.filter(function(x){return x.id===tableId;})[0]; if(!t) return AREAS[areaId].vb;
+    var pad=Math.max(14,Math.max(t.w,t.h)*.14), w=Math.max(t.w+2*pad,110), h=Math.max(t.h+2*pad,80);
+    if(w/h>1.6) h=w/1.6; if(h/w>1.4) w=h/1.4;
+    var cx=t.x+t.w/2, cy=t.y+t.h/2;
+    return (cx-w/2).toFixed(1)+' '+(cy-h/2).toFixed(1)+' '+w.toFixed(1)+' '+h.toFixed(1);
+  }
   /* Full-width area switcher with arrows. list = [{id, sub}] in display order. */
   function switcher(list,cur){
     var i=Math.max(0,list.map(function(x){return x.id;}).indexOf(cur)), a=list[i];
@@ -142,6 +150,8 @@
     el.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null;
       if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) fn(dx<0?1:-1); },{passive:true});
   }
+  CSS+='.fp.zoom .st{pointer-events:all;cursor:pointer;stroke-width:1}.fp.zoom .sn{font-size:6.5px}.fp.zoom .tb{stroke-width:1.2}'+
+    '.fp.zoom .t{cursor:default}';
   CSS+='.asw{display:grid;grid-template-columns:56px minmax(0,1fr) 56px;gap:8px;margin-top:12px;align-items:stretch}'+
     '.asw-b{display:grid;place-items:center;border:2px solid rgba(245,241,234,.35);border-radius:8px;background:#12161b;color:#f5f1ea;cursor:pointer;min-height:68px}.asw-b svg{pointer-events:none}'+
     '.asw-b:active{background:#e3121b;border-color:#e3121b}'+
@@ -149,5 +159,5 @@
     '.asw-c b{font:400 1.5rem/1.05 Anton,Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em}'+
     '.asw-c small{font:600 .82rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.9;margin-top:2px}'+
     '.asw-d{display:flex;gap:6px;margin-top:6px}.asw-d i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4)}.asw-d i.on{background:#fff}';
-  window.CabinFloor={AREAS:AREAS,ORDER:ORDER,svg:svg,CSS:CSS,switcher:switcher,step:step,swipe:swipe};
+  window.CabinFloor={AREAS:AREAS,ORDER:ORDER,svg:svg,CSS:CSS,frame:frame,switcher:switcher,step:step,swipe:swipe};
 })();
