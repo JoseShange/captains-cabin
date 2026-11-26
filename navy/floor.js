@@ -1,3 +1,4 @@
+/* v2 26 Nov 2026: area switcher */
 /* Captain's Cabin floor plan for function seating (shared by /navy and /navy/staff).
    Table shapes come from the booking floor plan (/book, Jose's walk-through Nov 2026).
    For functions the upper-deck open seating is split into six set-up tables, U5-U10. */
