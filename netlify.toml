@@ -85,3 +85,15 @@
   to = "https://captainscabinwestcoast.com/:splat"
   status = 301
   force = true
+
+# Function pre-order pages (Langebaan military function, Nov 2026). The pages live in /navy;
+# /military is the address guests and staff are given. Status 200 = same page, address unchanged.
+[[redirects]]
+  from = "/military"
+  to = "/navy/"
+  status = 200
+
+[[redirects]]
+  from = "/military/*"
+  to = "/navy/:splat"
+  status = 200
