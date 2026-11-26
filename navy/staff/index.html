@@ -33,7 +33,21 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
 .err{margin-top:10px;color:var(--red-soft);font-weight:600;min-height:1.2em}
 /* colour key: the first thing staff see */
 .key{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-top:14px}
-.key>div{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:6px;background:var(--ink-2);border:1px solid var(--ink-3)}
+.key>button{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:6px;background:var(--ink-2);border:2px solid var(--ink-3);text-align:left;cursor:pointer;width:100%}
+.key>button.on{border-color:#fff;background:#232a33}
+.keyhint{margin-top:8px;font-size:.88rem;color:var(--muted)}
+.cp{margin-top:12px;border-radius:8px;overflow:hidden;border:2px solid var(--ink-3);background:var(--ink-2)}
+.cp .hd{display:flex;align-items:center;gap:10px;padding:12px 14px;font:400 1.35rem Anton,sans-serif;text-transform:uppercase}
+.cp .hd button{margin-left:auto;min-height:36px;padding:0 12px;border:2px solid currentColor;border-radius:4px;background:transparent;color:inherit;font:700 .85rem 'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.cp h3{margin:14px 14px 6px;font:700 .95rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.cp .drinks{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;padding:0 14px}
+.cp .drinks div{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;background:var(--ink)}
+.cp .drinks b{font:400 1.5rem/1 Anton,sans-serif;min-width:40px;text-align:right}
+.cp ol{list-style:none;padding:0 14px 14px}
+.cp li{display:grid;grid-template-columns:minmax(170px,auto) 1fr;gap:4px 12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.cp li b{font:700 1.05rem 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase}
+.cp li .dr{grid-column:2;color:var(--gold);font-size:.92rem}
+@media(max-width:600px){.cp li{grid-template-columns:1fr}.cp li .dr{grid-column:1}}
 .key i{width:46px;height:30px;border-radius:15px;flex:none;border:2px solid rgba(255,255,255,.35)}
 .key b{display:block;font:400 1.2rem/1 Anton,sans-serif;text-transform:uppercase}
 .key span{font-size:.92rem}
@@ -98,7 +112,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
   body{background:#fff;color:#000;font-size:12px}
   header,.tools,.views,.asw,#signOut,.noprint,.btn{display:none !important}
   .pane{display:block !important}
-  .card,.stat,.g,.key>div,.meal ol{background:#fff;border-color:#999;color:#000}
+  .card,.stat,.g,.key>button,.cp,.meal ol{background:#fff;border-color:#999;color:#000}
   .stat span,.muted,.g .left,.seatrow .what{color:#333}
   .g .extra{color:#000}
   .guests{grid-template-columns:1fr 1fr 1fr}
@@ -132,6 +146,8 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
     <p class="muted" id="sub"></p>
     <h2>Wristband colours</h2>
     <div class="key" id="key"></div>
+    <p class="keyhint">Tap a colour to see the drinks to make for those meals and where every plate goes.</p>
+    <div id="cpanel"></div>
     <div class="stats" id="stats"></div>
     <section class="money hide" id="money"></section>
 
@@ -181,7 +197,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
   var KEY='sb_publishable_azMYchhgL_TokDtKGQ1EVQ_U8YRbdS8';
   var SLUG=(new URLSearchParams(location.search).get('e')||'navy').toLowerCase().replace(/[^a-z0-9-]/g,''), SK='cc-fn-staff-session';
   var $=function(id){return document.getElementById(id);};
-  var sess=null, data=null, timer=null, area='deck', selTable=null, moving=null;
+  var sess=null, data=null, timer=null, area='deck', selTable=null, moving=null, focusMeal=null;
   var meals={}, bySeat={};
   (function(){ var st=document.createElement('style'); st.textContent=CabinFloor.CSS; document.head.appendChild(st); })();
 
@@ -245,13 +261,35 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
       ' · R'+c+' per guest · pre-orders '+(Date.now()>=cl?'closed':'close '+cl.toLocaleString('en-ZA',{weekday:'short',hour:'2-digit',minute:'2-digit'}));
     $('key').innerHTML=(d.meals||[]).map(function(m){
       var n=dn.filter(function(g){return g.meal===m.key;}).length;
-      return '<div><i style="background:'+m.hex+'"></i><div><b>'+esc(m.colour)+'</b><span>'+esc(m.name)+'</span></div><em>'+n+'</em></div>';
+      return '<button type="button" data-focus="'+m.key+'" class="'+(focusMeal===m.key?'on':'')+'"><i style="background:'+m.hex+'"></i><div><b>'+esc(m.colour)+'</b><span>'+esc(m.name)+'</span></div><em>'+n+'</em></button>';
     }).join('');
-    $('stats').innerHTML=[[dn.length+' / '+d.max_guests,'Orders locked in'],[wait,'Signed up, not submitted'],[R(value),'Total basket value'],[R(extra),'Extra guests pay']]
+    var nDrinks=dn.reduce(function(s,g){return s+g.lines.filter(function(l){return l.kind==='drink';}).reduce(function(a,l){return a+l.qty;},0);},0);
+    $('stats').innerHTML=[[dn.length+' / '+d.max_guests,'Orders locked in'],[wait,'Signed up, not submitted'],[R(value),'Total basket value'],[nDrinks,'Drinks to make']]
       .map(function(s){return '<div class="stat"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>';}).join('');
-    renderMoney(); renderMap(); renderRuns(); renderGuests(); renderTally();
+    renderPanel(); renderMoney(); renderMap(); renderRuns(); renderGuests(); renderTally();
     $('upd').textContent='Updated '+new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'})+' · refreshes every 30 seconds';
   }
+
+  // ---- colour panel: bar batch + delivery list for one meal colour ----
+  function drinksOf(g){ return (g.lines||[]).filter(function(l){return l.kind==='drink';}); }
+  function renderPanel(){
+    var m=focusMeal&&meals[focusMeal], el=$('cpanel');
+    if(!m){ el.innerHTML=''; return; }
+    var gs=done().filter(function(g){return g.meal===m.key;}).sort(seatSort), tot={};
+    gs.forEach(function(g){ drinksOf(g).forEach(function(l){ tot[l.label]=(tot[l.label]||0)+l.qty; }); });
+    var list=Object.keys(tot).sort(function(a,b){return tot[b]-tot[a]||a.localeCompare(b);});
+    var fg=m.colour==='Yellow'?'#000':'#fff', nd=list.reduce(function(s,k){return s+tot[k];},0);
+    el.innerHTML='<div class="cp" style="border-color:'+m.hex+'"><div class="hd" style="background:'+m.hex+';color:'+fg+'">'+esc(m.colour)+' · '+esc(m.name)+' · '+gs.length+' plates<button type="button" id="cpClose">Close</button></div>'+
+      '<h3>Bar: make these drinks for '+esc(m.colour)+' ('+nd+')</h3>'+
+      (list.length?'<div class="drinks">'+list.map(function(k){return '<div><b>'+tot[k]+'</b><span>'+esc(k)+'</span></div>';}).join('')+'</div>':'<p class="muted" style="padding:0 14px">No drinks ordered with this meal.</p>')+
+      '<h3>Waitresses: where each '+esc(m.colour.toLowerCase())+' plate and its drinks go</h3>'+
+      (gs.length?'<ol>'+gs.map(function(g){ var t=tableOf(g.table_id)||{}, dr=drinksOf(g).map(function(l){return l.qty+'× '+l.label;}).join(', ');
+        return '<li><b>'+esc(t.area||'')+' · '+esc(tname(g.table_id))+' · seat '+g.seat_no+'</b><span>'+esc(g.first_name+' '+g.surname)+'</span><span class="dr">'+(dr?esc(dr):'No drinks')+'</span></li>'; }).join('')+'</ol>':'<p class="muted" style="padding:0 14px 14px">No '+esc(m.colour.toLowerCase())+' orders yet.</p>')+
+      '</div>';
+    $('cpClose').onclick=function(){ focusMeal=null; render(); };
+  }
+  $('key').addEventListener('click',function(e){ var b=e.target.closest('[data-focus]'); if(!b) return; focusMeal=focusMeal===b.dataset.focus?null:b.dataset.focus; render();
+    setTimeout(function(){ if(focusMeal) $('cpanel').scrollIntoView({behavior:'smooth',block:'start'}); },30); });
 
   // ---- owner-only money summary ----
   function renderMoney(){
@@ -282,6 +320,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
         var g=bySeat[id+'#'+n];
         if(!g) return {fill:'#3a2a1e',stroke:'#6b5038',text:'#8f7a64'};
         if(!g.submitted_at||!meals[g.meal]) return {fill:'#59626c',stroke:'#59626c',text:'#fff'};
+        if(focusMeal&&g.meal!==focusMeal) return {fill:'#2b2420',stroke:'#3a3028',text:'#6b5f52'};
         var m=meals[g.meal]; return {fill:m.hex,stroke:'#fff',text:m.colour==='Yellow'?'#000':'#fff',hl:1};
       }});
     renderTable();
@@ -303,6 +342,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
   function areaList(){
     return CabinFloor.ORDER.filter(function(a){ return data.tables.some(function(t){return t.area_id===a;}); }).map(function(a){
       var n=done().filter(function(g){ var t=tableOf(g.table_id); return t&&t.area_id===a; }).length;
+      if(focusMeal&&meals[focusMeal]){ var k=done().filter(function(g){ var t=tableOf(g.table_id); return t&&t.area_id===a&&g.meal===focusMeal; }).length; return {id:a,sub:k+' '+meals[focusMeal].colour.toLowerCase()+' plates here · '+n+' guests'}; }
       return {id:a,sub:n+' guests seated'};
     });
   }
@@ -324,7 +364,8 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
       if(!gs.length) return '';
       return '<div class="meal"><div class="hd" style="background:'+m.hex+';color:'+(m.colour==='Yellow'?'#000':'#fff')+'">'+esc(m.colour)+' · '+esc(m.name)+'<em>'+gs.length+'</em></div><ol>'+
         gs.map(function(g){ var t=tableOf(g.table_id)||{};
-          return '<li><b>'+esc(tname(g.table_id))+' · seat '+g.seat_no+'</b><span>'+esc(g.first_name+' '+g.surname)+' <span class="muted">· '+esc(t.area||'')+'</span></span></li>'; }).join('')+'</ol></div>';
+          var dr=drinksOf(g).map(function(l){return l.qty+'× '+l.label;}).join(', ');
+          return '<li><b>'+esc(tname(g.table_id))+' · seat '+g.seat_no+'</b><span>'+esc(g.first_name+' '+g.surname)+' <span class="muted">· '+esc(t.area||'')+'</span>'+(dr?'<br><span style="color:var(--gold);font-size:.9rem">'+esc(dr)+'</span>':'')+'</span></li>'; }).join('')+'</ol></div>';
     }).join('') || '<p class="muted" style="margin-top:12px">No orders yet.</p>';
   }
 
