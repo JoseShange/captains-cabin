@@ -169,7 +169,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
   'use strict';
   var BASE='https://iryzgvggaqkvwgmjbdkw.supabase.co';
   var KEY='sb_publishable_azMYchhgL_TokDtKGQ1EVQ_U8YRbdS8';
-  var SLUG='navy', SK='cc-fn-staff-session';
+  var SLUG=(new URLSearchParams(location.search).get('e')||'navy').toLowerCase().replace(/[^a-z0-9-]/g,''), SK='cc-fn-staff-session';
   var $=function(id){return document.getElementById(id);};
   var sess=null, data=null, timer=null, area='restaurant', selTable=null, moving=null;
   var meals={}, bySeat={};
