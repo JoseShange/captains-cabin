@@ -84,6 +84,12 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
 .chip{display:inline-flex;align-items:center;gap:6px;font:700 .8rem 'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase}
 .chip i{width:26px;height:12px;border-radius:6px;border:1px solid rgba(255,255,255,.4)}
 .move{display:grid;grid-template-columns:1fr 90px;gap:8px;margin-top:10px}
+.money{margin-top:16px;padding:14px;border:2px solid var(--gold);border-radius:8px;background:#17130b}
+.money h2{margin:0 0 8px;color:var(--gold);font-size:1.25rem}
+.money .ln{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.money .ln span:last-child{white-space:nowrap;font-weight:700}
+.money .ln small{display:block;color:var(--muted);font-size:.82rem}
+.money .big{font:400 1.5rem Anton,sans-serif;border:0;padding-top:10px;color:var(--gold)}
 .hide{display:none !important}
 .foot{margin-top:24px;font-size:.85rem;color:var(--muted)}
 @media print{
@@ -124,6 +130,7 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
     <h2>Wristband colours</h2>
     <div class="key" id="key"></div>
     <div class="stats" id="stats"></div>
+    <section class="money hide" id="money"></section>
 
     <div class="views" role="tablist">
       <button type="button" data-v="map" class="on">Seat map</button>
@@ -238,8 +245,26 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
     }).join('');
     $('stats').innerHTML=[[dn.length+' / '+d.max_guests,'Orders locked in'],[wait,'Signed up, not submitted'],[R(value),'Total basket value'],[R(extra),'Extra guests pay']]
       .map(function(s){return '<div class="stat"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>';}).join('');
-    renderMap(); renderRuns(); renderGuests(); renderTally();
+    renderMoney(); renderMap(); renderRuns(); renderGuests(); renderTally();
     $('upd').textContent='Updated '+new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'})+' · refreshes every 30 seconds';
+  }
+
+  // ---- owner-only money summary ----
+  function renderMoney(){
+    var m=data.money, el=$('money');
+    if(!data.is_owner||!m){ el.classList.add('hide'); el.innerHTML=''; return; }
+    var c=data.credit, notOrdered=Math.max(0,m.paid_guests-m.ordered), unusedNo=notOrdered*c, kept=(+m.unused_ordered)+unusedNo;
+    var ln=function(a,b,sub){ return '<div class="ln"><span>'+a+(sub?'<small>'+sub+'</small>':'')+'</span><span>'+b+'</span></div>'; };
+    el.innerHTML='<h2>Money · owner only</h2>'+
+      ln('Tickets paid', R(m.paid_guests*(m.ticket||0)), m.paid_guests+' × R'+(m.ticket||0))+
+      ln('Tips to waitresses', R(m.paid_guests*(m.tip||0)), m.paid_guests+' × R'+(m.tip||0))+
+      ln('Food & drinks credit', R(m.paid_guests*c), m.paid_guests+' × R'+c)+
+      ln('Credit used on orders', R(m.credit_used), m.ordered+' orders in')+
+      ln('Unused credit on orders', R(m.unused_ordered), m.guests_under+' guests ordered less than R'+c)+
+      ln('Credit of guests who haven\u2019t ordered', R(unusedNo), notOrdered+' × R'+c+' · goes down as orders come in')+
+      ln('Extra guests pay on the day', R(m.extra_paid), 'baskets over R'+c)+
+      '<div class="ln big"><span>Extra kept by Captain\u2019s Cabin</span><span>'+R(kept)+'</span></div>';
+    el.classList.remove('hide');
   }
 
   // ---- seat map ----
