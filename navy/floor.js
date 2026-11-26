@@ -1,4 +1,4 @@
-/* v4 26 Nov 2026: upper deck + bar redrawn from Jose's sketches */
+/* v5 26 Nov 2026: restaurant turned (sushi bar top, bay view window), balcony, bay view labels */
 /* Captain's Cabin floor plan for function seating (shared by /navy and /navy/staff).
    Table shapes come from the booking floor plan (/book, Jose's walk-through Nov 2026).
    For functions the upper-deck open seating is split into six set-up tables, U5-U10. */
@@ -7,17 +7,18 @@
   var AREAS = {
     restaurant:{ name:'Restaurant', vb:'0 0 360 470', draw:
       '<rect class="wall" x="10" y="10" width="340" height="450" rx="6"/>'+
-      '<rect class="feature" x="16" y="16" width="86" height="26" rx="3"/><text class="ftxt" x="59" y="33" text-anchor="middle">Kids play</text>'+
-      '<rect class="feature" x="130" y="16" width="100" height="26" rx="3"/><text class="ftxt" x="180" y="33" text-anchor="middle">Fireplace</text>'+
-      '<rect class="door" x="10" y="212" width="16" height="44" rx="2"/><text class="ftxt" x="32" y="238">Door · deck</text>'+
-      '<rect class="feature" x="334" y="56" width="10" height="330" rx="2"/><text class="ftxt" x="326" y="220" transform="rotate(90 326 220)" text-anchor="middle">Bar windows</text>'+
-      '<rect class="feature" x="16" y="388" width="130" height="62" rx="4"/><text class="ftxt" x="81" y="423" text-anchor="middle">Sushi bar</text>',
+      '<rect class="feature" x="214" y="20" width="130" height="62" rx="4"/><text class="ftxt" x="279" y="55" text-anchor="middle">Sushi bar</text>'+
+      '<rect class="feature" x="16" y="84" width="10" height="330" rx="2"/><text class="ftxt" x="38" y="249" transform="rotate(90 38 249)" text-anchor="middle">Bar windows</text>'+
+      '<rect class="sea" x="336" y="84" width="10" height="330" rx="2"/><text class="ftxt bayt" x="326" y="150" transform="rotate(90 326 150)" text-anchor="middle">Bay view window</text>'+
+      '<rect class="door" x="334" y="214" width="16" height="44" rx="2"/><text class="ftxt" x="326" y="240" text-anchor="end">Door · deck</text>'+
+      '<rect class="feature" x="258" y="428" width="86" height="26" rx="3"/><text class="ftxt" x="301" y="445" text-anchor="middle">Kids play</text>'+
+      '<rect class="feature" x="130" y="428" width="100" height="26" rx="3"/><text class="ftxt" x="180" y="445" text-anchor="middle">Fireplace</text>',
       tables:[
-        {id:'3',x:44,y:62,w:100,h:58},{id:'2',x:44,y:136,w:76,h:56},{id:'1',x:44,y:272,w:100,h:58},
-        {id:'4',x:226,y:62,w:80,h:54},{id:'5',x:226,y:124,w:80,h:54},{id:'6',x:226,y:216,w:80,h:54},{id:'7',x:226,y:278,w:80,h:54}]},
+        {id:'3',x:216,y:350,w:100,h:58},{id:'2',x:240,y:278,w:76,h:56},{id:'1',x:216,y:140,w:100,h:58},
+        {id:'4',x:54,y:354,w:80,h:54},{id:'5',x:54,y:292,w:80,h:54},{id:'6',x:54,y:200,w:80,h:54},{id:'7',x:54,y:138,w:80,h:54}]},
     deck:{ name:'Front deck', vb:'0 0 360 600', draw:
       '<rect class="sea" x="326" y="0" width="34" height="600"/>'+
-      '<text class="seatxt" x="343" y="420" transform="rotate(90 343 420)" text-anchor="middle">SALDANHA BAY · RAILING</text>'+
+      '<text class="seatxt" x="343" y="420" transform="rotate(90 343 420)" text-anchor="middle">BAY VIEW</text>'+
       '<path class="wall" d="M324 64 H10 V592 H324"/>'+
       '<rect class="door" x="4" y="204" width="14" height="78" rx="2"/><text class="ftxt" x="26" y="246">Door · restaurant</text>'+
       '<rect class="door" x="318" y="194" width="14" height="90" rx="2"/><text class="ftxt" x="310" y="243" text-anchor="end">Front door</text>',
@@ -47,9 +48,11 @@
         {id:'B1',x:44,y:278,w:70,h:70},{id:'B2',x:40,y:380,w:70,h:64},
         {id:'R2',x:120,y:460,w:62,h:62,round:true}]},
     conf:{ name:'Conference room', vb:'0 0 360 300', draw:
-      '<rect class="sea" x="70" y="0" width="220" height="26"/>'+
-      '<text class="seatxt" x="180" y="17" text-anchor="middle">SLIDING DOOR · BAY VIEW</text>'+
-      '<rect class="wall" x="10" y="28" width="340" height="262" rx="6"/>'+
+      '<rect class="sea" x="70" y="0" width="220" height="22"/>'+
+      '<text class="seatxt" x="180" y="15" text-anchor="middle">BAY VIEW</text>'+
+      '<rect class="balc" x="70" y="24" width="220" height="24" rx="2"/>'+
+      '<text class="ftxt balct" x="180" y="40" text-anchor="middle">Balcony</text>'+
+      '<rect class="wall" x="10" y="50" width="340" height="240" rx="6"/>'+
       '<rect class="feature" x="320" y="110" width="12" height="90" rx="2"/><text class="ftxt" x="314" y="155" transform="rotate(90 314 155)" text-anchor="middle">TV screen</text>',
       tables:[{id:'CONF',x:70,y:110,w:200,h:90,label:'Conference'}]}
   };
@@ -122,7 +125,7 @@
     '.fp .zone{fill:rgba(95,179,207,.05);stroke:#3a4a55;stroke-dasharray:6 5}'+
     '.fp .ftxt{fill:#8d8b99;font:600 10px "Barlow Condensed",sans-serif;letter-spacing:1.2px;text-transform:uppercase}'+
     '.fp .sea{fill:url(#seaG)}.fp .seatxt{fill:#cfeefa;font:600 10px "Barlow Condensed",sans-serif;letter-spacing:2px}'+
-    '.fp .door{fill:#D9202A;opacity:.85}'+
+    '.fp .door{fill:#D9202A;opacity:.85}.fp .balc{fill:#fff;stroke:#9aa3ad}.fp .balct{fill:#333}.fp .bayt{fill:#7fcbe6}'+
     '.fp .t{cursor:pointer}.fp .tb{fill:#1d2630;stroke:#5a6776;stroke-width:2}'+
     '.fp .t.full .tb{fill:#15191e;stroke:#2c333b}.fp .t.full .tn{fill:#56606b}'+
     '.fp .t.sel .tb{stroke:#fff;stroke-width:3;fill:#2a3644}'+
