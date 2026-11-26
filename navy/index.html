@@ -318,9 +318,11 @@ input:focus{outline:none;border-color:var(--sea)}
   });
 
   // ---- menu ----
+  function remaining(){ return credit()-totalOf(basketLines(active)); }
   function stepper(it,q){
-    if(!q) return '<button type="button" class="add" data-k="'+it.key+'" data-d="1">Add</button>';
-    return '<div class="step"><button type="button" data-k="'+it.key+'" data-d="-1" aria-label="One less">−</button><output>'+q+'</output><button type="button" data-k="'+it.key+'" data-d="1" aria-label="One more"'+(q>=20?' disabled':'')+'>+</button></div>';
+    var noRoom=+it.price>remaining();
+    if(!q) return '<button type="button" class="add" data-k="'+it.key+'" data-d="1"'+(noRoom?' disabled title="Over your R'+credit()+' limit"':'')+'>'+(noRoom?'Over R'+credit():'Add')+'</button>';
+    return '<div class="step"><button type="button" data-k="'+it.key+'" data-d="-1" aria-label="One less">−</button><output>'+q+'</output><button type="button" data-k="'+it.key+'" data-d="1" aria-label="One more"'+(q>=20||noRoom?' disabled':'')+'>+</button></div>';
   }
   function row(it,b,meal){
     var q=b[it.key]||0;
@@ -330,9 +332,10 @@ input:focus{outline:none;border-color:var(--sea)}
   function renderMeals(){
     var b=basketOf(active);
     $('meals').innerHTML=menu.items.filter(function(i){return i.kind==='food';}).map(function(i){
-      var on=!!b[i.key];
+      var on=!!b[i.key], cur=menu.items.filter(function(x){return x.kind==='food'&&b[x.key];}).reduce(function(s,x){return s+(+x.price);},0);
+      var noRoom=!on && (+i.price-cur)>remaining();
       return '<div class="item meal'+(on?' has':'')+'"><div><div class="n">'+esc(i.name)+'</div><div class="p">'+R(i.price)+'</div>'+bandHtml(i)+'</div>'+
-        '<button type="button" class="pick" data-meal="'+i.key+'">'+(on?'Chosen ✓':'Choose')+'</button></div>';
+        '<button type="button" class="pick" data-meal="'+i.key+'"'+(noRoom?' disabled title="Remove a drink first"':'')+'>'+(on?'Chosen ✓':noRoom?'Over R'+credit():'Choose')+'</button></div>';
     }).join('');
   }
   function drinkTabs(){ var t=[]; menu.items.forEach(function(i){ if(i.kind==='drink'&&t.indexOf(i.tab)<0) t.push(i.tab); }); return t; }
@@ -358,6 +361,8 @@ input:focus{outline:none;border-color:var(--sea)}
       $(k+'Pane').classList.toggle('hide',k!==n);
     });
     if(n==='seat') loadSeats();
+    if(n==='meals'&&active&&menu) renderMeals();
+    if(n==='drinks'&&active&&menu) renderDrinks();
   }
   $('tMeals').onclick=function(){ tab('meals'); };
   $('tDrinks').onclick=function(){ tab('drinks'); };
@@ -444,11 +449,15 @@ input:focus{outline:none;border-color:var(--sea)}
     if(mb && active && !active.submitted_at){ // one meal per guest: choosing a meal replaces the old one
       var bm=basketOf(active), mk=mb.dataset.meal, had=!!bm[mk];
       Object.keys(bm).forEach(function(k){ if(items[k]&&items[k].kind==='food') delete bm[k]; });
-      if(!had) bm[mk]=1;
+      if(!had){ bm[mk]=1;
+        var tot=menu.items.reduce(function(s,x){return s+(bm[x.key]?bm[x.key]*x.price:0);},0);
+        if(tot>credit()){ delete bm[mk]; alertBar('That meal would take you over R'+credit()+'. Remove a drink first.'); renderMeals(); return; } }
       setBasket(active,bm); renderMeals(); updateBar(); renderPeople(); return;
     }
     var b=e.target.closest('[data-k]'); if(!b||!active||active.submitted_at) return;
+    if(b.disabled) return;
     var bk=basketOf(active), k=b.dataset.k, q=(bk[k]||0)+(+b.dataset.d);
+    if(+b.dataset.d>0 && +items[k].price>remaining()){ alertBar('That would take you over your R'+credit()+' limit.'); return; }
     if(q<=0) delete bk[k]; else bk[k]=Math.min(20,q);
     setBasket(active,bk);
     if(items[k].kind==='food') renderMeals(); else renderDrinks();
@@ -465,10 +474,11 @@ input:focus{outline:none;border-color:var(--sea)}
     var lines=basketLines(active), t=totalOf(lines), c=credit(), meals=lines.filter(function(l){return l.kind==='food';}).length;
     $('barTot').textContent=R(t);
     var sub=$('barSub'), m=$('barMeter');
-    if(t>c){ sub.textContent='R'+c+' covered · you pay '+R(t-c)+' extra on the day'; sub.className='sub over'; m.className='over'; }
+    if(t>c){ sub.textContent=R(t-c)+' over your R'+c+' limit · remove something'; sub.className='sub over'; m.className='over'; }
     else { sub.textContent=(meals?'':'Choose a meal · ')+(seatOf(active)?'':'Pick a seat · ')+R(c-t)+' left of your R'+c+' · unused credit isn\u2019t paid back'; sub.className='sub'; m.className=''; }
     m.style.width=Math.min(100,t/c*100)+'%';
-    $('reviewBtn').disabled=!lines.length;
+    $('reviewBtn').disabled=!lines.length||t>c;
+    if($('drinksPane')&&!$('drinksPane').classList.contains('hide')) renderDrinks();
   }
 
   // ---- review & submit ----
@@ -480,14 +490,14 @@ input:focus{outline:none;border-color:var(--sea)}
   }
   function totalsHtml(t){
     var c=credit(), h='<div class="line"><span>Basket total</span><span>'+R(t)+'</span></div><div class="line"><span>Paid by your function ticket</span><span>−'+R(Math.min(t,c))+'</span></div>';
-    if(t>c) h+='<div class="line big"><span>You pay on the day</span><span style="color:var(--gold)">'+R(t-c)+'</span></div>';
-    else h+='<div class="line big"><span>Unused credit</span><span>'+R(c-t)+'</span></div><div class="line"><span class="opt">Stays with Captain\u2019s Cabin, not paid back</span><span></span></div>';
+    h+='<div class="line big"><span>Unused credit</span><span>'+R(c-t)+'</span></div><div class="line"><span class="opt">Stays with Captain\u2019s Cabin, not paid back</span><span></span></div>';
     h+='<div class="line"><span>Tip for your waitress</span><span style="color:var(--ok)">Already paid ✓</span></div>';
     return h;
   }
   $('reviewBtn').onclick=function(){
     var lines=basketLines(active);
     if(!lines.some(function(l){return l.kind==='food';})){ tab('meals'); alertBar('Choose your meal first.'); return; }
+    if(totalOf(lines)>credit()){ alertBar('Your order is over R'+credit()+'. Remove something first.'); return; }
     var ms=seatOf(active);
     if(!ms){ tab('seat'); alertBar('Pick your seat first.'); return; }
     $('revWho').textContent='For '+active.first_name+' '+active.surname;
@@ -532,7 +542,7 @@ input:focus{outline:none;border-color:var(--sea)}
     menu=m; m.items.forEach(function(i){ items[i.key]=i; });
     var st=new Date(m.starts_at), cl=new Date(m.order_closes_at);
     $('eyebrow').textContent=(m.group||'')+' · '+st.toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'})+' · from '+st.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
-    $('lede').innerHTML='Your ticket gives you <b>R'+m.credit+' to spend</b> on one of the function meals plus drinks from our full drinks menu. Order now so the kitchen has it ready.<br><br><b>Good to know:</b> your waitress\u2019s tip is already paid. Any credit you don\u2019t use stays with Captain\u2019s Cabin and isn\u2019t paid back. '+
+    $('lede').innerHTML='Your ticket gives you <b>R'+m.credit+' to spend</b> on one of the function meals plus drinks from our full drinks menu. Order now so the kitchen has it ready.<br><br><b>Good to know:</b> your order can\u2019t go over R250. Your waitress\u2019s tip is already paid. Any credit you don\u2019t use stays with Captain\u2019s Cabin and isn\u2019t paid back. '+
       (m.closed?'<br><br><b style="color:var(--gold)">Pre-orders are now closed.</b> Please see a Captain’s Cabin manager.'
                :'Pre-orders close <b>'+cl.toLocaleString('en-ZA',{weekday:'long',hour:'2-digit',minute:'2-digit'})+'</b>.');
     var saved=load(':people',[]);
