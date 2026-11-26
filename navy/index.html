@@ -220,7 +220,7 @@ input:focus{outline:none;border-color:var(--sea)}
     <div id="revSeat"></div>
     <div class="lines" id="revLines"></div>
     <div class="totals" id="revTotals"></div>
-    <div class="warn"><b>Once you submit, your order is final.</b> It can't be changed, added to or cancelled afterwards. Make sure this is everything you want.</div>
+    <div class="warn"><b>Once you submit, your order is final.</b> It can't be changed, added to or cancelled afterwards. Make sure this is everything you want. Credit you don't use stays with Captain's Cabin and isn't paid back.</div>
     <label class="check"><input type="checkbox" id="agree"> <span>I understand my order is final and can't be changed.</span></label>
     <button class="btn" id="submitBtn" type="button" disabled>Submit final order</button>
     <button class="btn alt" id="backBtn" type="button">Go back and change it</button>
@@ -466,7 +466,7 @@ input:focus{outline:none;border-color:var(--sea)}
     $('barTot').textContent=R(t);
     var sub=$('barSub'), m=$('barMeter');
     if(t>c){ sub.textContent='R'+c+' covered · you pay '+R(t-c)+' extra on the day'; sub.className='sub over'; m.className='over'; }
-    else { sub.textContent=(meals?'':'Choose a meal · ')+(seatOf(active)?'':'Pick a seat · ')+R(c-t)+' left of your R'+c; sub.className='sub'; m.className=''; }
+    else { sub.textContent=(meals?'':'Choose a meal · ')+(seatOf(active)?'':'Pick a seat · ')+R(c-t)+' left of your R'+c+' · unused credit isn\u2019t paid back'; sub.className='sub'; m.className=''; }
     m.style.width=Math.min(100,t/c*100)+'%';
     $('reviewBtn').disabled=!lines.length;
   }
@@ -481,7 +481,8 @@ input:focus{outline:none;border-color:var(--sea)}
   function totalsHtml(t){
     var c=credit(), h='<div class="line"><span>Basket total</span><span>'+R(t)+'</span></div><div class="line"><span>Paid by your function ticket</span><span>−'+R(Math.min(t,c))+'</span></div>';
     if(t>c) h+='<div class="line big"><span>You pay on the day</span><span style="color:var(--gold)">'+R(t-c)+'</span></div>';
-    else h+='<div class="line big"><span>Left over</span><span>'+R(c-t)+'</span></div>';
+    else h+='<div class="line big"><span>Unused credit</span><span>'+R(c-t)+'</span></div><div class="line"><span class="opt">Stays with Captain\u2019s Cabin, not paid back</span><span></span></div>';
+    h+='<div class="line"><span>Tip for your waitress</span><span style="color:var(--ok)">Already paid ✓</span></div>';
     return h;
   }
   $('reviewBtn').onclick=function(){
@@ -531,7 +532,7 @@ input:focus{outline:none;border-color:var(--sea)}
     menu=m; m.items.forEach(function(i){ items[i.key]=i; });
     var st=new Date(m.starts_at), cl=new Date(m.order_closes_at);
     $('eyebrow').textContent=(m.group||'')+' · '+st.toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'})+' · from '+st.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
-    $('lede').innerHTML='Your ticket gives you <b>R'+m.credit+' to spend</b> on one of the function meals plus drinks from our full drinks menu. Order now so the kitchen has it ready. '+
+    $('lede').innerHTML='Your ticket gives you <b>R'+m.credit+' to spend</b> on one of the function meals plus drinks from our full drinks menu. Order now so the kitchen has it ready.<br><br><b>Good to know:</b> your waitress\u2019s tip is already paid. Any credit you don\u2019t use stays with Captain\u2019s Cabin and isn\u2019t paid back. '+
       (m.closed?'<br><br><b style="color:var(--gold)">Pre-orders are now closed.</b> Please see a Captain’s Cabin manager.'
                :'Pre-orders close <b>'+cl.toLocaleString('en-ZA',{weekday:'long',hour:'2-digit',minute:'2-digit'})+'</b>.');
     var saved=load(':people',[]);
