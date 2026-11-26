@@ -43,6 +43,18 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
 .cp .drinks{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;padding:0 14px}
 .cp .drinks div{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;background:var(--ink)}
 .cp .drinks b{font:400 1.5rem/1 Anton,sans-serif;min-width:40px;text-align:right}
+.cp .cpnote{margin:12px 14px 4px;color:var(--cream);font-size:.95rem}
+.cp .secjump{display:flex;flex-wrap:wrap;gap:6px;padding:6px 14px 4px}
+.cp .secjump a{display:flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--cream);text-decoration:none;font:700 .9rem 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.cp .secjump a b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--gold);color:#000;font-size:.8rem}
+.cp .secjump a em{font-style:normal;color:var(--gold)}
+.cp .sec{margin:12px 10px;border:1px solid var(--line);border-radius:8px;scroll-margin-top:10px}
+.cp .sechd{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--ink);border-radius:8px 8px 0 0}
+.cp .sechd b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--gold);color:#000;font:400 1.2rem Anton,sans-serif}
+.cp .sechd span{font:400 1.3rem Anton,sans-serif;text-transform:uppercase}
+.cp .sechd em{margin-left:auto;font-style:normal;color:var(--gold);font-size:.9rem;text-align:right}
+.cp .next{margin:0 14px 12px;color:var(--gold);font:700 .9rem 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.runsec{display:block!important;padding:10px 0 4px!important;color:var(--gold);font:700 .9rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--gold)!important}
 .cp ol{list-style:none;padding:0 14px 14px}
 .cp li{display:grid;grid-template-columns:minmax(170px,auto) 1fr;gap:4px 12px;padding:8px 0;border-bottom:1px solid var(--line)}
 .cp li b{font:700 1.05rem 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase}
@@ -275,17 +287,30 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
   function renderPanel(){
     var m=focusMeal&&meals[focusMeal], el=$('cpanel');
     if(!m){ el.innerHTML=''; return; }
-    var gs=done().filter(function(g){return g.meal===m.key;}).sort(seatSort), tot={};
-    gs.forEach(function(g){ drinksOf(g).forEach(function(l){ tot[l.label]=(tot[l.label]||0)+l.qty; }); });
-    var list=Object.keys(tot).sort(function(a,b){return tot[b]-tot[a]||a.localeCompare(b);});
-    var fg=m.colour==='Yellow'?'#000':'#fff', nd=list.reduce(function(s,k){return s+tot[k];},0);
-    el.innerHTML='<div class="cp" style="border-color:'+m.hex+'"><div class="hd" style="background:'+m.hex+';color:'+fg+'">'+esc(m.colour)+' · '+esc(m.name)+' · '+gs.length+' plates<button type="button" id="cpClose">Close</button></div>'+
-      '<h3>Bar: make these drinks for '+esc(m.colour)+' ('+nd+')</h3>'+
-      (list.length?'<div class="drinks">'+list.map(function(k){return '<div><b>'+tot[k]+'</b><span>'+esc(k)+'</span></div>';}).join('')+'</div>':'<p class="muted" style="padding:0 14px">No drinks ordered with this meal.</p>')+
-      '<h3>Waitresses: where each '+esc(m.colour.toLowerCase())+' plate and its drinks go</h3>'+
-      (gs.length?'<ol>'+gs.map(function(g){ var t=tableOf(g.table_id)||{}, dr=drinksOf(g).map(function(l){return l.qty+'× '+l.label;}).join(', ');
-        return '<li><b>'+esc(t.area||'')+' · '+esc(tname(g.table_id))+' · seat '+g.seat_no+'</b><span>'+esc(g.first_name+' '+g.surname)+'</span><span class="dr">'+(dr?esc(dr):'No drinks')+'</span></li>'; }).join('')+'</ol>':'<p class="muted" style="padding:0 14px 14px">No '+esc(m.colour.toLowerCase())+' orders yet.</p>')+
-      '</div>';
+    var gs=done().filter(function(g){return g.meal===m.key;}).sort(seatSort);
+    var fg=m.colour==='Yellow'?'#000':'#fff', col=esc(m.colour.toLowerCase());
+    // group this colour's plates by section, in floor order
+    var secs=CabinFloor.ORDER.map(function(a){
+      return {id:a,name:CabinFloor.AREAS[a].name,gs:gs.filter(function(g){ var t=tableOf(g.table_id); return t&&t.area_id===a; })};
+    }).filter(function(x){return x.gs.length;});
+    var h='<div class="cp" style="border-color:'+m.hex+'"><div class="hd" style="background:'+m.hex+';color:'+fg+'">'+esc(m.colour)+' · '+esc(m.name)+' · '+gs.length+' plates<button type="button" id="cpClose">Close</button></div>';
+    if(!secs.length){ el.innerHTML=h+'<p class="muted" style="padding:14px">No '+col+' orders yet.</p></div>'; $('cpClose').onclick=function(){ focusMeal=null; render(); }; return; }
+    h+='<p class="cpnote">Serve '+col+' one section at a time, in this order. Bar and waitresses work on the same numbered section together.</p>'+
+      '<div class="secjump">'+secs.map(function(x,i){return '<a href="#sec-'+x.id+'"><b>'+(i+1)+'</b>'+esc(x.name)+' <em>'+x.gs.length+'</em></a>';}).join('')+'</div>';
+    secs.forEach(function(x,i){
+      var tot={};
+      x.gs.forEach(function(g){ drinksOf(g).forEach(function(l){ tot[l.label]=(tot[l.label]||0)+l.qty; }); });
+      var list=Object.keys(tot).sort(function(a,b){return tot[b]-tot[a]||a.localeCompare(b);});
+      var nd=list.reduce(function(s,k){return s+tot[k];},0);
+      h+='<section class="sec" id="sec-'+x.id+'"><div class="sechd"><b>'+(i+1)+'</b><span>'+esc(x.name)+'</span><em>'+x.gs.length+' '+col+' plate'+(x.gs.length>1?'s':'')+' · '+nd+' drink'+(nd===1?'':'s')+'</em></div>'+
+        '<h3>Bar: make for '+esc(m.colour)+' · '+esc(x.name)+'</h3>'+
+        (list.length?'<div class="drinks">'+list.map(function(k){return '<div><b>'+tot[k]+'</b><span>'+esc(k)+'</span></div>';}).join('')+'</div>':'<p class="muted" style="padding:0 14px">No drinks for this section.</p>')+
+        '<h3>Waitresses: take to '+esc(x.name)+'</h3><ol>'+x.gs.map(function(g){
+          var dr=drinksOf(g).map(function(l){return l.qty+'× '+l.label;}).join(', ');
+          return '<li><b>'+esc(tname(g.table_id))+' · seat '+g.seat_no+'</b><span>'+esc(g.first_name+' '+g.surname)+'</span><span class="dr">'+(dr?esc(dr):'No drinks')+'</span></li>'; }).join('')+'</ol>'+
+        (i<secs.length-1?'<p class="next">Next: '+(i+2)+' · '+esc(secs[i+1].name)+' ↓</p>':'<p class="next">Last '+col+' section ✓</p>')+'</section>';
+    });
+    el.innerHTML=h+'</div>';
     $('cpClose').onclick=function(){ focusMeal=null; render(); };
   }
   $('key').addEventListener('click',function(e){ var b=e.target.closest('[data-focus]'); if(!b) return; focusMeal=focusMeal===b.dataset.focus?null:b.dataset.focus; render();
@@ -304,7 +329,6 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
       ln('Credit used on orders', R(m.credit_used), m.ordered+' orders in')+
       ln('Unused credit on orders', R(m.unused_ordered), m.guests_under+' guests ordered less than R'+c)+
       ln('Credit of guests who haven\u2019t ordered', R(unusedNo), notOrdered+' × R'+c+' · goes down as orders come in')+
-      ln('Extra guests pay on the day', R(m.extra_paid), 'baskets over R'+c)+
       '<div class="ln big"><span>Extra kept by Captain\u2019s Cabin</span><span>'+R(kept)+'</span></div>';
     el.classList.remove('hide');
   }
@@ -363,9 +387,10 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
       var gs=dn.filter(function(g){return g.meal===m.key;}).sort(seatSort);
       if(!gs.length) return '';
       return '<div class="meal"><div class="hd" style="background:'+m.hex+';color:'+(m.colour==='Yellow'?'#000':'#fff')+'">'+esc(m.colour)+' · '+esc(m.name)+'<em>'+gs.length+'</em></div><ol>'+
-        gs.map(function(g){ var t=tableOf(g.table_id)||{};
+        gs.map(function(g,i){ var t=tableOf(g.table_id)||{}, pt=i&&tableOf(gs[i-1].table_id)||{};
+          var sh=(!i||pt.area_id!==t.area_id)?'<li class="runsec">'+esc(t.area||'')+'</li>':'';
           var dr=drinksOf(g).map(function(l){return l.qty+'× '+l.label;}).join(', ');
-          return '<li><b>'+esc(tname(g.table_id))+' · seat '+g.seat_no+'</b><span>'+esc(g.first_name+' '+g.surname)+' <span class="muted">· '+esc(t.area||'')+'</span>'+(dr?'<br><span style="color:var(--gold);font-size:.9rem">'+esc(dr)+'</span>':'')+'</span></li>'; }).join('')+'</ol></div>';
+          return sh+'<li><b>'+esc(tname(g.table_id))+' · seat '+g.seat_no+'</b><span>'+esc(g.first_name+' '+g.surname)+'</span>'+(dr?'<br><span style="color:var(--gold);font-size:.9rem">'+esc(dr)+'</span>':'')+'</span></li>'; }).join('')+'</ol></div>';
     }).join('') || '<p class="muted" style="margin-top:12px">No orders yet.</p>';
   }
 
