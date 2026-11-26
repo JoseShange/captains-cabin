@@ -30,12 +30,12 @@
       '<rect class="sea" x="10" y="0" width="340" height="30"/>'+
       '<text class="seatxt" x="180" y="20" text-anchor="middle">OCEAN · GLASS RAILING</text>'+
       '<path class="wall" d="M10 32 V430 H350 V32"/>'+
-      '<path class="zone" d="M22 100 H330 V186 H160 V418 H22 Z"/>'+
+      '<path class="zone" d="M22 104 H330 V186 H160 V418 H22 Z"/>'+
       '<text class="ftxt" x="92" y="412" text-anchor="middle">Open seating</text>'+
       '<rect class="door" x="344" y="100" width="12" height="70" rx="2"/><text class="ftxt" x="338" y="135" transform="rotate(90 338 135)" text-anchor="middle">Stairs</text>',
       tables:[
-        {id:'U1',x:22,y:42,w:70,h:46},{id:'U2',x:104,y:42,w:70,h:46},{id:'U3',x:186,y:42,w:70,h:46},{id:'U4',x:268,y:42,w:70,h:46},
-        {id:'U5',x:32,y:112,w:84,h:62},{id:'U6',x:132,y:112,w:84,h:62},{id:'U7',x:232,y:112,w:84,h:62},
+        {id:'U1',x:22,y:40,w:70,h:56},{id:'U2',x:104,y:40,w:70,h:56},{id:'U3',x:186,y:40,w:70,h:56},{id:'U4',x:268,y:40,w:70,h:56},
+        {id:'U5',x:32,y:114,w:84,h:62},{id:'U6',x:132,y:114,w:84,h:62},{id:'U7',x:232,y:114,w:84,h:62},
         {id:'U8',x:40,y:198,w:100,h:56},{id:'U9',x:40,y:268,w:100,h:56},{id:'U10',x:40,y:338,w:100,h:56},
         {id:'TIKI',x:176,y:204,w:160,h:210,label:'Tiki-Bar',row:true}]},
     bar:{ name:'Bar', vb:'0 0 360 400', draw:
@@ -125,5 +125,28 @@
     '.fp .t.sel .tb{stroke:#fff;stroke-width:3;fill:#2a3644}'+
     '.fp .tn{fill:#f5f1ea;font-family:Anton,Impact,sans-serif;pointer-events:none}'+
     '.fp .st{stroke-width:1.6;pointer-events:none}.fp .sn{font:700 8px Barlow,sans-serif;pointer-events:none}';
-  window.CabinFloor={AREAS:AREAS,ORDER:ORDER,svg:svg,CSS:CSS};
+  /* Full-width area switcher with arrows. list = [{id, sub}] in display order. */
+  function switcher(list,cur){
+    var i=Math.max(0,list.map(function(x){return x.id;}).indexOf(cur)), a=list[i];
+    return '<button type="button" class="asw-b" data-step="-1" aria-label="Previous area"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'+
+      '<div class="asw-c" aria-live="polite"><b>'+AREAS[a.id].name+'</b><small>'+(a.sub||'')+'</small>'+
+      '<span class="asw-d" title="Area '+(i+1)+' of '+list.length+'">'+list.map(function(x,j){return '<i class="'+(j===i?'on':'')+'"></i>';}).join('')+'</span></div>'+
+      '<button type="button" class="asw-b" data-step="1" aria-label="Next area"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+  }
+  function step(list,cur,d){ var ids=list.map(function(x){return x.id;}), i=ids.indexOf(cur); return ids[(i+d+ids.length)%ids.length]; }
+  // swipe left/right on an element calls fn(+1 / -1)
+  function swipe(el,fn){
+    var x0=null,y0=null;
+    el.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; y0=e.touches[0].clientY; },{passive:true});
+    el.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null;
+      if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) fn(dx<0?1:-1); },{passive:true});
+  }
+  CSS+='.asw{display:grid;grid-template-columns:56px minmax(0,1fr) 56px;gap:8px;margin-top:12px;align-items:stretch}'+
+    '.asw-b{display:grid;place-items:center;border:2px solid rgba(245,241,234,.35);border-radius:8px;background:#12161b;color:#f5f1ea;cursor:pointer;min-height:68px}.asw-b svg{pointer-events:none}'+
+    '.asw-b:active{background:#e3121b;border-color:#e3121b}'+
+    '.asw-c{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;border-radius:8px;background:#e3121b;color:#fff;text-align:center}'+
+    '.asw-c b{font:400 1.5rem/1.05 Anton,Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em}'+
+    '.asw-c small{font:600 .82rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.9;margin-top:2px}'+
+    '.asw-d{display:flex;gap:6px;margin-top:6px}.asw-d i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4)}.asw-d i.on{background:#fff}';
+  window.CabinFloor={AREAS:AREAS,ORDER:ORDER,svg:svg,CSS:CSS,switcher:switcher,step:step,swipe:swipe};
 })();

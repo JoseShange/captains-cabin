@@ -179,7 +179,7 @@ input:focus{outline:none;border-color:var(--sea)}
     </div>
     <div id="seatPane" class="hide">
       <p class="lede">Pick where you'll sit. Your meal is brought to this seat, so please sit here when the food comes out. Tap a table, then a seat.</p>
-      <div class="areas" id="areaTabs"></div>
+      <div class="asw" id="areaTabs"></div>
       <div class="mapbox"><svg class="fp" id="seatMap" xmlns="http://www.w3.org/2000/svg"></svg></div>
       <div id="tablePanel"></div>
     </div>
@@ -379,11 +379,7 @@ input:focus{outline:none;border-color:var(--sea)}
   function renderSeats(){
     if(!seats||!active) return;
     var mine=seatOf(active);
-    $('areaTabs').innerHTML=CabinFloor.ORDER.map(function(a){
-      var ts=seats.filter(function(t){return t.area_id===a;}); if(!ts.length) return '';
-      var free=ts.reduce(function(s,t){return s+freeCount(t);},0);
-      return '<button type="button" class="'+(a===area?'on':'')+'" data-area="'+a+'">'+esc(CabinFloor.AREAS[a].name)+'<small>'+free+' free</small></button>';
-    }).join('');
+    $('areaTabs').innerHTML=CabinFloor.switcher(areaList(),area);
     var tables={}; seats.forEach(function(t){ if(t.area_id===area) tables[t.table_id]={seats:t.seats}; });
     $('seatMap').setAttribute('viewBox',CabinFloor.AREAS[area].vb);
     $('seatMap').innerHTML=CabinFloor.svg(area,{tables:tables,
@@ -409,7 +405,15 @@ input:focus{outline:none;border-color:var(--sea)}
     $('tablePanel').innerHTML=h;
   }
   function seatName(t){ return /^\d+$/.test(t.table_id)?'Table '+t.table_id:(t.table_id==='CONF'?'Conference room':t.table_id==='TIKI'?'Tiki-Bar':'Table '+t.table_id); }
-  $('areaTabs').addEventListener('click',function(e){ var b=e.target.closest('[data-area]'); if(!b) return; area=b.dataset.area; selTable=null; renderSeats(); });
+  function areaList(){
+    return CabinFloor.ORDER.filter(function(a){ return seats.some(function(t){return t.area_id===a;}); }).map(function(a){
+      var free=seats.filter(function(t){return t.area_id===a;}).reduce(function(s,t){return s+freeCount(t);},0);
+      return {id:a,sub:free+' free seats'};
+    });
+  }
+  function moveArea(d){ if(!seats) return; area=CabinFloor.step(areaList(),area,d); selTable=null; renderSeats(); }
+  $('areaTabs').addEventListener('click',function(e){ var b=e.target.closest('[data-step]'); if(b) moveArea(+b.dataset.step); });
+  CabinFloor.swipe($('seatMap'),moveArea);
   $('seatMap').addEventListener('click',function(e){ var g=e.target.closest('[data-t]'); if(!g) return; selTable=g.dataset.t; renderSeats();
     setTimeout(function(){ $('tablePanel').scrollIntoView({behavior:'smooth',block:'nearest'}); },30); });
   $('tablePanel').addEventListener('click',function(e){
