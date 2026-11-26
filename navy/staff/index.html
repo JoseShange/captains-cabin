@@ -251,9 +251,9 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
       tableClass:function(id){ return id===selTable?'sel':''; },
       seat:function(id,n){
         var g=bySeat[id+'#'+n];
-        if(!g) return {fill:'none',stroke:'#3d4650',text:'#56606b'};
+        if(!g) return {fill:'#3a2a1e',stroke:'#6b5038',text:'#8f7a64'};
         if(!g.submitted_at||!meals[g.meal]) return {fill:'#59626c',stroke:'#59626c',text:'#fff'};
-        var m=meals[g.meal]; return {fill:m.hex,stroke:'#fff',text:m.colour==='Yellow'?'#000':'#fff'};
+        var m=meals[g.meal]; return {fill:m.hex,stroke:'#fff',text:m.colour==='Yellow'?'#000':'#fff',hl:1};
       }});
     renderTable();
   }
