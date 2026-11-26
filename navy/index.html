@@ -240,7 +240,7 @@ input:focus{outline:none;border-color:var(--sea)}
   var LS='cc-fn-'+SLUG;
   var $=function(id){return document.getElementById(id);};
   var menu=null, items={}, people=[], active=null, drinkTab=null;
-  var seats=null, area='restaurant', selTable=null, seatsAt=0;
+  var seats=null, area='deck', selTable=null, seatsAt=0;
   (function(){ var st=document.createElement('style'); st.textContent=CabinFloor.CSS; document.head.appendChild(st); })();
 
   // ---- storage (fails safe in private browsing) ----
@@ -392,9 +392,9 @@ input:focus{outline:none;border-color:var(--sea)}
     $('seatMap').innerHTML=CabinFloor.svg(area,{tables:tables,
       tableClass:function(id){ var t=tableById(id); return (id===selTable?'sel ':'')+(freeCount(t)?'':'full'); },
       seat:function(id,n){
-        if(mine&&mine.t===id&&mine.n===n) return {fill:mc.hex,stroke:'#fff',text:mc.text};
-        if(isTaken(tableById(id),n)) return {fill:'#3a414a',stroke:'#3a414a',text:'#8a939c'};
-        return {fill:'none',stroke:'#cfd6de',text:'#cfd6de'};
+        if(mine&&mine.t===id&&mine.n===n) return {fill:mc.hex,stroke:'#fff',text:mc.text,hl:1};
+        if(isTaken(tableById(id),n)) return {fill:'#2a2725',stroke:'#3a3633',text:'#5e5852'};
+        return {fill:'#5a3c26',stroke:'#e0b47e',text:'#fbe8d0'};
       }});
     var h='';
     if(mine){ var mt=tableById(mine.t); h+='<div class="seatsel">Your seat: <b>'+esc(seatName(mt))+', seat '+mine.n+'</b> ('+esc(mt.area)+')</div>'; }

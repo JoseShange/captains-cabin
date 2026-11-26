@@ -1,4 +1,4 @@
-/* v5 26 Nov 2026: restaurant turned (sushi bar top, bay view window), balcony, bay view labels */
+/* v7 26 Nov 2026: illustrated look (wood, chairs, plank floor, waves). v6: area order deck, restaurant, bar, conference, upper deck. v5: restaurant turned (sushi bar top, bay view window), balcony, bay view labels */
 /* Captain's Cabin floor plan for function seating (shared by /navy and /navy/staff).
    Table shapes come from the booking floor plan (/book, Jose's walk-through Nov 2026).
    For functions the upper-deck open seating is split into six set-up tables, U5-U10. */
@@ -40,7 +40,7 @@
         {id:'TIKI',x:150,y:206,w:110,h:126,label:'Tiki-Bar',col:true}]},
     bar:{ name:'Bar', vb:'0 0 360 556', draw:
       '<path class="wall" d="M10 10 H322 V462 H202 V546 H10 Z"/>'+
-      '<path class="feature" d="M14 14 H318 V72 H84 V190 H14 Z"/><text class="ftxt" x="200" y="47" text-anchor="middle">Bar counter</text>'+
+      '<path class="feature" d="M14 14 H318 V72 H84 V190 H14 Z"/><path class="glowline" d="M318 72 H84 V190"/><text class="ftxt" x="200" y="47" text-anchor="middle">Bar counter</text>'+
       '<rect class="feature" x="326" y="12" width="24" height="448" rx="2"/><text class="ftxt" x="338" y="236" transform="rotate(90 338 236)" text-anchor="middle">Window · restaurant</text>'+
       '<rect class="feature" x="288" y="200" width="30" height="112" rx="3"/><text class="ftxt" x="303" y="256" transform="rotate(90 303 256)" text-anchor="middle">Wheel</text>',
       tables:[
@@ -56,7 +56,7 @@
       '<rect class="feature" x="320" y="110" width="12" height="90" rx="2"/><text class="ftxt" x="314" y="155" transform="rotate(90 314 155)" text-anchor="middle">TV screen</text>',
       tables:[{id:'CONF',x:70,y:110,w:200,h:90,label:'Conference'}]}
   };
-  var ORDER=['restaurant','deck','upper','bar','conf'];
+  var ORDER=['deck','restaurant','bar','conf','upper'];
 
   // Seat dots sit just inside the table edge, numbered clockwise from the top-left.
   function seatPos(t,n){
@@ -102,35 +102,49 @@
      opt.tableClass(id) -> extra class for the table
      opt.seat(id, n) -> {fill, stroke, text} for each seat dot
      opt.big: bigger table numbers */
+  // Illustrated style (Nov 2026, from Jose's concept art): plank floor, wooden tables, chairs, wavy sea.
+  var DEFS='<defs>'+
+    '<pattern id="floorP" width="44" height="12" patternUnits="userSpaceOnUse"><rect width="44" height="12" fill="#1c1814"/>'+
+      '<path d="M0 11.5H44M22 0V11.5" stroke="#28211b" stroke-width="1"/></pattern>'+
+    '<pattern id="seaP" width="36" height="14" patternUnits="userSpaceOnUse"><rect width="36" height="14" fill="#14617c"/>'+
+      '<path d="M0 9 Q9 4 18 9 T36 9" fill="none" stroke="#3fa7c9" stroke-width="1.4" opacity=".7"/>'+
+      '<path d="M-9 3 Q0 -1 9 3 T27 3 T45 3" fill="none" stroke="#7fd3ec" stroke-width=".8" opacity=".45"/></pattern>'+
+    '<linearGradient id="woodG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a542a"/><stop offset=".5" stop-color="#a86a3a"/><stop offset="1" stop-color="#6a3c1c"/></linearGradient>'+
+    '<radialGradient id="woodR" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#b0743f"/><stop offset="1" stop-color="#6a3c1c"/></radialGradient>'+
+    '<linearGradient id="counterG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3029"/><stop offset="1" stop-color="#241e1a"/></linearGradient>'+
+    '<filter id="tGlow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="1.5" stdDeviation="2.2" flood-color="#ff9a3c" flood-opacity=".28"/></filter>'+
+    '<filter id="sGlow" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#fff" flood-opacity=".55"/></filter>'+
+    '</defs>';
   function svg(areaId,opt){
-    var a=AREAS[areaId], g='<defs><linearGradient id="seaG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c5f78"/><stop offset="1" stop-color="#5DB6D8"/></linearGradient></defs>'+a.draw;
+    var a=AREAS[areaId], g=DEFS+a.draw;
     a.tables.forEach(function(t){
       var info=opt.tables[t.id]; if(!info) return;
       var cls=opt.tableClass?opt.tableClass(t.id):'', sp=seatPos(t,info.seats), name=t.label||t.id;
-      var shape=t.round?'<circle class="tb" cx="'+(t.x+t.w/2)+'" cy="'+(t.y+t.h/2)+'" r="'+(t.w/2)+'"/>':'<rect class="tb" x="'+t.x+'" y="'+t.y+'" width="'+t.w+'" height="'+t.h+'" rx="6"/>';
+      var shape=t.round?'<circle class="tb rd" cx="'+(t.x+t.w/2)+'" cy="'+(t.y+t.h/2)+'" r="'+(t.w/2)+'"/>':'<rect class="tb" x="'+t.x+'" y="'+t.y+'" width="'+t.w+'" height="'+t.h+'" rx="5"/>';
       var fs=sp.inside?(name.length>3?12:(t.w<60||t.h<60?14:18)):12;
-      g+='<g class="t '+cls+'" data-t="'+t.id+'" role="button" aria-label="Table '+name+'">'+shape+
-        '<text class="tn" x="'+sp.lx+'" y="'+sp.ly+'" text-anchor="'+(sp.anchor||'middle')+'" font-size="'+fs+'">'+name+'</text>';
+      g+='<g class="t '+cls+'" data-t="'+t.id+'" role="button" aria-label="Table '+name+'">'+shape;
       sp.pts.forEach(function(p,i){
-        var s=opt.seat(t.id,i+1)||{};
-        g+='<circle class="st" data-n="'+(i+1)+'" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+sp.r.toFixed(1)+'" fill="'+(s.fill||'none')+'" stroke="'+(s.stroke||'#cfd6de')+'"/>';
-        if(sp.r>=6) g+='<text class="sn" x="'+p.x.toFixed(1)+'" y="'+(p.y+3).toFixed(1)+'" text-anchor="middle" fill="'+(s.text||'#cfd6de')+'">'+(i+1)+'</text>';
+        var s=opt.seat(t.id,i+1)||{}, r=sp.r, x=p.x-r, y=p.y-r, hl=s.fill&&s.fill!=='none'&&s.hl;
+        // a chair: rounded seat with a darker backrest edge
+        g+='<rect class="st'+(hl?' hl':'')+'" data-n="'+(i+1)+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+(2*r).toFixed(1)+'" height="'+(2*r).toFixed(1)+'" rx="'+(r*.45).toFixed(1)+'" fill="'+(s.fill&&s.fill!=='none'?s.fill:'#4a3324')+'" stroke="'+(s.stroke||'#c89a6a')+'"/>';
+        if(r>=5.5) g+='<text class="sn" x="'+p.x.toFixed(1)+'" y="'+(p.y+r*.42).toFixed(1)+'" text-anchor="middle" font-size="'+Math.min(9,r*1.15).toFixed(1)+'" fill="'+(s.text||'#f3dcc0')+'">'+(i+1)+'</text>';
       });
-      g+='</g>';
+      g+='<text class="tn" x="'+sp.lx+'" y="'+sp.ly+'" text-anchor="'+(sp.anchor||'middle')+'" font-size="'+fs+'">'+name+'</text></g>';
     });
     return g;
   }
   var CSS='.fp{width:100%;height:auto;display:block}'+
-    '.fp .wall{fill:none;stroke:#4a4a58;stroke-width:3}.fp .feature{fill:#24242e;stroke:#3a3a48}'+
-    '.fp .zone{fill:rgba(95,179,207,.05);stroke:#3a4a55;stroke-dasharray:6 5}'+
-    '.fp .ftxt{fill:#8d8b99;font:600 10px "Barlow Condensed",sans-serif;letter-spacing:1.2px;text-transform:uppercase}'+
-    '.fp .sea{fill:url(#seaG)}.fp .seatxt{fill:#cfeefa;font:600 10px "Barlow Condensed",sans-serif;letter-spacing:2px}'+
-    '.fp .door{fill:#D9202A;opacity:.85}.fp .balc{fill:#fff;stroke:#9aa3ad}.fp .balct{fill:#333}.fp .bayt{fill:#7fcbe6}'+
-    '.fp .t{cursor:pointer}.fp .tb{fill:#1d2630;stroke:#5a6776;stroke-width:2}'+
-    '.fp .t.full .tb{fill:#15191e;stroke:#2c333b}.fp .t.full .tn{fill:#56606b}'+
-    '.fp .t.sel .tb{stroke:#fff;stroke-width:3;fill:#2a3644}'+
-    '.fp .tn{fill:#f5f1ea;font-family:Anton,Impact,sans-serif;pointer-events:none}'+
-    '.fp .st{stroke-width:1.6;pointer-events:none}.fp .sn{font:700 8px Barlow,sans-serif;pointer-events:none}';
+    '.fp .wall{fill:url(#floorP);stroke:#cdbfa9;stroke-width:3;stroke-linejoin:round}.fp .feature{fill:url(#counterG);stroke:#7a6248}'+
+    '.fp .zone{fill:rgba(255,190,120,.04);stroke:#6b5a45;stroke-dasharray:6 5}'+
+    '.fp .ftxt{fill:#e2cba8;font:600 10px "Barlow Condensed",sans-serif;letter-spacing:1.4px;text-transform:uppercase}'+
+    '.fp .sea{fill:url(#seaP)}.fp .seatxt{fill:#eafaff;font:700 10px "Barlow Condensed",sans-serif;letter-spacing:2.4px}'+
+    '.fp .door{fill:#c8202a;stroke:#ff6a6a;stroke-width:.8}.fp .balc{fill:#f4efe6;stroke:#cdbfa9}.fp .balct{fill:#3a2a1a}.fp .bayt{fill:#7fd3ec}'+
+    '.fp .glowline{fill:none;stroke:#ffb15c;stroke-width:2;opacity:.75;filter:url(#tGlow)}'+
+    '.fp .t{cursor:pointer}.fp .tb{fill:url(#woodG);stroke:#2b180a;stroke-width:1.4;filter:url(#tGlow)}.fp .tb.rd{fill:url(#woodR)}'+
+    '.fp .t.full .tb{opacity:.4;filter:none}.fp .t.full .tn{fill:#9a8d7c}'+
+    '.fp .t.sel .tb{stroke:#ffd27a;stroke-width:2.6}'+
+    '.fp .tn{fill:#fff4e2;font-family:Anton,Impact,sans-serif;pointer-events:none;paint-order:stroke;stroke:#2b180a;stroke-width:2.4px;stroke-linejoin:round}'+
+    '.fp .st{stroke-width:1.1;pointer-events:none}.fp .st.hl{filter:url(#sGlow);stroke-width:1.6}.fp .sn{font-family:Barlow,sans-serif;font-weight:700;pointer-events:none}';
   // viewBox that frames one table with room around it (for the zoomed seat picker)
   function frame(areaId,tableId){
     var t=AREAS[areaId].tables.filter(function(x){return x.id===tableId;})[0]; if(!t) return AREAS[areaId].vb;
@@ -155,7 +169,7 @@
     el.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null;
       if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) fn(dx<0?1:-1); },{passive:true});
   }
-  CSS+='.fp.zoom .st{pointer-events:all;cursor:pointer;stroke-width:1}.fp.zoom .sn{font-size:6.5px}.fp.zoom .tb{stroke-width:1.2}'+
+  CSS+='.fp.zoom .st{pointer-events:all;cursor:pointer;stroke-width:.8}.fp.zoom .tb{stroke-width:1}'+
     '.fp.zoom .t{cursor:default}';
   CSS+='.asw{display:grid;grid-template-columns:56px minmax(0,1fr) 56px;gap:8px;margin-top:12px;align-items:stretch}'+
     '.asw-b{display:grid;place-items:center;border:2px solid rgba(245,241,234,.35);border-radius:8px;background:#12161b;color:#f5f1ea;cursor:pointer;min-height:68px}.asw-b svg{pointer-events:none}'+
