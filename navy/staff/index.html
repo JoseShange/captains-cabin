@@ -90,6 +90,8 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
 .money .ln span:last-child{white-space:nowrap;font-weight:700}
 .money .ln small{display:block;color:var(--muted);font-size:.82rem}
 .money .big{font:400 1.5rem Anton,sans-serif;border:0;padding-top:10px;color:var(--gold)}
+.pw{position:relative}.pw input{padding-right:84px}
+.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);min-height:36px;padding:0 12px;border:1px solid var(--line);border-radius:4px;background:var(--ink-3);font:700 .8rem 'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
 .hide{display:none !important}
 .foot{margin-top:24px;font-size:.85rem;color:var(--muted)}
 @media print{
@@ -119,7 +121,8 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
       <label class="l" for="user">Name</label>
       <input id="user" type="text" autocomplete="username" autocapitalize="none" placeholder="e.g. lauren" required>
       <label class="l" for="pass">Password</label>
-      <input id="pass" type="password" autocomplete="current-password" required>
+      <div class="pw"><input id="pass" type="password" autocomplete="current-password" required><button type="button" id="pwShow" aria-label="Show password">Show</button></div>
+      <p class="muted" style="font-size:.85rem;margin-top:6px">This is your Cabin Staff <b>password</b>, not your 4-digit manager PIN.</p>
       <button class="btn full" id="loginBtn" type="submit">Sign in</button>
       <p class="err" id="loginErr" role="alert"></p>
     </form>
@@ -211,10 +214,11 @@ input:focus,select:focus{outline:none;border-color:var(--sea)}
     $('loginBtn').disabled=true; $('loginErr').textContent='';
     auth('password',{email:email,password:$('pass').value})
       .then(function(s){ setS(s); $('pass').value=''; start(); })
-      .catch(function(){ $('loginErr').textContent='That name and password don’t match. Use the same login as the Cabin Staff app.'; })
+      .catch(function(){ $('loginErr').textContent='That name and password don’t match. Use your Cabin Staff password (not the 4-digit PIN). Forgotten it? Ask Jose to reset it in the Cabin Staff back office.'; })
       .then(function(){ $('loginBtn').disabled=false; });
   });
   $('signOut').onclick=function(){ setS(null); showLogin(); };
+  $('pwShow').onclick=function(){ var p=$('pass'), show=p.type==='password'; p.type=show?'text':'password'; this.textContent=show?'Hide':'Show'; this.setAttribute('aria-label',show?'Hide password':'Show password'); p.focus(); };
   $('printBtn').onclick=function(){ window.print(); };
   $('q').addEventListener('input',renderGuests);
   document.querySelector('.views').addEventListener('click',function(e){
