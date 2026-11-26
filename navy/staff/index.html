@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>4SFR NCOs · Orders (staff) | Captain's Cabin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#0b0d10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0d10;--ink-2:#12161b;--ink-3:#1b2229;--cream:#f5f1ea;--muted:#a5adb8;--red:#e3121b;--red-soft:#ff5c5c;--sea:#5fb3cf;--ok:#3ccf7a;--gold:#e7b54a;--line:rgba(245,241,234,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--cream);font:400 16px/1.45 Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,select{font:inherit;color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:14px 14px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+header img{height:38px}
+.eyebrow{margin-top:16px;color:var(--red-soft);font:600 .85rem 'Barlow Condensed',sans-serif;letter-spacing:.2em;text-transform:uppercase}
+h1{font:400 clamp(1.9rem,7vw,2.8rem)/.95 Anton,sans-serif;text-transform:uppercase;margin-top:6px}
+h2{font:400 1.45rem/1 Anton,sans-serif;text-transform:uppercase;margin-top:24px}
+.muted{color:var(--muted)}
+.card{margin-top:16px;padding:16px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:6px}
+label.l{display:block;font:600 .8rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+input,select{width:100%;min-height:48px;padding:10px 12px;background:var(--ink);border:2px solid var(--ink-3);border-radius:4px;color:var(--cream);font:500 1.05rem Barlow,sans-serif}
+input:focus,select:focus{outline:none;border-color:var(--sea)}
+.btn{display:inline-block;margin-top:14px;min-height:48px;padding:0 18px;border:0;border-radius:3px;background:var(--red);color:#fff;font:700 1rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.btn.alt{background:transparent;border:2px solid var(--line)}
+.btn.sm{min-height:36px;padding:0 12px;font-size:.85rem;margin-top:10px}
+.btn.full{width:100%}
+.err{margin-top:10px;color:var(--red-soft);font-weight:600;min-height:1.2em}
+/* colour key: the first thing staff see */
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-top:14px}
+.key>div{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:6px;background:var(--ink-2);border:1px solid var(--ink-3)}
+.key i{width:46px;height:30px;border-radius:15px;flex:none;border:2px solid rgba(255,255,255,.35)}
+.key b{display:block;font:400 1.2rem/1 Anton,sans-serif;text-transform:uppercase}
+.key span{font-size:.92rem}
+.key em{margin-left:auto;font:400 1.5rem Anton,sans-serif;font-style:normal}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:12px}
+.stat{padding:12px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:6px}
+.stat b{display:block;font:400 1.7rem/1 Anton,sans-serif}
+.stat span{font:600 .72rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.views{display:grid;grid-template-columns:repeat(4,1fr);margin-top:18px;border:2px solid var(--ink-3);border-radius:4px;overflow:hidden;position:sticky;top:0;z-index:5;background:var(--ink)}
+.views button{min-height:48px;background:var(--ink-2);border:0;font:700 .95rem 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--muted)}
+.views button.on{background:var(--cream);color:var(--ink)}
+.areas{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
+.areas button{flex:none;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--ink-2);font:600 .85rem 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.areas button.on{background:var(--red);border-color:var(--red)}
+.areas small{opacity:.75;margin-left:4px}
+.maprow{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:14px;align-items:start}
+@media(max-width:760px){.maprow{grid-template-columns:1fr}.meal li{grid-template-columns:1fr;gap:0}}
+.mapbox{margin-top:8px;background:#101016;border:1px solid var(--line);border-radius:10px;padding:6px}
+.seatrow{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.seatrow .no{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;font:400 1rem Anton,sans-serif;border:2px solid rgba(255,255,255,.4)}
+.seatrow .who{font:700 1.1rem 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.03em}
+.seatrow .what{font-size:.9rem;color:var(--muted)}
+.seatrow.empty .who{color:#56606b;font-weight:500}
+.meal{margin-top:16px;border-radius:6px;overflow:hidden;border:1px solid var(--ink-3);break-inside:avoid}
+.meal .hd{display:flex;align-items:center;gap:10px;padding:10px 12px;color:#000;font:400 1.25rem Anton,sans-serif;text-transform:uppercase}
+.meal .hd em{margin-left:auto;font-style:normal}
+.meal ol{list-style:none;background:var(--ink-2)}
+.meal li{display:grid;grid-template-columns:minmax(190px,auto) 1fr;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line)}
+.meal li b{font:700 1.05rem 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase}
+.tally{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:4px 18px;margin-top:10px}
+.tally div{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+.tally b{font:400 1.2rem Anton,sans-serif}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.tools input{flex:1;min-width:200px}
+.tools .btn{margin:0}
+.guests{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-top:14px}
+.g{padding:14px;background:var(--ink-2);border:1px solid var(--ink-3);border-left:8px solid var(--muted);border-radius:6px;break-inside:avoid}
+.g.wait{opacity:.7}
+.g .name{font:700 1.3rem/1.1 'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase}
+.g .where{margin-top:4px;font:700 .95rem 'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.g .val{font:400 1.9rem/1 Anton,sans-serif;margin-top:8px}
+.g .val small{font:600 .8rem 'Barlow Condensed',sans-serif;letter-spacing:.1em;color:var(--muted);margin-left:6px;text-transform:uppercase}
+.g .extra{margin-top:4px;font-weight:700;color:var(--gold)}
+.g .left{margin-top:4px;color:var(--muted)}
+.g ul{list-style:none;margin-top:10px;border-top:1px solid var(--line);padding-top:8px;font-size:.93rem}
+.g li{display:flex;justify-content:space-between;gap:10px;padding:2px 0}
+.g li.food{font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:6px;font:700 .8rem 'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.chip i{width:26px;height:12px;border-radius:6px;border:1px solid rgba(255,255,255,.4)}
+.move{display:grid;grid-template-columns:1fr 90px;gap:8px;margin-top:10px}
+.hide{display:none !important}
+.foot{margin-top:24px;font-size:.85rem;color:var(--muted)}
+@media print{
+  body{background:#fff;color:#000;font-size:12px}
+  header,.tools,.views,.areas,#signOut,.noprint,.btn{display:none !important}
+  .pane{display:block !important}
+  .card,.stat,.g,.key>div,.meal ol{background:#fff;border-color:#999;color:#000}
+  .stat span,.muted,.g .left,.seatrow .what{color:#333}
+  .g .extra{color:#000}
+  .guests{grid-template-columns:1fr 1fr 1fr}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="/brand/logo-cream.svg" alt="Captain's Cabin">
+    <button class="btn alt hide" id="signOut" type="button" style="margin:0;min-height:38px">Sign out</button>
+  </header>
+  <p class="eyebrow">Staff only · Function orders</p>
+  <h1 id="title">4SFR NCOs</h1>
+
+  <section id="login" class="card hide">
+    <p class="muted">Sign in with your Cabin Staff name and password. Only Jose, Angelique, Lorenzo, Kyle, Lauren and Lizelle can open these orders.</p>
+    <form id="loginForm">
+      <label class="l" for="user">Name</label>
+      <input id="user" type="text" autocomplete="username" autocapitalize="none" placeholder="e.g. lauren" required>
+      <label class="l" for="pass">Password</label>
+      <input id="pass" type="password" autocomplete="current-password" required>
+      <button class="btn full" id="loginBtn" type="submit">Sign in</button>
+      <p class="err" id="loginErr" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="board" class="hide">
+    <p class="muted" id="sub"></p>
+    <h2>Wristband colours</h2>
+    <div class="key" id="key"></div>
+    <div class="stats" id="stats"></div>
+
+    <div class="views" role="tablist">
+      <button type="button" data-v="map" class="on">Seat map</button>
+      <button type="button" data-v="run">Food runs</button>
+      <button type="button" data-v="guests">Guests</button>
+      <button type="button" data-v="bar">Kitchen &amp; bar</button>
+    </div>
+
+    <div class="pane" id="v-map">
+      <div class="areas" id="areaTabs"></div>
+      <div class="maprow">
+        <div class="mapbox"><svg class="fp" id="map" xmlns="http://www.w3.org/2000/svg"></svg></div>
+        <div id="tablePanel"></div>
+      </div>
+    </div>
+
+    <div class="pane hide" id="v-run">
+      <p class="muted" style="margin-top:12px">When plates come out, find the colour and take each one to the table and seat listed. Sorted by area and table so one waitress can run a whole section.</p>
+      <div id="runs"></div>
+    </div>
+
+    <div class="pane hide" id="v-guests">
+      <div class="tools">
+        <input type="search" id="q" placeholder="Search name or surname">
+        <button class="btn alt" id="printBtn" type="button">Print</button>
+      </div>
+      <div class="guests" id="guests"></div>
+    </div>
+
+    <div class="pane hide" id="v-bar">
+      <h2>Kitchen: meals to prepare</h2>
+      <div class="tally" id="food"></div>
+      <h2>Bar: drinks ordered</h2>
+      <div class="tally" id="drinks"></div>
+    </div>
+    <p class="foot noprint" id="upd"></p>
+  </section>
+</div>
+
+<script src="/navy/floor.js"></script>
+<script>
+(function(){
+  'use strict';
+  var BASE='https://iryzgvggaqkvwgmjbdkw.supabase.co';
+  var KEY='sb_publishable_azMYchhgL_TokDtKGQ1EVQ_U8YRbdS8';
+  var SLUG='navy', SK='cc-fn-staff-session';
+  var $=function(id){return document.getElementById(id);};
+  var sess=null, data=null, timer=null, area='restaurant', selTable=null, moving=null;
+  var meals={}, bySeat={};
+  (function(){ var st=document.createElement('style'); st.textContent=CabinFloor.CSS; document.head.appendChild(st); })();
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function R(n){ return 'R'+Math.round(+n||0).toLocaleString('en-ZA').replace(/ |,/g,' '); }
+  function getS(){ try{ return JSON.parse(localStorage.getItem(SK)); }catch(e){ return null; } }
+  function setS(s){ sess=s; try{ s?localStorage.setItem(SK,JSON.stringify(s)):localStorage.removeItem(SK); }catch(e){} }
+  function tname(id){ return id==='CONF'?'Conference room':id==='TIKI'?'Tiki-Bar':'Table '+id; }
+
+  function auth(grant,body){
+    return fetch(BASE+'/auth/v1/token?grant_type='+grant,{method:'POST',headers:{'apikey':KEY,'Content-Type':'application/json'},body:JSON.stringify(body)})
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error_description||j.msg||'Sign-in failed.'); return {at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in-60)*1000}; }); });
+  }
+  function token(){
+    if(!sess) return Promise.reject(new Error('signin'));
+    if(Date.now()<sess.exp) return Promise.resolve(sess.at);
+    return auth('refresh_token',{refresh_token:sess.rt}).then(function(s){ setS(s); return s.at; });
+  }
+  function rpc(fn,body){
+    return token().then(function(at){
+      return fetch(BASE+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+at,'Content-Type':'application/json'},body:JSON.stringify(body)})
+        .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.message||'Something went wrong.'); return j; }); });
+    });
+  }
+
+  function showLogin(msg){ clearInterval(timer); $('board').classList.add('hide'); $('signOut').classList.add('hide'); $('login').classList.remove('hide'); $('loginErr').textContent=msg||''; }
+  $('loginForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var u=$('user').value.trim().toLowerCase(), email=u.indexOf('@')>-1?u:u.replace(/\s+/g,'')+'@staff.captainscabinwestcoast.com';
+    $('loginBtn').disabled=true; $('loginErr').textContent='';
+    auth('password',{email:email,password:$('pass').value})
+      .then(function(s){ setS(s); $('pass').value=''; start(); })
+      .catch(function(){ $('loginErr').textContent='That name and password don’t match. Use the same login as the Cabin Staff app.'; })
+      .then(function(){ $('loginBtn').disabled=false; });
+  });
+  $('signOut').onclick=function(){ setS(null); showLogin(); };
+  $('printBtn').onclick=function(){ window.print(); };
+  $('q').addEventListener('input',renderGuests);
+  document.querySelector('.views').addEventListener('click',function(e){
+    var b=e.target.closest('[data-v]'); if(!b) return;
+    document.querySelectorAll('.views button').forEach(function(x){ x.classList.toggle('on',x===b); });
+    document.querySelectorAll('.pane').forEach(function(p){ p.classList.toggle('hide',p.id!=='v-'+b.dataset.v); });
+  });
+
+  function index(){
+    meals={}; bySeat={};
+    (data.meals||[]).forEach(function(m){ meals[m.key]=m; });
+    data.guests.forEach(function(g){ if(g.table_id) bySeat[g.table_id+'#'+g.seat_no]=g; });
+  }
+  function done(){ return data.guests.filter(function(g){return g.submitted_at;}); }
+  function tableOf(id){ return data.tables.filter(function(t){return t.table_id===id;})[0]; }
+
+  function render(){
+    var d=data, c=d.credit, dn=done(), wait=d.guests.length-dn.length;
+    var value=dn.reduce(function(s,g){return s+(+g.total);},0);
+    var extra=dn.reduce(function(s,g){return s+Math.max(0,+g.total-c);},0);
+    var st=new Date(d.starts_at), cl=new Date(d.order_closes_at);
+    $('title').textContent=d.title;
+    $('sub').textContent=st.toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'})+' from '+st.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'})+
+      ' · R'+c+' per guest · pre-orders '+(Date.now()>=cl?'closed':'close '+cl.toLocaleString('en-ZA',{weekday:'short',hour:'2-digit',minute:'2-digit'}));
+    $('key').innerHTML=(d.meals||[]).map(function(m){
+      var n=dn.filter(function(g){return g.meal===m.key;}).length;
+      return '<div><i style="background:'+m.hex+'"></i><div><b>'+esc(m.colour)+'</b><span>'+esc(m.name)+'</span></div><em>'+n+'</em></div>';
+    }).join('');
+    $('stats').innerHTML=[[dn.length+' / '+d.max_guests,'Orders locked in'],[wait,'Signed up, not submitted'],[R(value),'Total basket value'],[R(extra),'Extra guests pay']]
+      .map(function(s){return '<div class="stat"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>';}).join('');
+    renderMap(); renderRuns(); renderGuests(); renderTally();
+    $('upd').textContent='Updated '+new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'})+' · refreshes every 30 seconds';
+  }
+
+  // ---- seat map ----
+  function renderMap(){
+    var tabs=CabinFloor.ORDER.map(function(a){
+      var ts=data.tables.filter(function(t){return t.area_id===a;}); if(!ts.length) return '';
+      var n=done().filter(function(g){ var t=tableOf(g.table_id); return t&&t.area_id===a; }).length;
+      return '<button type="button" class="'+(a===area?'on':'')+'" data-area="'+a+'">'+esc(CabinFloor.AREAS[a].name)+'<small>'+n+' guests</small></button>';
+    }).join('');
+    $('areaTabs').innerHTML=tabs;
+    var tables={}; data.tables.forEach(function(t){ if(t.area_id===area) tables[t.table_id]={seats:t.seats}; });
+    $('map').setAttribute('viewBox',CabinFloor.AREAS[area].vb);
+    $('map').innerHTML=CabinFloor.svg(area,{tables:tables,
+      tableClass:function(id){ return id===selTable?'sel':''; },
+      seat:function(id,n){
+        var g=bySeat[id+'#'+n];
+        if(!g) return {fill:'none',stroke:'#3d4650',text:'#56606b'};
+        if(!g.submitted_at||!meals[g.meal]) return {fill:'#59626c',stroke:'#59626c',text:'#fff'};
+        var m=meals[g.meal]; return {fill:m.hex,stroke:'#fff',text:m.colour==='Yellow'?'#000':'#fff'};
+      }});
+    renderTable();
+  }
+  function renderTable(){
+    var t=selTable&&tableOf(selTable);
+    if(!t||t.area_id!==area){ $('tablePanel').innerHTML='<p class="muted" style="margin-top:12px">Tap a table to see who sits in each seat and what they ordered.</p>'; return; }
+    var h='<h2 style="margin-top:12px">'+esc(tname(t.table_id))+'</h2>';
+    for(var n=1;n<=t.seats;n++){
+      var g=bySeat[t.table_id+'#'+n], m=g&&meals[g.meal];
+      if(!g){ h+='<div class="seatrow empty"><div class="no">'+n+'</div><div><div class="who">Empty</div></div></div>'; continue; }
+      var drinks=(g.lines||[]).filter(function(l){return l.kind==='drink';}).map(function(l){return l.qty+'× '+l.label;}).join(', ');
+      h+='<div class="seatrow"><div class="no" style="background:'+(m?m.hex:'#59626c')+';color:'+(m&&m.colour==='Yellow'?'#000':'#fff')+'">'+n+'</div><div>'+
+        '<div class="who">'+esc(g.first_name+' '+g.surname)+'</div>'+
+        '<div class="what">'+(m?'<b style="color:var(--cream)">'+esc(m.colour)+' · '+esc(m.name)+'</b>':'Order not submitted')+(drinks?'<br>'+esc(drinks):'')+'</div></div></div>';
+    }
+    $('tablePanel').innerHTML=h;
+  }
+  $('areaTabs').addEventListener('click',function(e){ var b=e.target.closest('[data-area]'); if(!b) return; area=b.dataset.area; selTable=null; renderMap(); });
+  $('map').addEventListener('click',function(e){ var g=e.target.closest('[data-t]'); if(!g) return; selTable=g.dataset.t; renderMap();
+    if(window.innerWidth<760) setTimeout(function(){ $('tablePanel').scrollIntoView({behavior:'smooth',block:'start'}); },30); });
+
+  // ---- food runs, by colour ----
+  function seatSort(a,b){ var ta=tableOf(a.table_id)||{}, tb=tableOf(b.table_id)||{};
+    var ai=CabinFloor.ORDER.indexOf(ta.area_id), bi=CabinFloor.ORDER.indexOf(tb.area_id);
+    if(ai!==bi) return ai-bi;
+    var ia=data.tables.indexOf(ta), ib=data.tables.indexOf(tb); if(ia!==ib) return ia-ib; return a.seat_no-b.seat_no; }
+  function renderRuns(){
+    var dn=done();
+    $('runs').innerHTML=(data.meals||[]).map(function(m){
+      var gs=dn.filter(function(g){return g.meal===m.key;}).sort(seatSort);
+      if(!gs.length) return '';
+      return '<div class="meal"><div class="hd" style="background:'+m.hex+';color:'+(m.colour==='Yellow'?'#000':'#fff')+'">'+esc(m.colour)+' · '+esc(m.name)+'<em>'+gs.length+'</em></div><ol>'+
+        gs.map(function(g){ var t=tableOf(g.table_id)||{};
+          return '<li><b>'+esc(tname(g.table_id))+' · seat '+g.seat_no+'</b><span>'+esc(g.first_name+' '+g.surname)+' <span class="muted">· '+esc(t.area||'')+'</span></span></li>'; }).join('')+'</ol></div>';
+    }).join('') || '<p class="muted" style="margin-top:12px">No orders yet.</p>';
+  }
+
+  // ---- guests ----
+  function renderGuests(){
+    if(!data) return;
+    var c=data.credit, q=$('q').value.trim().toLowerCase();
+    var list=data.guests.filter(function(g){ return !q || (g.first_name+' '+g.surname).toLowerCase().indexOf(q)>-1; });
+    if(!list.length){ $('guests').innerHTML='<p class="muted">'+(q?'No guest matches that name.':'No orders yet.')+'</p>'; return; }
+    $('guests').innerHTML=list.map(function(g){
+      var name='<div class="name">'+esc(g.first_name+' '+g.surname)+'</div>';
+      if(!g.submitted_at) return '<div class="g wait">'+name+'<div class="left">Signed up · order not submitted yet</div></div>';
+      var m=meals[g.meal]||{}, t=+g.total, money=t>c?'<div class="extra">Pays '+R(t-c)+' extra</div>':'<div class="left">'+R(c-t)+' unused</div>';
+      var mv=moving===g.id?moveForm(g):'<button class="btn alt sm" type="button" data-move="'+g.id+'">Move seat</button>';
+      return '<div class="g" style="border-left-color:'+(m.hex||'var(--muted)')+'">'+name+
+        '<div class="chip"><i style="background:'+m.hex+'"></i>'+esc(m.colour||'')+' wristband</div>'+
+        '<div class="where">'+esc(tname(g.table_id))+' · seat '+g.seat_no+' · '+esc((tableOf(g.table_id)||{}).area||'')+'</div>'+
+        '<div class="val">'+R(t)+'<small>basket</small></div>'+money+
+        '<ul>'+g.lines.map(function(l){ return '<li class="'+l.kind+'"><span>'+l.qty+' × '+esc(l.label)+'</span><span>'+R(l.price*l.qty)+'</span></li>'; }).join('')+'</ul>'+mv+'</div>';
+    }).join('');
+  }
+  function moveForm(g){
+    var opts=data.tables.map(function(t){
+      var free=[]; for(var n=1;n<=t.seats;n++){ var o=bySeat[t.table_id+'#'+n]; if(!o||o.id===g.id) free.push(n); }
+      return free.map(function(n){ var v=t.table_id+'#'+n; return '<option value="'+v+'"'+(t.table_id===g.table_id&&n===g.seat_no?' selected':'')+'>'+esc(t.area+' · '+tname(t.table_id)+' · seat '+n)+'</option>'; }).join('');
+    }).join('');
+    return '<div class="move"><select id="mvSel">'+opts+'</select><button class="btn sm" type="button" data-save="'+g.id+'" style="margin:0">Save</button></div><p class="err" id="mvErr"></p>';
+  }
+  $('guests').addEventListener('click',function(e){
+    var b=e.target.closest('[data-move]'); if(b){ moving=b.dataset.move; renderGuests(); return; }
+    var s=e.target.closest('[data-save]'); if(!s) return;
+    var v=$('mvSel').value.split('#'); s.disabled=true;
+    rpc('event_staff_move_seat',{p_slug:SLUG,p_guest:s.dataset.save,p_table:v[0],p_seat:+v[1]})
+      .then(function(){ moving=null; return load(); })
+      .catch(function(err){ $('mvErr').textContent=err.message; s.disabled=false; });
+  });
+
+  function tally(list){
+    if(!list.length) return '<p class="muted">Nothing yet.</p>';
+    return list.map(function(t){ return '<div><span>'+esc(t.label)+'</span><b>'+t.qty+'</b></div>'; }).join('');
+  }
+  function renderTally(){
+    $('food').innerHTML=(data.meals||[]).map(function(m){
+      var n=done().filter(function(g){return g.meal===m.key;}).length;
+      return '<div><span class="chip" style="font-size:.95rem;letter-spacing:.04em;text-transform:none"><i style="background:'+m.hex+'"></i>'+esc(m.name)+'</span><b>'+n+'</b></div>';
+    }).join('');
+    $('drinks').innerHTML=tally(data.tally.filter(function(t){return t.kind==='drink';}));
+  }
+
+  function load(){
+    if(moving) return Promise.resolve(); // don't redraw while someone is moving a guest
+    return rpc('event_staff_board',{p_slug:SLUG}).then(function(d){ data=d; index(); render(); }).catch(function(e){
+      if(e.message==='signin' || /JWT|token/i.test(e.message)){ setS(null); showLogin(); }
+      else if(/access/i.test(e.message)){ setS(null); showLogin(e.message); }
+      else $('upd').textContent='Couldn’t refresh ('+e.message+'). Trying again in 30 seconds.';
+    });
+  }
+  function start(){
+    $('login').classList.add('hide'); $('board').classList.remove('hide'); $('signOut').classList.remove('hide');
+    load(); clearInterval(timer); timer=setInterval(load,30000);
+  }
+  sess=getS(); if(sess) start(); else showLogin();
+})();
+</script>
+</body>
+</html>
