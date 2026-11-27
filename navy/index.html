@@ -475,7 +475,7 @@ input:focus{outline:none;border-color:var(--sea)}
     $('barTot').textContent=R(t);
     var sub=$('barSub'), m=$('barMeter');
     if(t>c){ sub.textContent=R(t-c)+' over your R'+c+' limit · remove something'; sub.className='sub over'; m.className='over'; }
-    else { sub.textContent=(meals?'':'Choose a meal · ')+(seatOf(active)?'':'Pick a seat · ')+R(c-t)+' left of your R'+c+' · unused credit isn\u2019t paid back'; sub.className='sub'; m.className=''; }
+    else { sub.textContent=(meals?'':'Meal optional · ')+(seatOf(active)?'':'Pick a seat · ')+R(c-t)+' left of your R'+c+' · unused credit isn\u2019t paid back'; sub.className='sub'; m.className=''; }
     m.style.width=Math.min(100,t/c*100)+'%';
     $('reviewBtn').disabled=!lines.length||t>c;
     if($('drinksPane')&&!$('drinksPane').classList.contains('hide')) renderDrinks();
@@ -496,13 +496,14 @@ input:focus{outline:none;border-color:var(--sea)}
   }
   $('reviewBtn').onclick=function(){
     var lines=basketLines(active);
-    if(!lines.some(function(l){return l.kind==='food';})){ tab('meals'); alertBar('Choose your meal first.'); return; }
+    // Drinks only is allowed (27 Nov 2026): no meal means no wristband.
     if(totalOf(lines)>credit()){ alertBar('Your order is over R'+credit()+'. Remove something first.'); return; }
     var ms=seatOf(active);
     if(!ms){ tab('seat'); alertBar('Pick your seat first.'); return; }
     $('revWho').textContent='For '+active.first_name+' '+active.surname;
-    var meal=lines.filter(function(l){return l.kind==='food';})[0], mi=items[meal.key], mt=tableById(ms.t);
-    $('revSeat').innerHTML=wbHtml(mi.colour,mi.hex,mi.name,mt?seatName(mt)+', seat '+ms.n+' · '+mt.area:'');
+    var meal=lines.filter(function(l){return l.kind==='food';})[0], mi=meal&&items[meal.key], mt=tableById(ms.t);
+    var st=mt?seatName(mt)+', seat '+ms.n+' · '+mt.area:'';
+    $('revSeat').innerHTML=mi?wbHtml(mi.colour,mi.hex,mi.name,st):wbHtml('No','#59626c','Drinks only, no meal',st);
     $('revLines').innerHTML=linesHtml(lines); $('revTotals').innerHTML=totalsHtml(totalOf(lines));
     $('agree').checked=false; $('submitBtn').disabled=true; $('subErr').textContent='';
     $('modal').classList.add('on');
@@ -529,7 +530,7 @@ input:focus{outline:none;border-color:var(--sea)}
     $('doneWho').innerHTML='<b>'+esc(p.first_name+' '+p.surname)+'</b> · submitted '+when.toLocaleString('en-ZA',{weekday:'short',hour:'2-digit',minute:'2-digit'});
     var lines=(p.lines||[]).map(function(l){return {label:l.label,qty:l.qty,price:+l.price};});
     var c=p.colour||{}, seatTxt=p.table_id?(seatName({table_id:p.table_id})+', seat '+p.seat_no+(p.area?' · '+p.area:'')):'';
-    $('doneSeat').innerHTML=c.hex?wbHtml(c.name,c.hex,c.meal,seatTxt):'';
+    $('doneSeat').innerHTML=c.hex?wbHtml(c.name,c.hex,c.meal,seatTxt):wbHtml('No','#59626c','Drinks only, no meal',seatTxt);
     $('doneLines').innerHTML=linesHtml(lines); $('doneTotals').innerHTML=totalsHtml(+p.total);
     window.scrollTo({top:$('doneBox').offsetTop-10,behavior:'smooth'});
   }
